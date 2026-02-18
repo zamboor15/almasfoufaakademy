@@ -652,9 +652,7 @@
         
         if (contactForm) {
             contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Get form data
+                // Get form data for validation
                 const formData = {
                     name: document.getElementById('name').value,
                     email: document.getElementById('email').value,
@@ -664,25 +662,14 @@
                     message: document.getElementById('message').value
                 };
                 
-                // Validate form
-                if (validateForm(formData)) {
-                    // Submit form (in a real app, this would be sent to a server)
-                    console.log('Form submitted:', formData);
-                    
-                    // Show success message
-                    const messageEl = document.getElementById('formMessage');
-                    messageEl.textContent = 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.';
-                    messageEl.className = 'form-message success';
-                    
-                    // Reset form
-                    contactForm.reset();
-                    
-                    // Clear message after 5 seconds
-                    setTimeout(() => {
-                        messageEl.textContent = '';
-                        messageEl.className = 'form-message';
-                    }, 5000);
+                // Validate form before submitting to Netlify
+                if (!validateForm(formData)) {
+                    e.preventDefault();
+                    return;
                 }
+                
+                // Allow form to submit naturally to Netlify
+                // Do NOT prevent default - let Netlify handle the submission
             });
         }
         
