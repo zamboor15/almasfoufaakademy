@@ -142,10 +142,7 @@
                 <!-- Contact Form -->
                 <div class="contact-form-wrapper">
                     <h2>أرسل لنا رسالة</h2>
-                    <form id="contactForm" name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/success.html" class="contact-form">
-                        <input type="hidden" name="bot-field" />
-                        <input type="hidden" name="form-name" value="contact" />
-                        <input type="hidden" name="subject" value="رسالة جديدة من نموذج الاتصال" />
+                    <form id="contactForm" action="https://formspree.io/f/xyzjqwkd" method="POST" class="contact-form">
                         <div class="form-group">
                             <input 
                                 type="text" 
@@ -648,29 +645,23 @@
 
     <script src="../js/script.js"></script>
     <script>
-        // Form Validation and Submission
+        // Form Validation
         const contactForm = document.getElementById('contactForm');
         
         if (contactForm) {
             contactForm.addEventListener('submit', (e) => {
-                // Get form data for validation
                 const formData = {
                     name: document.getElementById('name').value,
                     email: document.getElementById('email').value,
                     phone: document.getElementById('phone').value,
                     type: document.getElementById('type').value,
-                    opportunity: document.getElementById('opportunity').value,
                     message: document.getElementById('message').value
                 };
                 
-                // Validate form before submitting to Netlify
+                // Only validate on client side, let Formspree handle submission
                 if (!validateForm(formData)) {
                     e.preventDefault();
-                    return;
                 }
-                
-                // Allow form to submit naturally to Netlify
-                // Do NOT prevent default - let Netlify handle the submission
             });
         }
         
