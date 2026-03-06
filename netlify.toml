@@ -1,0 +1,16 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[plugins]]
+  package = "@netlify/plugin-emails"
+
+# Email notification on form submission
+[[notifications]]
+  type = "email"
+  event = "submission_created"
+  address = "fadhilabbas51@gmail.com"
+  subject = "رسالة جديدة من موقع اكاديمية المصفوفة"

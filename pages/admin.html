@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>لوحة الادارة - اكاديمية المصفوفة للذكاء الاصطناعي</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Login Screen */
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        .login-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .login-box {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        }
+        .login-box .icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 8px 30px rgba(99,102,241,0.4);
+        }
+        .login-box h2 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .login-box p {
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            color: white;
+            font-size: 1rem;
+            font-family: inherit;
+            text-align: center;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            transition: border-color 0.3s;
+        }
+        .login-box input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+        }
+        .login-box input::placeholder {
+            letter-spacing: 0;
+            color: rgba(255,255,255,0.3);
+        }
+        .login-box button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            font-size: 1.05rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .login-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99,102,241,0.4);
+        }
+        .login-error {
+            color: #f87171;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            min-height: 1.2em;
+        }
+
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+            min-height: 100vh;
+            background: #f1f5f9;
+        }
+        .admin-dashboard.active {
+            display: block;
+        }
+
+        /* Admin Header */
+        .admin-header {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .admin-header h1 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .admin-header h1 i {
+            color: #6366f1;
+        }
+        .admin-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .admin-actions .badge-count {
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .btn-logout {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .btn-logout:hover {
+            background: rgba(239,68,68,0.2);
+            border-color: #ef4444;
+        }
+        .btn-back {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-back:hover {
+            background: rgba(99,102,241,0.2);
+            border-color: #6366f1;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .stat-item .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+        .stat-item .stat-icon.blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .stat-item .stat-icon.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .stat-item .stat-icon.purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .stat-item .stat-icon.amber { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .stat-item .stat-text h3 {
+            font-size: 1.5rem;
+            color: #1e293b;
+            line-height: 1;
+        }
+        .stat-item .stat-text p {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+
+        /* Messages List */
+        .messages-container {
+            padding: 1.5rem 2rem;
+        }
+        .messages-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .messages-toolbar h2 {
+            font-size: 1.3rem;
+            color: #1e293b;
+        }
+        .toolbar-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .toolbar-actions button {
+            padding: 8px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            color: #475569;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .toolbar-actions button:hover {
+            border-color: #6366f1;
+            color: #6366f1;
+        }
+        .toolbar-actions button.active {
+            background: #6366f1;
+            color: white;
+            border-color: #6366f1;
+        }
+
+        .message-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .message-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+        }
+        .message-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-color: #6366f1;
+            transform: translateX(4px);
+        }
+        .message-card.unread {
+            border-right: 4px solid #6366f1;
+            background: #fafbff;
+        }
+        .message-card.unread .msg-name {
+            font-weight: 700;
+        }
+        .msg-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: white;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .msg-body {
+            min-width: 0;
+        }
+        .msg-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.3rem;
+        }
+        .msg-name {
+            font-size: 1rem;
+            color: #1e293b;
+        }
+        .msg-type {
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+        .msg-type.investment { background: #d1fae5; color: #065f46; }
+        .msg-type.partnership { background: #fef3c7; color: #92400e; }
+        .msg-type.support { background: #fee2e2; color: #991b1b; }
+        .msg-preview {
+            font-size: 0.88rem;
+            color: #64748b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .msg-meta {
+            text-align: left;
+            flex-shrink: 0;
+        }
+        .msg-date {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            white-space: nowrap;
+        }
+        .msg-unread-dot {
+            width: 10px;
+            height: 10px;
+            background: #6366f1;
+            border-radius: 50%;
+            margin-top: 0.5rem;
+        }
+
+        /* Message Detail Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h3 {
+            font-size: 1.2rem;
+            color: #1e293b;
+        }
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: #f1f5f9;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .modal-close:hover {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+        .modal-body {
+            padding: 2rem;
+        }
+        .detail-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            align-items: flex-start;
+        }
+        .detail-row .label {
+            font-size: 0.85rem;
+            color: #64748b;
+            min-width: 100px;
+            flex-shrink: 0;
+        }
+        .detail-row .value {
+            font-size: 0.95rem;
+            color: #1e293b;
+            word-break: break-word;
+        }
+        .detail-row .value a {
+            color: #6366f1;
+            text-decoration: none;
+        }
+        .detail-row .value a:hover {
+            text-decoration: underline;
+        }
+        .detail-message {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border: 1px solid #e2e8f0;
+            line-height: 1.8;
+            color: #334155;
+            white-space: pre-wrap;
+        }
+        .modal-footer {
+            padding: 1rem 2rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-start;
+        }
+        .modal-footer button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-reply {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+        }
+        .btn-reply:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
+        .btn-delete {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .btn-delete:hover { background: #fecaca; }
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+        }
+        .btn-whatsapp:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,211,102,0.4); }
+
+        /* Loading & Empty States */
+        .loading-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #94a3b8;
+        }
+        .loading-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #94a3b8;
+        }
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        .empty-state h3 {
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #1e293b;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 2000;
+            transition: transform 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast.success { border-bottom: 3px solid #10b981; }
+        .toast.error { border-bottom: 3px solid #ef4444; }
+
+        /* Sound toggle */
+        .sound-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        .sound-toggle:hover { opacity: 1; }
+
+        @media screen and (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .stats-bar {
+                grid-template-columns: 1fr 1fr;
+                padding: 1rem;
+            }
+            .messages-container {
+                padding: 1rem;
+            }
+            .message-card {
+                grid-template-columns: auto 1fr;
+                padding: 1rem;
+            }
+            .msg-meta {
+                grid-column: 1 / -1;
+                text-align: right;
+            }
+            .modal-content {
+                width: 95%;
+                border-radius: 16px;
+            }
+            .modal-body {
+                padding: 1.25rem;
+            }
+            .detail-row {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Overlay -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <div class="icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2>لوحة الادارة</h2>
+            <p>اكاديمية المصفوفة للذكاء الاصطناعي</p>
+            <input type="password" id="passwordInput" placeholder="كلمة المرور" autofocus>
+            <button onclick="attemptLogin()">دخول</button>
+            <div class="login-error" id="loginError"></div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="adminDashboard">
+        <!-- Header -->
+        <header class="admin-header">
+            <h1>
+                <i class="fas fa-inbox"></i>
+                صندوق الرسائل
+            </h1>
+            <div class="admin-actions">
+                <div class="badge-count" id="unreadBadge" title="رسائل غير مقروءة">0</div>
+                <button class="sound-toggle" id="soundToggle" title="تفعيل/ايقاف الصوت" onclick="toggleSound()">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <a href="../index.html" class="btn-back">
+                    <i class="fas fa-home"></i> الموقع
+                </a>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> خروج
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-icon blue"><i class="fas fa-envelope"></i></div>
+                <div class="stat-text">
+                    <h3 id="totalCount">0</h3>
+                    <p>اجمالي الرسائل</p>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon green"><i class="fas fa-envelope-open"></i></div>
+                <div class="stat-text">
+                    <h3 id="readCount">0</h3>
+                    <p>مقروءة</p>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon purple"><i class="fas fa-bell"></i></div>
+                <div class="stat-text">
+                    <h3 id="unreadCount">0</h3>
+                    <p>غير مقروءة</p>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon amber"><i class="fas fa-handshake"></i></div>
+                <div class="stat-text">
+                    <h3 id="investCount">0</h3>
+                    <p>طلبات استثمار</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="messages-container">
+            <div class="messages-toolbar">
+                <h2><i class="fas fa-inbox"></i> الرسائل الواردة</h2>
+                <div class="toolbar-actions">
+                    <button class="active" onclick="filterMessages('all', this)">الكل</button>
+                    <button onclick="filterMessages('unread', this)">غير مقروءة</button>
+                    <button onclick="filterMessages('investment', this)">استثمار</button>
+                    <button onclick="filterMessages('partnership', this)">شراكة</button>
+                    <button onclick="refreshMessages()" title="تحديث">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="message-list" id="messageList">
+                <div class="loading-state" id="loadingState">
+                    <i class="fas fa-spinner"></i>
+                    <p>جاري تحميل الرسائل...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Detail Modal -->
+    <div class="modal-overlay" id="messageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">تفاصيل الرسالة</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-row">
+                    <span class="label"><i class="fas fa-user"></i> الاسم</span>
+                    <span class="value" id="detailName"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label"><i class="fas fa-envelope"></i> البريد</span>
+                    <span class="value" id="detailEmail"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label"><i class="fas fa-phone"></i> الهاتف</span>
+                    <span class="value" id="detailPhone"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label"><i class="fas fa-tag"></i> النوع</span>
+                    <span class="value" id="detailType"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="label"><i class="fas fa-calendar"></i> التاريخ</span>
+                    <span class="value" id="detailDate"></span>
+                </div>
+                <div class="detail-message" id="detailMessage"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-reply" id="btnReplyEmail" onclick="replyEmail()">
+                    <i class="fas fa-reply"></i> رد بالبريد
+                </button>
+                <button class="btn-whatsapp" id="btnReplyWhatsapp" onclick="replyWhatsapp()">
+                    <i class="fab fa-whatsapp"></i> واتساب
+                </button>
+                <button class="btn-delete" id="btnDelete" onclick="deleteMessage()">
+                    <i class="fas fa-trash"></i> حذف
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-info-circle"></i>
+        <span id="toastText"></span>
+    </div>
+
+    <!-- Notification Sound -->
+    <audio id="notifSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1iZ2lrbW1tbGpnY2BdWlhWVVRUVFVWV1lbXmFkZ2ptb3FzdHV2d3d3d3Z1dHNxb21ramhkYV9cWlhWVFNSUVFRUlJTVFZYWlxfYWRnampsbm9xc3R1dnd3eHh4eHd3dnV0c3FwbmxqaGZkYV9dW1lXVVRTUlFRUVJSU1RWWFpbXmBjZWhqbG5vcXN0dXZ3d3h4eHh3d3Z1dHJxb21ramhmZGFfXVtZV1VUU1JRUVFSUlNUVlhaXF5gY2VoamxvcHJzdHV2d3d4eHh4d3d2dXRzcXBubGpoZmRhX11bWVdVVFNSUVFR" type="audio/wav">
+    </audio>
+
+    <script>
+    // State
+    let adminPassword = '';
+    let allMessages = [];
+    let currentMessage = null;
+    let currentFilter = 'all';
+    let soundEnabled = localStorage.getItem('adminSound') !== 'false';
+    const readMessages = new Set(JSON.parse(localStorage.getItem('readMessages') || '[]'));
+
+    // Avatar colors
+    const avatarColors = [
+        '#6366f1', '#8b5cf6', '#ec4899', '#f43f5e',
+        '#f97316', '#eab308', '#22c55e', '#14b8a6',
+        '#06b6d4', '#3b82f6'
+    ];
+
+    function getAvatarColor(name) {
+        let hash = 0;
+        for (let i = 0; i < name.length; i++) {
+            hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        return avatarColors[Math.abs(hash) % avatarColors.length];
+    }
+
+    function getInitials(name) {
+        if (!name) return '?';
+        const parts = name.trim().split(/\s+/);
+        if (parts.length >= 2) return parts[0][0] + parts[1][0];
+        return parts[0][0];
+    }
+
+    // Login
+    document.getElementById('passwordInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') attemptLogin();
+    });
+
+    function attemptLogin() {
+        adminPassword = document.getElementById('passwordInput').value;
+        if (!adminPassword) {
+            document.getElementById('loginError').textContent = 'ادخل كلمة المرور';
+            return;
+        }
+        // Try fetching messages to verify password
+        document.getElementById('loginError').textContent = 'جاري التحقق...';
+        fetchMessages(adminPassword).then(success => {
+            if (success) {
+                document.getElementById('loginOverlay').classList.add('hidden');
+                document.getElementById('adminDashboard').classList.add('active');
+                sessionStorage.setItem('adminAuth', adminPassword);
+                // Start auto-refresh every 30 seconds
+                setInterval(refreshMessages, 30000);
+            } else {
+                document.getElementById('loginError').textContent = 'كلمة المرور غير صحيحة';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        });
+    }
+
+    // Check session
+    (function checkSession() {
+        const saved = sessionStorage.getItem('adminAuth');
+        if (saved) {
+            adminPassword = saved;
+            document.getElementById('loginOverlay').classList.add('hidden');
+            document.getElementById('adminDashboard').classList.add('active');
+            fetchMessages(saved);
+            setInterval(refreshMessages, 30000);
+        }
+    })();
+
+    // Fetch messages
+    async function fetchMessages(password) {
+        try {
+            const res = await fetch(`/.netlify/functions/messages?password=${encodeURIComponent(password || adminPassword)}`);
+            const data = await res.json();
+
+            if (res.status === 401) return false;
+            if (!res.ok) {
+                showToast(data.error || 'خطأ في جلب الرسائل', 'error');
+                return false;
+            }
+
+            const oldCount = allMessages.length;
+            allMessages = data.messages || [];
+
+            // Check for new messages
+            if (oldCount > 0 && allMessages.length > oldCount) {
+                const newCount = allMessages.length - oldCount;
+                showToast(`${newCount} رسالة جديدة!`, 'success');
+                if (soundEnabled) playNotifSound();
+            }
+
+            updateStats();
+            renderMessages();
+            return true;
+        } catch (err) {
+            console.error('Fetch error:', err);
+            document.getElementById('loadingState').innerHTML = `
+                <i class="fas fa-exclamation-triangle" style="animation:none;color:#f59e0b"></i>
+                <p>تأكد من إعداد متغيرات البيئة في Netlify</p>
+                <p style="font-size:0.8rem;margin-top:0.5rem;">NETLIFY_TOKEN + ADMIN_PASSWORD + SITE_ID</p>
+            `;
+            return false;
+        }
+    }
+
+    function refreshMessages() {
+        fetchMessages();
+    }
+
+    // Update stats
+    function updateStats() {
+        const total = allMessages.length;
+        const unread = allMessages.filter(m => !readMessages.has(m.id)).length;
+        const read = total - unread;
+        const invest = allMessages.filter(m => m.type === 'investment').length;
+
+        document.getElementById('totalCount').textContent = total;
+        document.getElementById('readCount').textContent = read;
+        document.getElementById('unreadCount').textContent = unread;
+        document.getElementById('investCount').textContent = invest;
+        document.getElementById('unreadBadge').textContent = unread;
+        document.getElementById('unreadBadge').style.display = unread > 0 ? 'flex' : 'none';
+    }
+
+    // Render messages
+    function renderMessages() {
+        const list = document.getElementById('messageList');
+        let filtered = [...allMessages];
+
+        if (currentFilter === 'unread') {
+            filtered = filtered.filter(m => !readMessages.has(m.id));
+        } else if (currentFilter !== 'all') {
+            filtered = filtered.filter(m => m.type === currentFilter);
+        }
+
+        if (filtered.length === 0) {
+            list.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <h3>لا توجد رسائل</h3>
+                    <p>${currentFilter === 'all' ? 'لم تصلك رسائل بعد' : 'لا توجد رسائل في هذا التصنيف'}</p>
+                </div>
+            `;
+            return;
+        }
+
+        const typeLabels = {
+            inquiry: 'استعلام',
+            investment: 'استثمار',
+            partnership: 'شراكة',
+            support: 'دعم فني',
+            other: 'اخرى'
+        };
+
+        list.innerHTML = filtered.map(msg => {
+            const isUnread = !readMessages.has(msg.id);
+            const color = getAvatarColor(msg.name);
+            const initials = getInitials(msg.name);
+            const typeLabel = typeLabels[msg.type] || msg.type || 'عام';
+            const typeClass = msg.type || '';
+            const date = msg.date ? formatDate(msg.date) : '';
+
+            return `
+                <div class="message-card ${isUnread ? 'unread' : ''}" onclick="openMessage('${msg.id}')">
+                    <div class="msg-avatar" style="background:${color}">${initials}</div>
+                    <div class="msg-body">
+                        <div class="msg-header">
+                            <span class="msg-name">${escapeHtml(msg.name)}</span>
+                            <span class="msg-type ${typeClass}">${typeLabel}</span>
+                        </div>
+                        <div class="msg-preview">${escapeHtml(msg.message)}</div>
+                    </div>
+                    <div class="msg-meta">
+                        <div class="msg-date">${date}</div>
+                        ${isUnread ? '<div class="msg-unread-dot"></div>' : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Filter
+    function filterMessages(filter, btn) {
+        currentFilter = filter;
+        document.querySelectorAll('.toolbar-actions button').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        renderMessages();
+    }
+
+    // Open message
+    function openMessage(id) {
+        currentMessage = allMessages.find(m => m.id === id);
+        if (!currentMessage) return;
+
+        // Mark as read
+        readMessages.add(id);
+        localStorage.setItem('readMessages', JSON.stringify([...readMessages]));
+        updateStats();
+        renderMessages();
+
+        const typeLabels = {
+            inquiry: 'استعلام عام',
+            investment: 'طلب استثمار',
+            partnership: 'شراكة',
+            support: 'دعم فني',
+            other: 'اخرى'
+        };
+
+        document.getElementById('detailName').textContent = currentMessage.name;
+        document.getElementById('detailEmail').innerHTML =
+            `<a href="mailto:${escapeHtml(currentMessage.email)}">${escapeHtml(currentMessage.email)}</a>`;
+        document.getElementById('detailPhone').innerHTML =
+            currentMessage.phone ? `<a href="tel:${escapeHtml(currentMessage.phone)}">${escapeHtml(currentMessage.phone)}</a>` : '-';
+        document.getElementById('detailType').textContent = typeLabels[currentMessage.type] || currentMessage.type || 'عام';
+        document.getElementById('detailDate').textContent = currentMessage.date ? formatDateFull(currentMessage.date) : '-';
+        document.getElementById('detailMessage').textContent = currentMessage.message;
+
+        document.getElementById('messageModal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('messageModal').classList.remove('active');
+        currentMessage = null;
+    }
+
+    // Reply actions
+    function replyEmail() {
+        if (!currentMessage) return;
+        const subject = encodeURIComponent('رد: رسالة من موقع اكاديمية المصفوفة');
+        const body = encodeURIComponent(`مرحباً ${currentMessage.name}،\n\nشكراً لتواصلك معنا.\n\n---\nاكاديمية المصفوفة للذكاء الاصطناعي`);
+        window.open(`mailto:${currentMessage.email}?subject=${subject}&body=${body}`);
+    }
+
+    function replyWhatsapp() {
+        if (!currentMessage || !currentMessage.phone) {
+            showToast('لا يوجد رقم هاتف لهذا المرسل', 'error');
+            return;
+        }
+        const phone = currentMessage.phone.replace(/[^0-9+]/g, '').replace(/^\+/, '');
+        const text = encodeURIComponent(`مرحباً ${currentMessage.name}، شكراً لتواصلك مع اكاديمية المصفوفة للذكاء الاصطناعي.`);
+        window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+    }
+
+    async function deleteMessage() {
+        if (!currentMessage) return;
+        if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
+
+        try {
+            const res = await fetch(
+                `/.netlify/functions/messages?password=${encodeURIComponent(adminPassword)}&id=${currentMessage.id}`,
+                { method: 'DELETE' }
+            );
+            const data = await res.json();
+            if (res.ok) {
+                allMessages = allMessages.filter(m => m.id !== currentMessage.id);
+                readMessages.delete(currentMessage.id);
+                localStorage.setItem('readMessages', JSON.stringify([...readMessages]));
+                closeModal();
+                updateStats();
+                renderMessages();
+                showToast('تم حذف الرسالة', 'success');
+            } else {
+                showToast(data.error || 'فشل الحذف', 'error');
+            }
+        } catch (err) {
+            showToast('خطأ في الاتصال', 'error');
+        }
+    }
+
+    // Logout
+    function logout() {
+        sessionStorage.removeItem('adminAuth');
+        adminPassword = '';
+        allMessages = [];
+        document.getElementById('adminDashboard').classList.remove('active');
+        document.getElementById('loginOverlay').classList.remove('hidden');
+        document.getElementById('passwordInput').value = '';
+        document.getElementById('loginError').textContent = '';
+    }
+
+    // Sound
+    function toggleSound() {
+        soundEnabled = !soundEnabled;
+        localStorage.setItem('adminSound', soundEnabled);
+        const icon = document.querySelector('#soundToggle i');
+        icon.className = soundEnabled ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+        showToast(soundEnabled ? 'تم تفعيل الصوت' : 'تم ايقاف الصوت', 'success');
+    }
+
+    function playNotifSound() {
+        try { document.getElementById('notifSound').play(); } catch(e) {}
+    }
+
+    // Toast
+    function showToast(text, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastText = document.getElementById('toastText');
+        toast.className = `toast ${type} show`;
+        toastText.textContent = text;
+        setTimeout(() => { toast.classList.remove('show'); }, 3500);
+    }
+
+    // Helpers
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function formatDate(iso) {
+        try {
+            const d = new Date(iso);
+            const now = new Date();
+            const diff = now - d;
+            if (diff < 60000) return 'الان';
+            if (diff < 3600000) return `${Math.floor(diff/60000)} د`;
+            if (diff < 86400000) return `${Math.floor(diff/3600000)} س`;
+            if (diff < 604800000) return `${Math.floor(diff/86400000)} ي`;
+            return d.toLocaleDateString('ar-IQ');
+        } catch(e) { return ''; }
+    }
+
+    function formatDateFull(iso) {
+        try {
+            const d = new Date(iso);
+            return d.toLocaleString('ar-IQ', {
+                year: 'numeric', month: 'long', day: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        } catch(e) { return iso; }
+    }
+
+    // Close modal on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    // Close modal on overlay click
+    document.getElementById('messageModal').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeModal();
+    });
+    </script>
+</body>
+</html>

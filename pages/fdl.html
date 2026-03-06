@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="لغة فاضل §FDL§ - أول لغة برمجة عربية تعمل على المعدن مباشرة - تحميل مجاني">
+    <title>لغة فاضل §FDL§ - أكاديمية المصفوفة للذكاء الاصطناعي</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/fdl_icon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fdl-hero {
+            background: linear-gradient(135deg, #0a1628 0%, #0c2040 50%, #081830 100%);
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .fdl-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 50% 30%, rgba(232,184,104,0.08) 0%, transparent 60%);
+        }
+        .fdl-hero h2 {
+            color: #e8b868;
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            text-shadow: 0 0 30px rgba(232,184,104,0.3);
+        }
+        .fdl-hero .subtitle {
+            color: #8899b0;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .fdl-icon-large {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            filter: drop-shadow(0 0 20px rgba(232,184,104,0.3));
+        }
+        .fdl-version {
+            display: inline-block;
+            background: rgba(232,184,104,0.15);
+            color: #e8b868;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(232,184,104,0.25);
+        }
+
+        .download-section {
+            padding: 60px 0;
+            background: #f8fafc;
+        }
+        .download-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: #1e293b;
+        }
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .download-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .download-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+        .download-card .os-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+        .download-card .os-icon.linux { color: #f97316; }
+        .download-card .os-icon.windows { color: #3b82f6; }
+        .download-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+        .download-card p {
+            color: #64748b;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .download-card .btn-download {
+            display: inline-block;
+            padding: 12px 32px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .download-card .btn-download.linux-btn {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+        }
+        .download-card .btn-download.linux-btn:hover {
+            background: linear-gradient(135deg, #ea580c, #c2410c);
+            box-shadow: 0 6px 20px rgba(249,115,22,0.3);
+        }
+        .download-card .btn-download.windows-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        .download-card .btn-download.windows-btn:hover {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            box-shadow: 0 6px 20px rgba(59,130,246,0.3);
+        }
+        .download-card .file-info {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .features-fdl {
+            padding: 60px 0;
+            background: white;
+        }
+        .features-fdl h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+        .fdl-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .fdl-feat {
+            padding: 24px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+        .fdl-feat:hover { border-color: #e8b868; background: #fffbf0; }
+        .fdl-feat h4 {
+            color: #0c2040;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        .fdl-feat h4 span { color: #e8b868; }
+        .fdl-feat p { color: #64748b; font-size: 0.95rem; line-height: 1.6; }
+
+        .specs-section {
+            padding: 60px 0;
+            background: #0a1628;
+            color: #e8ecf4;
+        }
+        .specs-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #e8b868;
+        }
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .spec-item {
+            text-align: center;
+            padding: 24px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(60,80,120,0.2);
+        }
+        .spec-item .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #e8b868;
+            display: block;
+        }
+        .spec-item .label {
+            color: #8899b0;
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        .ide-section {
+            padding: 60px 0;
+            background: #f8fafc;
+        }
+        .ide-section h2 {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .ide-section .desc {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+        .ide-screenshot {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border: 1px solid #e2e8f0;
+        }
+        .ide-screenshot iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+
+        .developer-section {
+            padding: 40px 0;
+            background: white;
+            text-align: center;
+        }
+        .developer-section p {
+            color: #64748b;
+            font-size: 1rem;
+        }
+        .developer-section strong {
+            color: #0c2040;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>اكاديمية المصفوفة للذكاء الاصطناعي</h1>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="../index.html">الرئيسية</a>
+                <a href="about.html">عن الشركة</a>
+                <a href="services.html">الخدمات</a>
+                <a href="fdl.html" class="active">لغة فاضل</a>
+                <a href="opportunities.html">فرص الاستثمار</a>
+                <a href="contact.html">اتصل بنا</a>
+                <a href="admin.html" class="nav-admin" title="لوحة الادارة"><i class="fas fa-bell"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="fdl-hero">
+        <div class="container" style="position:relative;z-index:1">
+            <img src="../assets/fdl_icon.svg" alt="لغة فاضل" class="fdl-icon-large">
+            <div class="fdl-version">v2.0 — Codec Cosmic OS</div>
+            <h2>لغة فاضل §FDL§</h2>
+            <p class="subtitle">اول لغة برمجة عربية تعمل على المعدن مباشرة — بدون نظام تشغيل، بدون تبعيات</p>
+        </div>
+    </section>
+
+    <!-- Download -->
+    <section class="download-section">
+        <div class="container">
+            <h2>تحميل لغة فاضل</h2>
+            <div class="download-grid">
+                <div class="download-card">
+                    <div class="os-icon linux"><i class="fab fa-linux"></i></div>
+                    <h3>لينكس / ماك</h3>
+                    <p>مثبّت شامل يتضمن المترجم + بيئة التطوير + الايقونة + الامثلة + نظام التحديث</p>
+                    <a href="../downloads/لغة_فاضل.sh" download class="btn-download linux-btn">
+                        <i class="fas fa-download"></i> تحميل لغة_فاضل.sh
+                    </a>
+                    <div class="file-info">Bash Script — 25 KB — يعمل بدون صلاحيات مدير</div>
+                    <div class="file-info" style="margin-top:8px;direction:ltr;font-family:monospace;font-size:0.8rem;color:#94a3b8">
+                        chmod +x لغة_فاضل.sh && ./لغة_فاضل.sh
+                    </div>
+                </div>
+                <div class="download-card">
+                    <div class="os-icon windows"><i class="fab fa-windows"></i></div>
+                    <h3>ويندوز</h3>
+                    <p>مثبّت PowerShell للنظام ويندوز — يتضمن المترجم + بيئة التطوير + الاختصارات</p>
+                    <a href="../downloads/install_fdl.ps1" download class="btn-download windows-btn">
+                        <i class="fas fa-download"></i> تحميل install_fdl.ps1
+                    </a>
+                    <div class="file-info">PowerShell Script — يحتاج تشغيل كمدير</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features-fdl">
+        <div class="container">
+            <h2>ماذا يميز لغة فاضل؟</h2>
+            <div class="fdl-features-grid">
+                <div class="fdl-feat">
+                    <h4><span>12</span> وزناً صرفياً</h4>
+                    <p>كل امر = جذر (ماذا) + وزن (كيف). :1 تنفيذ، :3 حلقة، :5 انشاء، :6 تعديل، :7 تعريف، :8 ارجاع، :9 معامل، :10 قاموس، :12 ثابت، :15 قائمة</p>
+                </div>
+                <div class="fdl-feat">
+                    <h4><span>8</span> ادوات شرط</h4>
+                    <p>انْ، اذا، لو، كلما، متى، مَنْ، ما، اينما — كل اداة بمعنى مختلف، لا else ابداً</p>
+                </div>
+                <div class="fdl-feat">
+                    <h4>تعمل على <span>المعدن</span></h4>
+                    <p>البرنامج المترجم يعمل مباشرة على المعالج x86-64 بدون نظام تشغيل — 300 بايت مقابل 28 ميغابايت</p>
+                </div>
+                <div class="fdl-feat">
+                    <h4><span>صفر</span> تبعيات</h4>
+                    <p>لا لينكس، لا ELF، لا يونيكود، لا NASM، لا بايثون — كل شيء مبني من الصفر بلغة فاضل نفسها</p>
+                </div>
+                <div class="fdl-feat">
+                    <h4>ترميز <span>J5</span></h4>
+                    <p>5 بت لكل حرف — ترميز عربي اصلي بدل يونيكود. نظام الطوابق FTF-5 للعرض متعدد اللغات</p>
+                </div>
+                <div class="fdl-feat">
+                    <h4>استضافة <span>ذاتية</span></h4>
+                    <p>المترجم يترجم نفسه — 3 اجيال متطابقة بنفس MD5. مكتوب بالكامل بلغة فاضل</p>
+                </div>
+                <div class="fdl-feat">
+                    <h4><span>اصناف</span> وقواميس</h4>
+                    <p>صنف:7 مع حقول ودوال — قوائم :15 وقواميس :10 — تصريح جماعي — عدادات استدعاء تلقائية</p>
+                </div>
+                <div class="fdl-feat">
+                    <h4>بيئة تطوير <span>متكاملة</span></h4>
+                    <p>IDE ويب مع تلوين نحوي + مفسّر + كاشف اخطاء + 11 مثال تعليمي + نظام امتدادات</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs -->
+    <section class="specs-section">
+        <div class="container">
+            <h2>المواصفات التقنية</h2>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <span class="number">203,570</span>
+                    <span class="label">بايت — حجم المترجم</span>
+                </div>
+                <div class="spec-item">
+                    <span class="number">7,400+</span>
+                    <span class="label">سطر — كود المترجم</span>
+                </div>
+                <div class="spec-item">
+                    <span class="number">512</span>
+                    <span class="label">بايت — محمّل الاقلاع</span>
+                </div>
+                <div class="spec-item">
+                    <span class="number">38</span>
+                    <span class="label">انجازاً تقنياً مُوثّقاً</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IDE Preview -->
+    <section class="ide-section">
+        <div class="container">
+            <h2>بيئة التطوير المتكاملة</h2>
+            <p class="desc">محرر كود متكامل يعمل في المتصفح — تلوين نحوي + تنفيذ فوري + كاشف اخطاء + امثلة جاهزة</p>
+        </div>
+    </section>
+
+    <!-- Developer -->
+    <section class="developer-section">
+        <div class="container">
+            <p><strong>م. فاضل عباس الجعيفري</strong> — مديرية اتصالات واسط — العراق</p>
+            <p style="margin-top:8px">CODEC COSMIC OS — RUBIK COSMIC MATRIX</p>
+            <p style="margin-top:16px">
+                <a href="https://wa.me/9647808923210" style="color:var(--primary-color);font-weight:600"><i class="fab fa-whatsapp"></i> +964 780 892 3210</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>عن اكاديمية المصفوفة للذكاء الاصطناعي</h4>
+                    <p>منصة موثوقة لاستقطاب المستثمرين في قطاعات التكنولوجيا والذكاء الاصطناعي</p>
+                </div>
+                <div class="footer-section">
+                    <h4>الروابط السريعة</h4>
+                    <ul>
+                        <li><a href="../index.html">الرئيسية</a></li>
+                        <li><a href="fdl.html">لغة فاضل</a></li>
+                        <li><a href="services.html">الخدمات</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>اتصل بنا</h4>
+                    <p>البريد الالكتروني: fadhilabbas51@gmail.com</p>
+                    <p>الهاتف: +964-78-08923210</p>
+                    <p>الموقع: العراق</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 اكاديمية المصفوفة للذكاء الاصطناعي. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

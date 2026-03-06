@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="اتصل بنا للحصول على معلومات أو لتقديم طلب استثمار">
-    <title>اتصل بنا - أكاديمية المصفوفة</title>
+    <title>اتصل بنا - اكاديمية المصفوفة للذكاء الاصطناعي</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -23,15 +23,17 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <h1>أكاديمية المصفوفة</h1>
+                <h1>اكاديمية المصفوفة للذكاء الاصطناعي</h1>
             </div>
             <div class="nav-menu" id="navMenu">
                 <a href="../index.html">الرئيسية</a>
                 <a href="about.html">عن الشركة</a>
                 <a href="services.html">الخدمات</a>
+                <a href="fdl.html">لغة فاضل</a>
                 <a href="opportunities.html">فرص الاستثمار</a>
                 <a href="https://huggingface.co/zamboor15" target="_blank">نماذجنا</a>
                 <a href="contact.html" class="active">اتصل بنا</a>
+                <a href="admin.html" class="nav-admin" title="لوحة الادارة"><i class="fas fa-bell"></i></a>
             </div>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -332,7 +334,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>عن أكاديمية المصفوفة</h4>
+                    <h4>عن اكاديمية المصفوفة للذكاء الاصطناعي</h4>
                     <p>منصة موثوقة لاستقطاب المستثمرين في قطاعات التكنولوجيا والذكاء الاصطناعي</p>
                 </div>
                 <div class="footer-section">
@@ -352,7 +354,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 أكاديمية المصفوفة. جميع الحقوق محفوظة.</p>
+                <p>&copy; 2026 اكاديمية المصفوفة للذكاء الاصطناعي. جميع الحقوق محفوظة.</p>
             </div>
         </div>
     </footer>
@@ -652,18 +654,48 @@
         
         if (contactForm) {
             contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
                 const formData = {
                     name: document.getElementById('name').value,
                     email: document.getElementById('email').value,
                     phone: document.getElementById('phone').value,
                     type: document.getElementById('type').value,
-                    message: document.getElementById('message').value
+                    opportunity: document.getElementById('opportunity').value,
+                    message: document.getElementById('message').value,
+                    'form-name': 'contact'
                 };
-                
-                // Only validate on client side, let Formspree handle submission
-                if (!validateForm(formData)) {
-                    e.preventDefault();
-                }
+
+                if (!validateForm(formData)) return;
+
+                const btn = contactForm.querySelector('button[type="submit"]');
+                const origText = btn.textContent;
+                btn.textContent = 'جاري الإرسال...';
+                btn.disabled = true;
+
+                fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(formData).toString()
+                })
+                .then(res => {
+                    if (res.ok) {
+                        const msg = document.getElementById('formMessage');
+                        msg.className = 'form-message success';
+                        msg.innerHTML = '<i class="fas fa-check-circle"></i> تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.';
+                        contactForm.reset();
+                    } else {
+                        throw new Error('failed');
+                    }
+                })
+                .catch(() => {
+                    const msg = document.getElementById('formMessage');
+                    msg.className = 'form-message error';
+                    msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> حدث خطأ. يرجى المحاولة مرة أخرى.';
+                })
+                .finally(() => {
+                    btn.textContent = origText;
+                    btn.disabled = false;
+                });
             });
         }
         

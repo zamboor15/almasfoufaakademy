@@ -76,6 +76,22 @@ a {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+.nav-admin {
+    position: relative;
+    font-size: 1.1rem;
+    padding: 0.4rem 0.7rem !important;
+}
+.nav-admin i {
+    animation: bellPulse 3s infinite;
+}
+@keyframes bellPulse {
+    0%, 90%, 100% { transform: rotate(0); }
+    92% { transform: rotate(12deg); }
+    94% { transform: rotate(-12deg); }
+    96% { transform: rotate(8deg); }
+    98% { transform: rotate(-8deg); }
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
