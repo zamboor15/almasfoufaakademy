@@ -192,3 +192,35 @@ function toggleDarkMode() {
 if (localStorage.getItem('darkMode') === 'true') {
     document.body.classList.add('dark-mode');
 }
+
+// Visitor Counter
+(function() {
+    const counterEl = document.getElementById('visitorCount');
+    if (!counterEl) return;
+
+    const sessionKey = 'visitor_counted_' + new Date().toDateString();
+    const alreadyCounted = sessionStorage.getItem(sessionKey);
+
+    const method = alreadyCounted ? 'GET' : 'POST';
+
+    fetch('/.netlify/functions/visitor-count?page=total', { method })
+        .then(r => r.json())
+        .then(data => {
+            if (data.count >= 0) {
+                counterEl.textContent = data.count.toLocaleString('ar-EG');
+            } else {
+                // Fallback: localStorage counter
+                let local = parseInt(localStorage.getItem('visitor_count') || '0', 10);
+                if (!alreadyCounted) local++;
+                localStorage.setItem('visitor_count', String(local));
+                counterEl.textContent = local.toLocaleString('ar-EG');
+            }
+            if (!alreadyCounted) sessionStorage.setItem(sessionKey, '1');
+        })
+        .catch(() => {
+            let local = parseInt(localStorage.getItem('visitor_count') || '0', 10);
+            if (!alreadyCounted) { local++; localStorage.setItem('visitor_count', String(local)); }
+            counterEl.textContent = local.toLocaleString('ar-EG');
+            if (!alreadyCounted) sessionStorage.setItem(sessionKey, '1');
+        });
+})();

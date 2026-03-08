@@ -2,9 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /assets/
 Disallow: /.netlify/
+Disallow: /pages/admin.html
+Disallow: /netlify/
 
-# Sitemap
 Sitemap: https://almasfoufaakademy.netlify.app/sitemap.xml
-
-# Crawl Delay
-Crawl-delay: 1

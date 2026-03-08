@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="لغة فاضل §FDL§ - أول لغة برمجة عربية تعمل على المعدن مباشرة - تحميل مجاني">
-    <title>لغة فاضل §FDL§ - أكاديمية المصفوفة للذكاء الاصطناعي</title>
+    <meta name="description" content="لغة فاضل - اول لغة برمجة عربية تعمل على المعدن مباشرة - تحميل مجاني">
+    <title>لغة فاضل - اكاديمية المصفوفة للذكاء الاصطناعي</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="icon" type="image/svg+xml" href="../assets/fdl_icon.svg">
@@ -62,10 +62,10 @@
             color: #1e293b;
         }
         .download-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            display: flex;
+            justify-content: center;
             gap: 30px;
-            max-width: 1000px;
+            max-width: 600px;
             margin: 0 auto;
         }
         .download-card {
@@ -85,8 +85,6 @@
             font-size: 3rem;
             margin-bottom: 16px;
         }
-        .download-card .os-icon.linux { color: #f97316; }
-        .download-card .os-icon.windows { color: #3b82f6; }
         .download-card h3 {
             font-size: 1.4rem;
             margin-bottom: 10px;
@@ -106,21 +104,23 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        .download-card .btn-download.linux-btn {
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            color: white;
+        .download-card .btn-download.all-btn {
+            background: linear-gradient(135deg, #e8b868, #d4a24c);
+            color: #0c2040;
+            font-size: 1.1rem;
+            padding: 14px 40px;
         }
-        .download-card .btn-download.linux-btn:hover {
-            background: linear-gradient(135deg, #ea580c, #c2410c);
-            box-shadow: 0 6px 20px rgba(249,115,22,0.3);
+        .download-card .btn-download.all-btn:hover {
+            background: linear-gradient(135deg, #d4a24c, #c49030);
+            box-shadow: 0 6px 20px rgba(232,184,104,0.4);
         }
-        .download-card .btn-download.windows-btn {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-        }
-        .download-card .btn-download.windows-btn:hover {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            box-shadow: 0 6px 20px rgba(59,130,246,0.3);
+        .download-card .os-icons {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+            color: #64748b;
         }
         .download-card .file-info {
             margin-top: 12px;
@@ -236,6 +236,93 @@
         .developer-section strong {
             color: #0c2040;
         }
+
+        .iraq-flag {
+            display: inline-block;
+            width: 60px;
+            height: 36px;
+            position: relative;
+            margin: 0 12px;
+            vertical-align: middle;
+            animation: flagWave 2s ease-in-out infinite;
+            transform-origin: left center;
+        }
+        @keyframes flagWave {
+            0%, 100% { transform: perspective(300px) rotateY(0deg) skewY(0deg); }
+            25% { transform: perspective(300px) rotateY(5deg) skewY(-2deg); }
+            50% { transform: perspective(300px) rotateY(0deg) skewY(0deg); }
+            75% { transform: perspective(300px) rotateY(-3deg) skewY(1.5deg); }
+        }
+        .iraq-flag .stripe {
+            width: 100%;
+            height: 33.33%;
+            display: block;
+        }
+        .iraq-flag .stripe.red { background: #CE1126; border-radius: 3px 3px 0 0; }
+        .iraq-flag .stripe.white {
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            color: #007A3D;
+            font-weight: bold;
+            font-family: 'Traditional Arabic', serif;
+            letter-spacing: 1px;
+        }
+        .iraq-flag .stripe.black { background: #000; border-radius: 0 0 3px 3px; }
+
+        .hero-flag-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            gap: 8px;
+        }
+
+        .basmala-banner {
+            background: linear-gradient(135deg, #0a1628 0%, #0c2040 100%);
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+        .basmala-banner .basmala {
+            font-size: 2rem;
+            color: #e8b868;
+            font-family: 'Traditional Arabic', 'Amiri', serif;
+            text-shadow: 0 0 20px rgba(232,184,104,0.3);
+            margin-bottom: 8px;
+        }
+        .basmala-banner .salawat {
+            font-size: 1.1rem;
+            color: #8899b0;
+            font-family: 'Traditional Arabic', 'Amiri', serif;
+        }
+
+        .quran-verse {
+            text-align: center;
+            padding: 12px 20px;
+            font-family: 'Traditional Arabic', 'Amiri', serif;
+            font-size: 1.15rem;
+            color: #8899b0;
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .quran-verse::before { content: '\275D'; margin-left: 8px; color: #e8b868; font-size: 1.3rem; }
+        .quran-verse::after { content: '\275E'; margin-right: 8px; color: #e8b868; font-size: 1.3rem; }
+        .quran-verse .surah {
+            display: block;
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 4px;
+            font-style: normal;
+        }
+
+        .features-fdl .quran-verse,
+        .ide-section .quran-verse,
+        .developer-section .quran-verse { color: #64748b; }
+        .specs-section .quran-verse { color: #8899b0; }
+        .download-section .quran-verse { color: #64748b; }
     </style>
 </head>
 <body>
@@ -262,12 +349,32 @@
         </div>
     </nav>
 
+    <!-- البسملة والصلوات -->
+    <section class="basmala-banner">
+        <div class="container">
+            <p class="basmala">بسم الله الرحمن الرحيم</p>
+            <p class="salawat">اللهم صلِّ على محمد وآله الطاهرين</p>
+        </div>
+    </section>
+
     <!-- Hero -->
     <section class="fdl-hero">
         <div class="container" style="position:relative;z-index:1">
             <img src="../assets/fdl_icon.svg" alt="لغة فاضل" class="fdl-icon-large">
             <div class="fdl-version">v2.0 — Codec Cosmic OS</div>
-            <h2>لغة فاضل §FDL§</h2>
+            <div class="hero-flag-row">
+                <div class="iraq-flag">
+                    <span class="stripe red"></span>
+                    <span class="stripe white">الله اكبر</span>
+                    <span class="stripe black"></span>
+                </div>
+                <h2 style="margin:0">لغة فاضل</h2>
+                <div class="iraq-flag">
+                    <span class="stripe red"></span>
+                    <span class="stripe white">الله اكبر</span>
+                    <span class="stripe black"></span>
+                </div>
+            </div>
             <p class="subtitle">اول لغة برمجة عربية تعمل على المعدن مباشرة — بدون نظام تشغيل، بدون تبعيات</p>
         </div>
     </section>
@@ -276,27 +383,24 @@
     <section class="download-section">
         <div class="container">
             <h2>تحميل لغة فاضل</h2>
+            <p class="quran-verse">اليس الله بكافٍ عبده<span class="surah">الزمر : 36</span></p>
             <div class="download-grid">
                 <div class="download-card">
-                    <div class="os-icon linux"><i class="fab fa-linux"></i></div>
-                    <h3>لينكس / ماك</h3>
-                    <p>مثبّت شامل يتضمن المترجم + بيئة التطوير + الايقونة + الامثلة + نظام التحديث</p>
-                    <a href="../downloads/لغة_فاضل.sh" download class="btn-download linux-btn">
-                        <i class="fas fa-download"></i> تحميل لغة_فاضل.sh
-                    </a>
-                    <div class="file-info">Bash Script — 25 KB — يعمل بدون صلاحيات مدير</div>
-                    <div class="file-info" style="margin-top:8px;direction:ltr;font-family:monospace;font-size:0.8rem;color:#94a3b8">
-                        chmod +x لغة_فاضل.sh && ./لغة_فاضل.sh
+                    <div class="os-icons">
+                        <i class="fab fa-windows"></i>
+                        <i class="fab fa-linux"></i>
+                        <i class="fab fa-apple"></i>
+                        <i class="fab fa-android"></i>
                     </div>
-                </div>
-                <div class="download-card">
-                    <div class="os-icon windows"><i class="fab fa-windows"></i></div>
-                    <h3>ويندوز</h3>
-                    <p>مثبّت PowerShell للنظام ويندوز — يتضمن المترجم + بيئة التطوير + الاختصارات</p>
-                    <a href="../downloads/install_fdl.ps1" download class="btn-download windows-btn">
-                        <i class="fas fa-download"></i> تحميل install_fdl.ps1
+                    <h3>بيئة تطوير فاضل</h3>
+                    <p>بيئة تعلّم وتطوير تعمل داخل <strong>اي متصفح</strong> على جميع الانظمة — مفسّر + تلوين نحوي + ذكاء اصطناعي محلي + نظام امتدادات + فاحص FDL + 13 مثال تعليمي</p>
+                    <a href="../downloads/فاضل_IDE.html" download class="btn-download all-btn">
+                        <i class="fas fa-download"></i> تحميل فاضل_IDE.html
                     </a>
-                    <div class="file-info">PowerShell Script — يحتاج تشغيل كمدير</div>
+                    <div class="file-info">ملف HTML واحد — 216 KB — يحتاج متصفح فقط (Chrome, Firefox, Safari...)</div>
+                    <div class="file-info" style="margin-top:8px;color:#64748b">
+                        حمّل الملف ← افتحه في المتصفح ← ابدأ البرمجة
+                    </div>
                 </div>
             </div>
         </div>
@@ -306,6 +410,7 @@
     <section class="features-fdl">
         <div class="container">
             <h2>ماذا يميز لغة فاضل؟</h2>
+            <p class="quran-verse">ولينصرنَّ الله من ينصره ان الله لقوي عزيز<span class="surah">الحج : 40</span></p>
             <div class="fdl-features-grid">
                 <div class="fdl-feat">
                     <h4><span>12</span> وزناً صرفياً</h4>
@@ -337,7 +442,7 @@
                 </div>
                 <div class="fdl-feat">
                     <h4>بيئة تطوير <span>متكاملة</span></h4>
-                    <p>IDE ويب مع تلوين نحوي + مفسّر + كاشف اخطاء + 11 مثال تعليمي + نظام امتدادات</p>
+                    <p>IDE ويب بشريط نشاط VS Code — تشفير + ذكاء اصطناعي محلي + 3 امتدادات + فاحص FDL + 13 مثال تعليمي</p>
                 </div>
             </div>
         </div>
@@ -347,6 +452,7 @@
     <section class="specs-section">
         <div class="container">
             <h2>المواصفات التقنية</h2>
+            <p class="quran-verse">وعلّم آدم الاسماء كلها<span class="surah">البقرة : 31</span></p>
             <div class="specs-grid">
                 <div class="spec-item">
                     <span class="number">203,570</span>
@@ -372,14 +478,31 @@
     <section class="ide-section">
         <div class="container">
             <h2>بيئة التطوير المتكاملة</h2>
-            <p class="desc">محرر كود متكامل يعمل في المتصفح — تلوين نحوي + تنفيذ فوري + كاشف اخطاء + امثلة جاهزة</p>
+            <p class="quran-verse">ان الله يدافع عن الذين آمنوا<span class="surah">الحج : 38</span></p>
+            <p class="desc">محرر كود متكامل يعمل في المتصفح — تلوين نحوي + تنفيذ فوري + ذكاء اصطناعي محلي + نظام امتدادات + فاحص FDL + 13 مثال تعليمي</p>
+            <div class="ide-screenshot">
+                <iframe src="../downloads/فاضل_IDE.html" title="بيئة تطوير فاضل" loading="lazy"></iframe>
+            </div>
+            <p style="text-align:center;margin-top:16px">
+                <a href="../downloads/فاضل_IDE.html" target="_blank" style="color:#e8b868;font-weight:600;font-size:1.1rem;text-decoration:none">
+                    <i class="fas fa-external-link-alt"></i> فتح البيئة في نافذة كاملة
+                </a>
+            </p>
         </div>
     </section>
 
     <!-- Developer -->
     <section class="developer-section">
         <div class="container">
-            <p><strong>م. فاضل عباس الجعيفري</strong> — مديرية اتصالات واسط — العراق</p>
+            <p class="quran-verse">وقل رب زدني علماً<span class="surah">طه : 114</span></p>
+            <p>
+                <div class="iraq-flag" style="margin:0 auto 12px">
+                    <span class="stripe red"></span>
+                    <span class="stripe white">الله اكبر</span>
+                    <span class="stripe black"></span>
+                </div>
+                <strong>م. فاضل عباس الجعيفري</strong> — مديرية اتصالات واسط — العراق
+            </p>
             <p style="margin-top:8px">CODEC COSMIC OS — RUBIK COSMIC MATRIX</p>
             <p style="margin-top:16px">
                 <a href="https://wa.me/9647808923210" style="color:var(--primary-color);font-weight:600"><i class="fab fa-whatsapp"></i> +964 780 892 3210</a>
@@ -412,6 +535,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
+                <p style="margin-bottom:8px"><i class="fas fa-eye" style="margin-left:6px;color:#e8b868"></i> عدد الزوار: <span id="visitorCount" style="font-weight:700;color:#e8b868">...</span></p>
                 <p>&copy; 2026 اكاديمية المصفوفة للذكاء الاصطناعي. جميع الحقوق محفوظة.</p>
             </div>
         </div>
