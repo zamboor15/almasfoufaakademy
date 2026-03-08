@@ -1,8 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /assets/
-Disallow: /.netlify/
 Disallow: /pages/admin.html
-Disallow: /netlify/
 
-Sitemap: https://almasfoufaakademy.netlify.app/sitemap.xml
+Sitemap: https://zamboor15.github.io/almasfoufaakademy/sitemap.xml
