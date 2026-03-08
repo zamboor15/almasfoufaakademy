@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>§FDL§ بيئة تطوير فاضل v2.0</title>
+<title>بيئة تطوير فاضل v2.0</title>
 <link rel="icon" type="image/svg+xml" href="fdl_icon.svg">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="§FDL§ فاضل v2.0">
-<meta name="application-name" content="§FDL§ فاضل v2.0">
+<meta name="apple-mobile-web-app-title" content="فاضلفاضل v2.0">
+<meta name="application-name" content="فاضلفاضل v2.0">
 <meta name="theme-color" content="#0d1117">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -859,7 +859,7 @@ body {
             <rect x="4" y="4" width="504" height="504" rx="80" fill="url(#tg-bg)"/>
             <text x="256" y="340" text-anchor="middle" font-family="'Tajawal','Noto Sans Arabic','Tahoma','Arial',sans-serif" font-weight="800" font-size="200" fill="url(#tg)" direction="rtl">فاضل</text>
         </svg>
-        §FDL§ — بيئة تطوير فاضل <span>v2.0</span>
+        بيئة تطوير فاضل <span>v2.0</span>
     </div>
 </div>
 
@@ -881,7 +881,7 @@ body {
                 <option value="hello">1. مرحبا بالعالم</option>
                 <option value="vars">2. المتغيرات والحساب</option>
                 <option value="consts">3. الثوابت</option>
-                <option value="conditions">4. الشروط</option>
+                <option value="conditions">4. أدوات الشرط الثمانية</option>
                 <option value="loops">5. الحلقات</option>
                 <option value="functions">6. الدوال</option>
                 <option value="lists">7. القوائم</option>
@@ -890,7 +890,8 @@ body {
                 <option value="patterns">10. أنماط رقمية</option>
                 <option value="simulation">11. محاكاة سيارة</option>
                 <option value="grades">12. إدارة درجات</option>
-                <option value="full">13. نظام بنكي</option>
+                <option value="batch">13. التصريح الجماعي</option>
+                <option value="full">14. نظام بنكي</option>
             </select>
         </div>
     </div>
@@ -980,7 +981,7 @@ body {
         <div class="menu-dropdown">
             <div class="menu-dropdown-item" onclick="showHelp()">دليل سريع</div>
             <div class="menu-dropdown-item" onclick="checkForUpdate()">فحص التحديثات</div>
-            <div class="menu-dropdown-item" onclick="alert('§FDL§ v2.0\nم. فاضل عباس الجعيفري\nCODEC COSMIC OS')">حول فاضل</div>
+            <div class="menu-dropdown-item" onclick="alert('فاضلv2.0\nم. فاضل عباس الجعيفري\nCODEC COSMIC OS')">حول فاضل</div>
         </div>
     </div>
 </div>
@@ -1250,7 +1251,7 @@ body {
     </div>
     <div class="statusbar-item" id="cursor-pos">سطر 1، عمود 1</div>
     <div class="statusbar-right">
-        <div class="statusbar-item" style="color:var(--accent-gold);opacity:0.7">§FDL§ v2.0</div>
+        <div class="statusbar-item" style="color:var(--accent-gold);opacity:0.7">فاضلv2.0</div>
         <div class="statusbar-item">UTF-8</div>
     </div>
 </div>
@@ -1258,7 +1259,7 @@ body {
 <!-- HELP MODAL -->
 <div class="modal-overlay" id="help-modal">
     <div class="modal">
-        <div class="modal-title">§FDL§ بيئة تطوير فاضل v2.0</div>
+        <div class="modal-title">فاضلبيئة تطوير فاضل v2.0</div>
         <div class="modal-body">
             <p style="margin-bottom:12px">بيئة تطوير متكاملة للغة فاضل — م. فاضل عباس الجعيفري — Codec Cosmic OS</p>
             <p style="margin-bottom:12px;color:var(--text-secondary)">
@@ -1327,7 +1328,7 @@ body {
 
 <script>
 // ═══════════════════════════════════════════════════════════
-//  §FDL§ بيئة تطوير فاضل — المحرك الكامل
+//  فاضلبيئة تطوير فاضل — المحرك الكامل
 //  م. فاضل عباس الجعيفري — Codec Cosmic OS
 // ═══════════════════════════════════════════════════════════
 
@@ -1370,7 +1371,7 @@ const EXAMPLES = {
 -- ═══════════════════════════════
 
 طبع:1("مرحباً بالعالم")
-طبع:1("§FDL§ — لغة فاضل")
+طبع:1("فاضل— لغة فاضل")
 طبع:1("م. فاضل عباس الجعيفري — العراق")`,
 
     vars: `-- ═══════════════════════════════
@@ -1402,7 +1403,13 @@ const EXAMPLES = {
 حسب:12 مئة = 100
 حسب:5 نصف_قطر = 7
 
--- محيط = 2 * ط * نصف_قطر / مئة
+-- المساحة = ط × نصف_القطر × نصف_القطر / مئة
+حسب:5 مساحة = ط * نصف_قطر
+حسب:6 مساحة = مساحة * نصف_قطر
+حسب:6 مساحة = مساحة / مئة
+طبع:1("المساحة:", مساحة)
+
+-- المحيط = 2 × ط × نصف_القطر / مئة
 حسب:5 محيط = 2 * ط
 حسب:6 محيط = محيط * نصف_قطر
 حسب:6 محيط = محيط / مئة
@@ -1413,31 +1420,54 @@ const EXAMPLES = {
 طبع:1("ط لا يزال:", ط)`,
 
     conditions: `-- ═══════════════════════════════
--- الشروط — تعشيش شجري
--- لاحظ: 0, 00 أرقام شجرية تحدد العمق
+-- أدوات الشرط الثمانية — تعشيش شجري
+-- فاضل لا يستخدم else — كل شرط مستقل
 -- ═══════════════════════════════
 
 حسب:5 درجة = 85
+حسب:5 عمر = 20
+حسب:5 دور = 1
+حسب:5 منطقة = 3
 
--- تصنيف الدرجات (بدون else — فلسفة فاضل)
-اذا (درجة > 90)
-0 طبع:1("ممتاز")
+-- [1] إنْ — شرط عام
+إنْ (درجة > 50)
+0 طبع:1("إنْ: ناجح — الدرجة:", درجة)
 
-اذا (درجة > 70)
-0 اذا (درجة < 91)
-00 طبع:1("جيد جداً")
+-- [2] اذا — شرط مباشر (واقعي)
+اذا (عمر > 18)
+0 طبع:1("اذا: بالغ — العمر:", عمر)
 
-اذا (درجة > 60)
-0 اذا (درجة < 71)
-00 طبع:1("جيد")
+-- [3] لو — شرط افتراضي
+لو (درجة > 95)
+0 طبع:1("لو: ممتاز مع مرتبة شرف")
 
-اذا (درجة < 50)
-0 طبع:1("راسب")
+لو (درجة < 96)
+0 طبع:1("لو: الدرجة لم تصل للامتياز")
 
--- أداة لو (افتراضي)
-حسب:5 عمر = 35
-لو (عمر > 18)
-0 طبع:1("بالغ")`,
+-- [4] كلما — تكرار (حلقة)
+حسب:5 ع = 1
+كلما (ع < 4)
+0 طبع:1("كلما: الجولة", ع)
+1 حسب:6 ع = ع + 1
+
+-- [5] متى — شرط زمني
+حسب:5 ساعة = 8
+متى (ساعة < 12)
+0 طبع:1("متى: الدوام صباحي — الساعة:", ساعة)
+
+-- [6] مَنْ — شرط على الفاعل
+مَنْ (دور == 1)
+0 طبع:1("مَنْ: المستخدم مدير النظام")
+
+-- [7] ما — شرط على المفعول
+ما (درجة > 59)
+0 طبع:1("ما: الدرجة مقبولة أكاديمياً")
+
+-- [8] اينما — شرط مكاني
+اينما (منطقة > 0)
+0 طبع:1("اينما: موجود في منطقة", منطقة)
+
+طبع:1("=== تم عرض الأدوات الثمانية ===")`,
 
     loops: `-- ═══════════════════════════════
 -- الحلقات — شرط:3 (while)
@@ -1478,8 +1508,8 @@ const EXAMPLES = {
 1 حسب:5 نت = ن * 2
 2 حسب:8 نت
 
--- دالة الجمع
-حسب:7 جمع(أ, ب)
+-- دالة الإضافة
+حسب:7 أضف(أ, ب)
 0 حسب:9 أ
 1 حسب:9 ب
 2 حسب:5 نت = أ + ب
@@ -1491,11 +1521,11 @@ const EXAMPLES = {
 1 حسب:9 ي
 2 حسب:5 أ = ضعف:1(س)
 3 حسب:5 ب = ضعف:1(ي)
-4 حسب:5 نت = جمع:1(أ, ب)
+4 حسب:5 نت = أ + ب
 5 حسب:8 نت
 
 طبع:1("ضعف 21:", ضعف:1(21))
-طبع:1("جمع 30+12:", جمع:1(30, 12))
+طبع:1("أضف 30+12:", أضف:1(30, 12))
 طبع:1("حساب(10,15):", حساب:1(10, 15))`,
 
     lists: `-- ═══════════════════════════════
@@ -1575,7 +1605,7 @@ const EXAMPLES = {
 طبع:1("=== فيبوناتشي ===")
 حسب:5 أ = 0
 حسب:5 ب = 1
-حسب:5 ع = 0
+حسب:6 ع = 0
 حسب:5 ت = 0
 شرط:3 (ع < 12)
 0 طبع:1(أ)
@@ -1626,12 +1656,12 @@ const EXAMPLES = {
 حسب:5 مسافة_ثابتة = سرعة_بدء * وقت
 طبع:1("سيارة ثابتة:", مسافة_ثابتة, "متر")
 طبع:1("سيارة متسارعة:", موقع, "متر")
-حسب:5 فرق = موقع - مسافة_ثابتة
+حسب:5 فرق = حسب:1(موقع, "-", مسافة_ثابتة)
 طبع:1("الفرق:", فرق, "متر")`,
 
     grades: `-- ═══════════════════════════════════════
 -- نظام إدارة درجات — تعشيش شجري
--- §FDL§ — م. فاضل عباس الجعيفري
+-- فاضل— م. فاضل عباس الجعيفري
 -- ═══════════════════════════════════════
 
 حسب:12 عدد_الطلاب = 10
@@ -1693,7 +1723,7 @@ const EXAMPLES = {
 
     full: `-- ═══════════════════════════════════════
 -- نظام حسابات بنكية — تعشيش شجري كامل
--- §FDL§ — م. فاضل عباس الجعيفري
+-- فاضل— م. فاضل عباس الجعيفري
 -- ═══════════════════════════════════════
 
 -- ثوابت النظام
@@ -1730,12 +1760,11 @@ const EXAMPLES = {
 
 -- التقرير
 طبع:1("═══ تقرير البنك ═══")
-حسب:5 مجموع = 0
-حسب:5 ع = 0
+حسب:5 (مجموع = 0, ع = 0, ر = 0, ف = 0, ت = 0)
 شرط:3 (ع < 5)
-0 حسب:5 ر = أرصدة[ع]
-1 حسب:5 ف = فائدة:1(ر, 1)
-2 حسب:5 ت = تقييم:1(ر)
+0 حسب:6 ر = أرصدة[ع]
+1 حسب:6 ف = فائدة:1(ر, 1)
+2 حسب:6 ت = تقييم:1(ر)
 3 طبع:1("عميل", ع, "- رصيد:", ر, "فائدة:", ف, "تصنيف:", ت)
 4 حسب:6 مجموع = مجموع + ر
 5 حسب:6 ع = ع + 1
@@ -1743,6 +1772,24 @@ const EXAMPLES = {
 طبع:1("إجمالي الأرصدة:", مجموع)
 حسب:5 معدل = مجموع / 5
 طبع:1("متوسط الرصيد:", معدل)`,
+
+    batch: `-- ═══════════════════════════════
+-- التصريح الجماعي
+-- تعريف عدة متغيرات بسطر واحد
+-- ═══════════════════════════════
+
+حسب:5 (طول = 10, عرض = 5, ارتفاع = 3)
+حسب:5 حجم = طول * عرض * ارتفاع
+طبع:1("الحجم:", حجم)
+
+-- ثوابت جماعية
+حسب:12 (ط = 314, مئة = 100, جاذبية = 10)
+طبع:1("ط:", ط, "جاذبية:", جاذبية)
+
+-- تعديل جماعي
+حسب:6 (طول = 20, عرض = 10)
+حسب:6 حجم = طول * عرض * ارتفاع
+طبع:1("الحجم الجديد:", حجم)`,
 };
 
 
@@ -2028,10 +2075,21 @@ class FDLInterpreter {
         return result.join('\n');
     }
 
+    // تنظيف حروف Unicode الاتجاهية المخفية (من نسخ PDF/ويب)
+    cleanBidiMarkers(code) {
+        // إزالة كل حروف التحكم الاتجاهية
+        code = code.replace(/[\u200B-\u200F\u202A-\u202E\u2066-\u2069\u061C\uFEFF]/g, '');
+        // إصلاح ترتيب الأوزان المقلوبة: حسب12: → حسب:12 ، طبع1: → طبع:1
+        code = code.replace(/([\u0600-\u06FF\u0750-\u077F_]+)(\d+):/g, '$1:$2');
+        return code;
+    }
+
     run(code) {
         this.reset();
         this.running = true;
         try {
+            // تنظيف حروف اتجاهية مخفية (نسخ من PDF)
+            code = this.cleanBidiMarkers(code);
             // معالجة مسبقة: تحويل التعشيش الشجري
             code = this.preprocessTreeNesting(code);
             const lines = code.split('\n');
@@ -2526,6 +2584,10 @@ class FDLInterpreter {
 
     // استدعاء دالة
     callFunction(name, args, lineNum) {
+        // أولوية: دالة المستخدم تتقدم على المدمجة
+        if (this.funcs.has(name)) {
+            return this._callUserFunc(name, args, lineNum);
+        }
         // دالة مبنية مسبقاً: قطع (substring)
         if (name === 'قطع' || name === '100.9.70') {
             const str = String(args[0] || '');
@@ -2598,11 +2660,24 @@ class FDLInterpreter {
             return 0;
         }
 
+        return this._callUserFunc(name, args, lineNum);
+    }
+
+    // تنفيذ دالة مستخدم — مفصولة لتُستدعى مباشرة عند أولوية المستخدم
+    _callUserFunc(name, args, lineNum) {
+        const func = this.funcs.get(name);
+
         // عد الاستدعاءات
         this.counters.set(name, (this.counters.get(name) || 0) + 1);
 
-        // حفظ المتغيرات المحلية
-        const savedVars = new Map(this.vars);
+        // تسجيل المتغيرات الموجودة قبل الدالة
+        const varsBefore = new Set(this.vars.keys());
+
+        // حفظ قيم المعاملات إذا كانت موجودة
+        const savedParams = new Map();
+        for (const p of func.params) {
+            if (this.vars.has(p)) savedParams.set(p, this.vars.get(p));
+        }
 
         // ربط المعاملات
         for (let i = 0; i < func.params.length; i++) {
@@ -2626,12 +2701,21 @@ class FDLInterpreter {
             }
         } finally {
             this.callStack.pop();
-            // استعادة المتغيرات (ما عدا التي تم تغييرها بنقطة)
-            const newVars = new Map(this.vars);
-            this.vars = savedVars;
-            // نقل المتغيرات ذات النقطة
-            for (const [k, v] of newVars) {
-                if (k.includes('.')) this.vars.set(k, v);
+
+            // حذف المتغيرات المحلية (التي أُنشئت داخل الدالة)
+            for (const k of this.vars.keys()) {
+                if (!varsBefore.has(k) && !k.includes('.')) {
+                    this.vars.delete(k);
+                }
+            }
+
+            // استعادة المعاملات
+            for (const p of func.params) {
+                if (savedParams.has(p)) {
+                    this.vars.set(p, savedParams.get(p));
+                } else {
+                    this.vars.delete(p);
+                }
             }
         }
 
@@ -2871,7 +2955,12 @@ class FDLInterpreter {
                 continue;
             }
             if (depth === 0 && str[i] === op) {
-                if (op === '-' && i > 0 && '=<>+-*/('.includes(str[i-1].trim() || '(')) continue;
+                if (op === '-' && i > 0) {
+                    // ابحث عن أول حرف غير مسافة قبل الناقص
+                    let prev = i - 1;
+                    while (prev >= 0 && str[prev] === ' ') prev--;
+                    if (prev < 0 || '=<>+-*/('.includes(str[prev])) continue;
+                }
                 return i;
             }
         }
@@ -3782,7 +3871,7 @@ updateEditor();
 updateSavedFilesList();
 checkForUpdates();
 
-addConsoleLine('§FDL§ بيئة تطوير فاضل v2.0 — جاهزة', 'system');
+addConsoleLine('فاضلبيئة تطوير فاضل v2.0 — جاهزة', 'system');
 addConsoleLine('م. فاضل عباس الجعيفري — Codec Cosmic OS', 'system');
 addConsoleLine('12 وزن | 8 أدوات شرط | أصناف | قوائم | قواميس | ثوابت | عدادات', 'system');
 addConsoleLine('اختر مثالاً من القائمة أو اكتب كود فاضل واضغط تشغيل', 'info');
