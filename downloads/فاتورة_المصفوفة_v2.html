@@ -136,7 +136,31 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
 
 /* طباعة */
 @media print{body *{visibility:hidden}.inv-print,.inv-print *{visibility:visible}.inv-print{position:absolute;top:0;right:0;width:100%}.topbar,.side,.no-print{display:none!important}}
-@media(max-width:768px){.side{display:none}.layout{flex-direction:column}.fr{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.type-grid{grid-template-columns:repeat(auto-fit,minmax(100px,1fr))}}
+/* قائمة الموبايل */
+.menu-toggle{display:none;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 10px;border-radius:8px;font-size:1.1rem;cursor:pointer}
+.side-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:149}
+.side-overlay.show{display:block}
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--w);border-top:2px solid var(--b);padding:4px 0;z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,.1)}
+.bottom-nav-items{display:flex;justify-content:space-around}
+.bnav{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;border:none;background:transparent;color:var(--t2);font-size:.65rem;font-weight:600;cursor:pointer;transition:.2s;min-width:0;flex:1}
+.bnav i{font-size:1.1rem}
+.bnav.active{color:var(--p)}
+.bnav.active i{color:var(--p)}
+@media(max-width:768px){
+    .menu-toggle{display:block}
+    .side{display:none;position:fixed;top:0;right:0;bottom:0;width:260px;z-index:150;box-shadow:-4px 0 20px rgba(0,0,0,.3);padding-top:60px;transition:transform .3s}
+    .side.open{display:block;animation:slideIn .3s}
+    .side .si-close{display:flex;position:absolute;top:12px;left:12px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1rem;align-items:center;justify-content:center;cursor:pointer}
+    @keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+    .layout{flex-direction:column}
+    .fr{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr 1fr}
+    .type-grid{grid-template-columns:repeat(auto-fit,minmax(100px,1fr))}
+    .bottom-nav{display:block}
+    .main{padding-bottom:70px}
+    .profit-bar{font-size:.75rem;gap:8px;padding:8px 12px}
+    .topbar h1{font-size:.95rem}
+}
 
 /* ربح يومي */
 .profit-bar{display:flex;gap:16px;padding:14px 20px;background:linear-gradient(135deg,var(--d),var(--d2));color:var(--w);font-size:.85rem;align-items:center;flex-wrap:wrap}
@@ -264,7 +288,10 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
 
 <!-- الشريط العلوي -->
 <div class="topbar">
-    <h1><i class="fas fa-store"></i> <span id="appShopName">فاتورة المصفوفة</span></h1>
+    <div style="display:flex;align-items:center;gap:8px">
+        <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <h1><i class="fas fa-store"></i> <span id="appShopName">فاتورة المصفوفة</span></h1>
+    </div>
     <div class="topbar-r">
         <div class="user-badge" id="curUserBadge"><i class="fas fa-user"></i> <span id="curUserName">المدير</span></div>
         <span class="vbadge">v2.0</span>
@@ -283,9 +310,11 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
     <button onclick="this.parentElement.classList.add('hide')" style="background:transparent;border:none;color:#92400e;text-decoration:underline;cursor:pointer;font-size:.8rem">لاحقاً</button>
 </div>
 
+<div class="side-overlay" id="sideOverlay" onclick="closeSidebar()"></div>
 <div class="layout">
 <!-- القائمة الجانبية -->
 <aside class="side" id="sidebar">
+    <button class="si-close" onclick="closeSidebar()" style="display:none"><i class="fas fa-times"></i></button>
     <div class="si active" onclick="showPage('dash')"><i class="fas fa-tachometer-alt"></i> لوحة التحكم</div>
     <div class="si" onclick="showPage('pos')"><i class="fas fa-cash-register"></i> نقطة البيع</div>
     <div class="si" onclick="showPage('invoices')"><i class="fas fa-file-invoice"></i> الفواتير</div>
@@ -497,6 +526,18 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
 </div>
 
 </main>
+</div>
+
+<!-- شريط التنقل السفلي (موبايل) -->
+<div class="bottom-nav" id="bottomNav">
+    <div class="bottom-nav-items">
+        <button class="bnav active" onclick="showPage('dash');activateBnav(this)"><i class="fas fa-tachometer-alt"></i><span>الرئيسية</span></button>
+        <button class="bnav" onclick="showPage('pos');activateBnav(this)"><i class="fas fa-cash-register"></i><span>البيع</span></button>
+        <button class="bnav" onclick="showPage('products');activateBnav(this)"><i class="fas fa-boxes-stacked"></i><span>المنتجات</span></button>
+        <button class="bnav" onclick="showPage('invoices');activateBnav(this)"><i class="fas fa-file-invoice"></i><span>الفواتير</span></button>
+        <button class="bnav" onclick="showPage('customers');activateBnav(this)"><i class="fas fa-users"></i><span>الزبائن</span></button>
+        <button class="bnav" onclick="toggleSidebar()"><i class="fas fa-ellipsis-h"></i><span>المزيد</span></button>
+    </div>
 </div>
 </div>
 
@@ -828,11 +869,30 @@ function startApp(){
 }
 
 // ========== التنقل ==========
+function toggleSidebar(){
+    const side=document.getElementById('sidebar');
+    const ov=document.getElementById('sideOverlay');
+    if(side.classList.contains('open')){closeSidebar()}
+    else{side.classList.add('open');ov.classList.add('show')}
+}
+function closeSidebar(){
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sideOverlay').classList.remove('show');
+}
+function activateBnav(btn){
+    document.querySelectorAll('.bnav').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+}
 function showPage(pg){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     const el=document.getElementById('pg-'+pg);if(el)el.classList.add('active');
     document.querySelectorAll('.si').forEach(s=>s.classList.remove('active'));
     document.querySelectorAll('.si').forEach(s=>{if(s.getAttribute('onclick')&&s.getAttribute('onclick').includes("'"+pg+"'"))s.classList.add('active')});
+    // تحديث شريط التنقل السفلي
+    const bnavMap={dash:0,pos:1,products:2,invoices:3,customers:4};
+    document.querySelectorAll('.bnav').forEach((b,i)=>b.classList.toggle('active',i===bnavMap[pg]));
+    // اغلاق القائمة الجانبية على الموبايل
+    closeSidebar();
     if(pg==='dash')renderDash();
     else if(pg==='products')renderProducts();
     else if(pg==='customers')renderCustomers();
