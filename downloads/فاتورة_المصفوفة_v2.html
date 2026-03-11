@@ -385,7 +385,16 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
         </div>
         <!-- الزبون -->
         <div class="fr" style="margin-bottom:12px">
-            <div class="fg" style="margin:0"><label>الزبون</label><select id="posCustomer"><option value="">زبون عابر (نقدي)</option></select></div>
+            <div class="fg" style="margin:0"><label>الزبون</label>
+                <div style="display:flex;gap:6px">
+                    <div style="flex:1;position:relative">
+                        <input type="text" id="posCustomerInput" placeholder="اكتب اسم الزبون او اختر من القائمة..." style="width:100%;padding:10px 14px;border:2px solid var(--b);border-radius:8px" oninput="filterCustomerList()" onfocus="showCustomerDropdown()" autocomplete="off">
+                        <input type="hidden" id="posCustomer" value="">
+                        <div id="custDropdown" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:2px solid var(--b);border-top:none;border-radius:0 0 8px 8px;max-height:200px;overflow-y:auto;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,.1)"></div>
+                    </div>
+                    <button class="btn btn-o" onclick="quickAddCustomerFromPOS()" title="اضافة زبون جديد" style="padding:10px 12px;flex-shrink:0"><i class="fas fa-user-plus"></i></button>
+                </div>
+            </div>
             <div class="fg" style="margin:0"><label>طريقة الدفع</label><select id="posPayment" onchange="onPaymentChange()">
                 <option value="نقدي">نقدي</option>
                 <option value="اجل">آجل (دين)</option>
@@ -986,12 +995,68 @@ function fnum(n){return n==null?'0':Number(n).toLocaleString('en-US')}
 function today(){return new Date().toISOString().split('T')[0]}
 function daysBetween(d1,d2){return Math.floor((new Date(d2)-new Date(d1))/864e5)}
 function refreshDropdowns(){
-    document.querySelectorAll('#posCustomer').forEach(sel=>{
-        const v=sel.value;
-        sel.innerHTML='<option value="">زبون عابر (نقدي)</option>'+customers.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
-        sel.value=v;
-    });
+    // posCustomer اصبح hidden input — لا حاجة لتعبئة select
 }
+
+// ===== بحث واختيار الزبون في نقطة البيع =====
+function filterCustomerList(){
+    const q=document.getElementById('posCustomerInput').value.trim().toLowerCase();
+    const dd=document.getElementById('custDropdown');
+    // اعادة تعيين الزبون المختار عند الكتابة
+    document.getElementById('posCustomer').value='';
+    if(!q){dd.style.display='none';return}
+    const matches=customers.filter(c=>c.name.toLowerCase().includes(q)||(c.phone&&c.phone.includes(q)));
+    if(matches.length===0){
+        dd.innerHTML=`<div style="padding:10px;font-size:.85rem;color:var(--t2);text-align:center"><i class="fas fa-info-circle"></i> لا يوجد زبون بهذا الاسم<br><button onclick="quickAddCustomerFromPOS()" style="margin-top:6px;background:var(--p);color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.8rem"><i class="fas fa-user-plus"></i> اضافة "${document.getElementById('posCustomerInput').value.trim()}" كزبون جديد</button></div>`;
+        dd.style.display='block';
+        return;
+    }
+    dd.innerHTML=matches.map(c=>`<div onclick="selectCustomer('${c.id}')" style="padding:10px 14px;cursor:pointer;font-size:.9rem;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center" onmouseover="this.style.background='#f0f0ff'" onmouseout="this.style.background='#fff'"><span><strong>${c.name}</strong></span><span style="font-size:.8rem;color:var(--t2)">${c.phone||''}</span></div>`).join('');
+    dd.style.display='block';
+}
+function showCustomerDropdown(){
+    const q=document.getElementById('posCustomerInput').value.trim();
+    if(q)filterCustomerList();
+    else if(customers.length>0){
+        const dd=document.getElementById('custDropdown');
+        dd.innerHTML='<div onclick="selectCustomer(\'\')" style="padding:10px 14px;cursor:pointer;font-size:.9rem;border-bottom:1px solid #f1f5f9;color:var(--t2)" onmouseover="this.style.background=\'#f0f0ff\'" onmouseout="this.style.background=\'#fff\'"><i class="fas fa-walking"></i> زبون عابر (نقدي)</div>'+
+            customers.slice(0,15).map(c=>`<div onclick="selectCustomer('${c.id}')" style="padding:10px 14px;cursor:pointer;font-size:.9rem;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center" onmouseover="this.style.background='#f0f0ff'" onmouseout="this.style.background='#fff'"><span><strong>${c.name}</strong></span><span style="font-size:.8rem;color:var(--t2)">${c.phone||''}</span></div>`).join('');
+        dd.style.display='block';
+    }
+}
+function selectCustomer(id){
+    const dd=document.getElementById('custDropdown');
+    dd.style.display='none';
+    document.getElementById('posCustomer').value=id;
+    if(id){
+        const c=customers.find(x=>x.id===id);
+        document.getElementById('posCustomerInput').value=c?c.name:'';
+    }else{
+        document.getElementById('posCustomerInput').value='';
+    }
+}
+function quickAddCustomerFromPOS(){
+    const nameInput=document.getElementById('posCustomerInput');
+    const name=nameInput.value.trim();
+    if(!name){
+        // فتح نافذة اضافة زبون كاملة
+        openCustModal();
+        return;
+    }
+    // اضافة سريعة باسم فقط
+    const newCust={id:gid(),name:name,phone:'',address:'',totalSpent:0,invoiceCount:0};
+    customers.push(newCust);
+    S('cust',customers);
+    document.getElementById('posCustomer').value=newCust.id;
+    document.getElementById('custDropdown').style.display='none';
+    toast('تم اضافة الزبون: '+name,'ok');
+}
+// اغلاق القائمة عند النقر خارجها
+document.addEventListener('click',function(e){
+    const dd=document.getElementById('custDropdown');
+    const inp=document.getElementById('posCustomerInput');
+    if(dd&&inp&&!dd.contains(e.target)&&e.target!==inp){dd.style.display='none'}
+});
 
 // ========== شريط الربح اليومي ==========
 function updateProfitBar(){
@@ -1236,11 +1301,19 @@ function renderCart(){
 function clearCart(){cart=[];renderCart()}
 function completeSale(){
     if(cart.length===0){toast('اضف منتجاً','er');return}
+    // اذا كتب اسم زبون جديد بدون اختياره — اضفه تلقائياً
+    let custId=document.getElementById('posCustomer').value||null;
+    const custInput=document.getElementById('posCustomerInput').value.trim();
+    if(!custId&&custInput){
+        const newCust={id:gid(),name:custInput,phone:'',address:'',totalSpent:0,invoiceCount:0};
+        customers.push(newCust);S('cust',customers);
+        custId=newCust.id;
+    }
     const total=cart.reduce((s,c)=>s+c.total,0);
     const totalCost=cart.reduce((s,c)=>s+c.qty*c.cost,0);
     const inv={
         id:gid(),number:cfg.prefix+String(cnt).padStart(4,'0'),date:today(),
-        customerId:document.getElementById('posCustomer').value||null,
+        customerId:custId,
         paymentMethod:document.getElementById('posPayment').value,
         items:cart.map(c=>({...c})),total,totalCost,
         subtotal:total,discount:0,
@@ -1264,6 +1337,9 @@ function completeSale(){
     }
     toast('تم البيع — '+inv.number);
     cart=[];renderCart();updateProfitBar();
+    // تنظيف حقل الزبون
+    document.getElementById('posCustomerInput').value='';
+    document.getElementById('posCustomer').value='';
 }
 
 // ========== المنتجات ==========
