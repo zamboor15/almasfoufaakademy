@@ -495,7 +495,19 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
 <div class="modal-o" id="custModal"><div class="modal"><div class="mh"><h3><i class="fas fa-user-plus"></i> <span id="custModalTitle">زبون جديد</span></h3><button class="mx" onclick="closeM('custModal')">&times;</button></div><div class="mb" id="custModalBody"></div><div class="mf"><button class="btn btn-p" onclick="saveCust()"><i class="fas fa-save"></i> حفظ</button><button class="btn btn-o" onclick="closeM('custModal')">الغاء</button></div></div></div>
 <div class="modal-o" id="invViewModal"><div class="modal" style="max-width:850px"><div class="mh"><h3><i class="fas fa-file-invoice"></i> الفاتورة</h3><div style="display:flex;gap:6px"><button class="btn btn-s" style="font-size:.8rem" onclick="printInv()"><i class="fas fa-print"></i></button><button class="mx" onclick="closeM('invViewModal')">&times;</button></div></div><div class="mb" id="invViewBody"></div></div></div>
 <div class="modal-o" id="payModal"><div class="modal" style="max-width:400px"><div class="mh"><h3><i class="fas fa-money-bill-wave"></i> تسجيل دفعة</h3><button class="mx" onclick="closeM('payModal')">&times;</button></div><div class="mb" id="payModalBody"></div><div class="mf"><button class="btn btn-s" onclick="recordPay()"><i class="fas fa-check"></i> تسجيل</button><button class="btn btn-o" onclick="closeM('payModal')">الغاء</button></div></div></div>
-<div class="modal-o" id="cameraModal"><div class="modal" style="max-width:500px"><div class="mh"><h3><i class="fas fa-camera"></i> مسح الباركود</h3><button class="mx" onclick="closeCamera()">&times;</button></div><div class="mb" style="text-align:center"><video id="camVideo" style="width:100%;border-radius:8px;background:#000" autoplay></video><canvas id="camCanvas" style="display:none"></canvas><p style="margin-top:8px;font-size:.85rem;color:var(--t2)">وجّه الكاميرا نحو الباركود</p></div></div></div>
+<div class="modal-o" id="cameraModal"><div class="modal" style="max-width:500px"><div class="mh"><h3><i class="fas fa-camera"></i> مسح الباركود</h3><button class="mx" onclick="closeCamera()">&times;</button></div><div class="mb" style="text-align:center">
+<div style="position:relative;display:inline-block;width:100%">
+    <video id="camVideo" style="width:100%;border-radius:8px;background:#000" autoplay playsinline></video>
+    <div id="scanOverlay" style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none">
+        <div style="position:absolute;top:50%;left:10%;right:10%;height:2px;background:red;box-shadow:0 0 8px red;animation:scanline 2s ease-in-out infinite"></div>
+        <div style="position:absolute;top:30%;left:10%;right:10%;bottom:30%;border:2px solid rgba(99,102,241,0.7);border-radius:8px"></div>
+    </div>
+    <canvas id="camCanvas" style="display:none"></canvas>
+</div>
+<p style="margin-top:8px;font-size:.9rem;color:var(--p);font-weight:600"><i class="fas fa-crosshairs"></i> وجّه الكاميرا نحو الباركود</p>
+<p id="camStatus" style="font-size:.8rem;color:var(--t2);margin-top:4px">جاري البحث...</p>
+<style>@keyframes scanline{0%,100%{top:30%}50%{top:68%}}</style>
+</div></div></div>
 
 <script>
 // ========== الثوابت ==========
@@ -796,14 +808,8 @@ function processScan(code){
     if(!posPage||!posPage.classList.contains('active')){showPage('pos')}
     // البحث عن المنتج واضافته
     const prod=products.find(p=>p.barcode===code);
-    if(prod){addToCart(prod.id);toast('تمت الاضافة: '+prod.name,'ok')}
-    else{toast('منتج غير مسجل — باركود: '+code,'er');
-        // عرض خيار اضافة منتج جديد بهذا الباركود
-        if(confirm('باركود غير مسجل: '+code+'\n\nهل تريد اضافة منتج جديد بهذا الباركود؟')){
-            showProdModal();
-            setTimeout(()=>{const bi=document.getElementById('pmBarcode');if(bi)bi.value=code},100);
-        }
-    }
+    if(prod){addToCart(prod.id);toast(prod.name+' — '+fnum(prod.price)+' '+cfg.currency,'ok')}
+    else{toast('باركود غير مسجل: '+code+' — اضف المنتج','warn');showQuickAdd(code)}
     // تنظيف حقل الباركود
     const bi=document.getElementById('barcodeInput');if(bi){bi.value='';bi.focus()}
 }
@@ -830,11 +836,37 @@ function initPOS(){refreshDropdowns();renderCart();document.getElementById('barc
 function scanBarcode(){
     const code=document.getElementById('barcodeInput').value.trim();
     if(!code)return;
-    const prod=products.find(p=>p.barcode===code||p.name.includes(code));
-    if(!prod){toast('منتج غير موجود: '+code,'er');return}
-    addToCart(prod.id);
+    const prod=products.find(p=>p.barcode===code)||products.find(p=>p.name.includes(code));
+    if(prod){
+        addToCart(prod.id);
+        toast(prod.name+' — '+fnum(prod.price)+' '+cfg.currency,'ok');
+    }else{
+        // باركود غير مسجل — فتح نافذة اضافة منتج مباشرة
+        toast('باركود غير مسجل: '+code+' — اضف المنتج الان','warn');
+        showQuickAdd(code);
+    }
     document.getElementById('barcodeInput').value='';
     document.getElementById('barcodeInput').focus();
+}
+function showQuickAdd(barcode){
+    // نافذة اضافة سريعة مصممة للموبايل
+    const html=`
+        <div style="text-align:center;margin-bottom:12px;background:var(--bg);padding:10px;border-radius:8px">
+            <i class="fas fa-barcode" style="font-size:1.5rem;color:var(--p)"></i>
+            <div style="font-size:1.1rem;font-weight:700;direction:ltr;margin-top:4px">${barcode}</div>
+        </div>
+        <input type="hidden" id="pmId" value="">
+        <div class="fg"><label>اسم المنتج *</label><input type="text" id="pmName" value="" autofocus></div>
+        <div class="fr"><div class="fg"><label>الباركود</label><input type="text" id="pmBarcode" value="${barcode}" readonly style="background:#f0f0f0"></div>
+        <div class="fg"><label>المنشأ / الماركة</label><input type="text" id="pmOrigin" value=""></div></div>
+        <div class="fr"><div class="fg"><label>سعر الشراء *</label><input type="number" id="pmCost" step="250" inputmode="numeric"></div>
+        <div class="fg"><label>سعر البيع *</label><input type="number" id="pmPrice" step="250" inputmode="numeric"></div></div>
+        <div class="fr"><div class="fg"><label>المخزون</label><input type="number" id="pmStock" value="1" inputmode="numeric"></div>
+        <div class="fg"><label>الوحدة</label><select id="pmUnit"><option>قطعة</option><option>كغم</option><option>متر</option><option>علبة</option><option>كرتون</option></select></div></div>
+        <div class="fg"><label>الصنف</label><input type="text" id="pmCat" value=""></div>`;
+    document.getElementById('prodModalTitle').textContent='اضافة منتج جديد';
+    document.getElementById('prodModalBody').innerHTML=html;
+    openM('productModal');
 }
 function addToCart(pid){
     const prod=products.find(p=>p.id===pid);
@@ -1179,18 +1211,39 @@ function importAll(e){
 
 // ========== الكاميرا (باركود) ==========
 let camStream=null;
-function openCamera(){openM('cameraModal');
-    navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}}).then(s=>{
-        camStream=s;document.getElementById('camVideo').srcObject=s;scanCamLoop();
-    }).catch(()=>toast('لا يمكن الوصول للكاميرا','er'));
+function openCamera(){
+    openM('cameraModal');
+    const status=document.getElementById('camStatus');
+    if(status)status.textContent='جاري تشغيل الكاميرا...';
+    // كاميرا خلفية بدقة عالية للموبايل
+    navigator.mediaDevices.getUserMedia({
+        video:{facingMode:'environment',width:{ideal:1280},height:{ideal:720}}
+    }).then(s=>{
+        camStream=s;
+        const video=document.getElementById('camVideo');
+        video.srcObject=s;
+        video.setAttribute('playsinline','true'); // مهم لـ iOS
+        video.play();
+        if(status)status.textContent='وجّه الكاميرا نحو الباركود...';
+        scanCamLoop();
+    }).catch(err=>{
+        toast('لا يمكن الوصول للكاميرا: '+err.message,'er');
+        if(status)status.textContent='فشل تشغيل الكاميرا — تحقق من الصلاحيات';
+    });
 }
-function closeCamera(){if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}closeM('cameraModal')}
+function closeCamera(){
+    if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}
+    closeM('cameraModal');
+}
+let _scanCount=0;
 function scanCamLoop(){
     if(!camStream)return;
     const video=document.getElementById('camVideo');
     const canvas=document.getElementById('camCanvas');
     const ctx=canvas.getContext('2d');
-    // BarcodeDetector API (Chrome 83+, Edge, Android Chrome)
+    const status=document.getElementById('camStatus');
+    _scanCount=0;
+
     if('BarcodeDetector' in window){
         const detector=new BarcodeDetector({formats:['ean_13','ean_8','code_128','code_39','upc_a','upc_e','qr_code','itf','codabar']});
         const tick=()=>{
@@ -1198,13 +1251,21 @@ function scanCamLoop(){
             if(video.readyState===video.HAVE_ENOUGH_DATA){
                 canvas.width=video.videoWidth;canvas.height=video.videoHeight;
                 ctx.drawImage(video,0,0);
+                _scanCount++;
+                if(status&&_scanCount%30===0)status.textContent='جاري المسح... ('+Math.floor(_scanCount/30)+' ث)';
                 detector.detect(canvas).then(codes=>{
                     if(codes.length>0){
                         const code=codes[0].rawValue;
+                        const format=codes[0].format||'';
+                        closeCamera();
+                        // اضافة للسلة مباشرة
+                        const posPage=document.getElementById('pg-pos');
+                        if(!posPage||!posPage.classList.contains('active'))showPage('pos');
                         document.getElementById('barcodeInput').value=code;
                         scanBarcode();
-                        closeCamera();
-                        toast('تم مسح الباركود: '+code,'ok');
+                        toast('تم المسح: '+code+(format?' ('+format+')':''),'ok');
+                        // اهتزاز الموبايل كتأكيد
+                        if(navigator.vibrate)navigator.vibrate(100);
                         return;
                     }
                     requestAnimationFrame(tick);
@@ -1213,9 +1274,9 @@ function scanCamLoop(){
         };
         requestAnimationFrame(tick);
     }else{
-        // متصفح لا يدعم BarcodeDetector — اعتمد على الادخال اليدوي
-        toast('متصفحك لا يدعم مسح الباركود بالكاميرا — استخدم حقل الادخال اليدوي او مسدس USB','warn');
-        closeCamera();
+        // متصفح لا يدعم BarcodeDetector — حاول ادخال يدوي
+        if(status)status.innerHTML='<span style="color:var(--warn)">متصفحك لا يدعم المسح التلقائي</span><br>ادخل الباركود يدوياً في حقل الادخال';
+        toast('متصفحك لا يدعم مسح الباركود بالكاميرا — استخدم حقل الادخال','warn');
     }
 }
 
