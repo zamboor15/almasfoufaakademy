@@ -1118,7 +1118,39 @@ function openCamera(){openM('cameraModal');
     }).catch(()=>toast('لا يمكن الوصول للكاميرا','er'));
 }
 function closeCamera(){if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}closeM('cameraModal')}
-function scanCamLoop(){/* مسح مستمر - يحتاج مكتبة باركود خارجية لاحقاً - حالياً الادخال اليدوي */}
+function scanCamLoop(){
+    if(!camStream)return;
+    const video=document.getElementById('camVideo');
+    const canvas=document.getElementById('camCanvas');
+    const ctx=canvas.getContext('2d');
+    // BarcodeDetector API (Chrome 83+, Edge, Android Chrome)
+    if('BarcodeDetector' in window){
+        const detector=new BarcodeDetector({formats:['ean_13','ean_8','code_128','code_39','upc_a','upc_e','qr_code','itf','codabar']});
+        const tick=()=>{
+            if(!camStream)return;
+            if(video.readyState===video.HAVE_ENOUGH_DATA){
+                canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+                ctx.drawImage(video,0,0);
+                detector.detect(canvas).then(codes=>{
+                    if(codes.length>0){
+                        const code=codes[0].rawValue;
+                        document.getElementById('barcodeInput').value=code;
+                        scanBarcode();
+                        closeCamera();
+                        toast('تم مسح الباركود: '+code,'ok');
+                        return;
+                    }
+                    requestAnimationFrame(tick);
+                }).catch(()=>requestAnimationFrame(tick));
+            }else{requestAnimationFrame(tick)}
+        };
+        requestAnimationFrame(tick);
+    }else{
+        // متصفح لا يدعم BarcodeDetector — اعتمد على الادخال اليدوي
+        toast('متصفحك لا يدعم مسح الباركود بالكاميرا — استخدم حقل الادخال اليدوي او مسدس USB','warn');
+        closeCamera();
+    }
+}
 
 // ========== الطباعة ==========
 function viewInv(id){
