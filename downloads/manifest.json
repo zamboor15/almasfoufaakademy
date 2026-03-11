@@ -1,0 +1,22 @@
+{
+    "name": "فاتورة المصفوفة الذكية",
+    "short_name": "فاتورة المصفوفة",
+    "description": "نظام نقاط البيع والفاتورة الذكية — أكاديمية المصفوفة",
+    "start_url": "./فاتورة_المصفوفة_v2.html",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#0f172a",
+    "theme_color": "#6366f1",
+    "dir": "rtl",
+    "lang": "ar",
+    "categories": ["business", "finance", "productivity"],
+    "icons": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%236366f1'/><text x='256' y='340' text-anchor='middle' font-size='280' fill='white' font-family='Arial'>ف</text></svg>",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}
