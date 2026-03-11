@@ -758,6 +758,73 @@ function renderDash(){
     updateProfitBar();
 }
 
+// ========== كاشف ماسح الباركود العالمي ==========
+// الماسحات USB ترسل احرف بسرعة <50ms ثم Enter — نكشفها من اي شاشة
+let _scanBuf='',_scanTimer=null,_scannerDetected=false;
+const SCAN_SPEED=80; // اقصى فاصل زمني بين الاحرف (ms)
+const SCAN_MIN_LEN=4; // اقل طول باركود
+document.addEventListener('keydown',function(e){
+    // تجاهل اذا المستخدم يكتب في حقل ادخال عادي (ليس حقل الباركود)
+    const act=document.activeElement;
+    const inBarcode=act&&act.id==='barcodeInput';
+    const inInput=act&&(act.tagName==='INPUT'||act.tagName==='TEXTAREA'||act.tagName==='SELECT');
+    // اذا المستخدم في حقل ادخال عادي (ليس الباركود) — لا نتدخل
+    if(inInput&&!inBarcode)return;
+    // Enter = نهاية المسح
+    if(e.key==='Enter'){
+        if(_scanBuf.length>=SCAN_MIN_LEN){
+            e.preventDefault();e.stopPropagation();
+            processScan(_scanBuf);
+        }
+        _scanBuf='';clearTimeout(_scanTimer);return;
+    }
+    // حرف قابل للطباعة فقط
+    if(e.key.length===1&&!e.ctrlKey&&!e.altKey&&!e.metaKey){
+        if(!inBarcode){e.preventDefault()} // منع الطباعة خارج الحقل
+        _scanBuf+=e.key;
+        clearTimeout(_scanTimer);
+        _scanTimer=setTimeout(()=>{_scanBuf=''},SCAN_SPEED);
+    }
+});
+function processScan(code){
+    code=code.trim();
+    if(!code)return;
+    // اظهار اشعار اكتشاف الماسح (مرة واحدة)
+    if(!_scannerDetected){_scannerDetected=true;toast('تم اكتشاف ماسح الباركود — جاهز للعمل!','ok');updateScannerStatus(true)}
+    // انتقال تلقائي لنقطة البيع اذا لم نكن فيها
+    const posPage=document.getElementById('pg-pos');
+    if(!posPage||!posPage.classList.contains('active')){showPage('pos')}
+    // البحث عن المنتج واضافته
+    const prod=products.find(p=>p.barcode===code);
+    if(prod){addToCart(prod.id);toast('تمت الاضافة: '+prod.name,'ok')}
+    else{toast('منتج غير مسجل — باركود: '+code,'er');
+        // عرض خيار اضافة منتج جديد بهذا الباركود
+        if(confirm('باركود غير مسجل: '+code+'\n\nهل تريد اضافة منتج جديد بهذا الباركود؟')){
+            showProdModal();
+            setTimeout(()=>{const bi=document.getElementById('pmBarcode');if(bi)bi.value=code},100);
+        }
+    }
+    // تنظيف حقل الباركود
+    const bi=document.getElementById('barcodeInput');if(bi){bi.value='';bi.focus()}
+}
+function updateScannerStatus(connected){
+    let ind=document.getElementById('scannerInd');
+    if(!ind){
+        ind=document.createElement('div');ind.id='scannerInd';
+        ind.style.cssText='position:fixed;bottom:16px;left:16px;padding:8px 14px;border-radius:8px;font-size:.8rem;font-weight:600;z-index:999;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:.3s';
+        document.body.appendChild(ind);
+    }
+    if(connected){ind.style.background='#10b981';ind.style.color='#fff';ind.innerHTML='<i class="fas fa-barcode"></i> ماسح الباركود متصل';
+        setTimeout(()=>{ind.style.opacity='0.6'},3000);
+        ind.onmouseenter=()=>{ind.style.opacity='1'};ind.onmouseleave=()=>{ind.style.opacity='0.6'};
+    }else{ind.style.background='#ef4444';ind.style.color='#fff';ind.innerHTML='<i class="fas fa-unlink"></i> ماسح الباركود غير متصل'}
+}
+// كشف اتصال/فصل اجهزة USB (اذا المتصفح يدعم)
+if(navigator.hid){
+    navigator.hid.addEventListener('connect',()=>{toast('تم توصيل جهاز USB جديد','ok')});
+    navigator.hid.addEventListener('disconnect',()=>{toast('تم فصل جهاز USB','warn')});
+}
+
 // ========== نقطة البيع ==========
 function initPOS(){refreshDropdowns();renderCart();document.getElementById('barcodeInput').focus()}
 function scanBarcode(){
