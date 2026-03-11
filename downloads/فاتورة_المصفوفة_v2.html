@@ -529,31 +529,32 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
                 <p style="font-size:1.5rem;font-weight:700;color:#059669">45,000 <span style="font-size:.9rem">د.ع</span></p>
                 <p style="font-size:.85rem;color:#64748b">ترخيص دائم — تحديثات مجانية — دعم فني</p>
             </div>
-            <p style="font-weight:700;margin-bottom:10px;font-size:.9rem"><i class="fas fa-wallet" style="color:#6366f1"></i> حوّل المبلغ الى احد الحسابات التالية:</p>
-            <div style="background:#eef2ff;border-radius:10px;padding:12px;margin-bottom:8px">
-                <div style="display:flex;justify-content:space-between;align-items:center">
-                    <div><strong style="color:#0066FF">زين كاش</strong><br><span style="font-size:1.1rem;direction:ltr;font-weight:700">07808923210</span></div>
-                    <button onclick="navigator.clipboard.writeText('07808923210');toast('تم النسخ','ok')" style="background:#6366f1;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.8rem"><i class="fas fa-copy"></i></button>
-                </div>
+            <p style="font-weight:700;margin-bottom:10px;font-size:.9rem"><i class="fas fa-wallet" style="color:#6366f1"></i> اختر طريقة الدفع:</p>
+            <!-- ازرار طرق الدفع -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+                <button onclick="showBuyMethod('zaincash')" id="bmZaincash" style="padding:14px;border:2px solid #e2e8f0;background:#fff;border-radius:10px;cursor:pointer;text-align:center;transition:.2s">
+                    <div style="font-size:1.5rem;margin-bottom:4px;color:#0066FF"><i class="fas fa-mobile-alt"></i></div>
+                    <div style="font-weight:700;font-size:.85rem;color:#0f172a">زين كاش</div>
+                    <div style="font-size:.75rem;color:#64748b">ZainCash</div>
+                </button>
+                <button onclick="showBuyMethod('qicard')" id="bmQicard" style="padding:14px;border:2px solid #e2e8f0;background:#fff;border-radius:10px;cursor:pointer;text-align:center;transition:.2s">
+                    <div style="font-size:1.5rem;margin-bottom:4px;color:#E31937"><i class="fas fa-credit-card"></i></div>
+                    <div style="font-weight:700;font-size:.85rem;color:#0f172a">كي كارد</div>
+                    <div style="font-size:.75rem;color:#64748b">Qi Card</div>
+                </button>
+                <button onclick="showBuyMethod('visa')" id="bmVisa" style="padding:14px;border:2px solid #e2e8f0;background:#fff;border-radius:10px;cursor:pointer;text-align:center;transition:.2s">
+                    <div style="font-size:1.5rem;margin-bottom:4px;color:#1a1f71"><i class="fab fa-cc-visa"></i> <i class="fab fa-cc-mastercard" style="color:#eb001b"></i></div>
+                    <div style="font-weight:700;font-size:.85rem;color:#0f172a">Visa / Mastercard</div>
+                    <div style="font-size:.75rem;color:#64748b">بطاقة دولية</div>
+                </button>
+                <button onclick="showBuyMethod('bank')" id="bmBank" style="padding:14px;border:2px solid #e2e8f0;background:#fff;border-radius:10px;cursor:pointer;text-align:center;transition:.2s">
+                    <div style="font-size:1.5rem;margin-bottom:4px;color:#6366f1"><i class="fas fa-university"></i></div>
+                    <div style="font-weight:700;font-size:.85rem;color:#0f172a">تحويل مصرفي</div>
+                    <div style="font-size:.75rem;color:#64748b">حوالة بنكية</div>
+                </button>
             </div>
-            <div style="background:#eef2ff;border-radius:10px;padding:12px;margin-bottom:12px">
-                <div style="display:flex;justify-content:space-between;align-items:center">
-                    <div><strong style="color:#0066FF">زين كاش</strong><br><span style="font-size:1.1rem;direction:ltr;font-weight:700">07725786161</span></div>
-                    <button onclick="navigator.clipboard.writeText('07725786161');toast('تم النسخ','ok')" style="background:#6366f1;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.8rem"><i class="fas fa-copy"></i></button>
-                </div>
-            </div>
-            <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px;margin-bottom:12px">
-                <p style="font-size:.9rem;font-weight:700;margin-bottom:6px"><i class="fas fa-info-circle" style="color:#f59e0b"></i> بعد التحويل:</p>
-                <ol style="font-size:.85rem;color:#334155;padding-right:20px;line-height:1.8">
-                    <li>ارسل لنا <strong>رقم هاتفك</strong> عبر واتساب</li>
-                    <li>نرسل لك <strong>مفتاح التفعيل</strong> خلال دقائق</li>
-                    <li>ادخل المفتاح في تبويب "لدي مفتاح"</li>
-                </ol>
-            </div>
-            <div style="display:flex;gap:8px">
-                <a href="https://wa.me/96407808923210?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%0A%D8%AA%D9%85%20%D8%AA%D8%AD%D9%88%D9%8A%D9%84%2045%2C000%20%D8%AF.%D8%B9%20%D9%84%D8%B4%D8%B1%D8%A7%D8%A1%20%D8%AA%D8%B1%D8%AE%D9%8A%D8%B5%20%D9%81%D8%A7%D8%AA%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D9%88%D9%81%D8%A9%20%D8%A7%D9%84%D8%B0%D9%83%D9%8A%D8%A9" target="_blank" style="flex:1;background:#25d366;color:#fff;padding:12px;border-radius:8px;text-decoration:none;font-weight:700;text-align:center;font-size:.9rem"><i class="fab fa-whatsapp"></i> واتساب 1</a>
-                <a href="https://wa.me/96407725786161?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%0A%D8%AA%D9%85%20%D8%AA%D8%AD%D9%88%D9%8A%D9%84%2045%2C000%20%D8%AF.%D8%B9%20%D9%84%D8%B4%D8%B1%D8%A7%D8%A1%20%D8%AA%D8%B1%D8%AE%D9%8A%D8%B5%20%D9%81%D8%A7%D8%AA%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D9%88%D9%81%D8%A9%20%D8%A7%D9%84%D8%B0%D9%83%D9%8A%D8%A9" target="_blank" style="flex:1;background:#25d366;color:#fff;padding:12px;border-radius:8px;text-decoration:none;font-weight:700;text-align:center;font-size:.9rem"><i class="fab fa-whatsapp"></i> واتساب 2</a>
-            </div>
+            <!-- تفاصيل طريقة الدفع المختارة -->
+            <div id="buyMethodDetails"></div>
         </div>
 
         <!-- تبويب: تجربة مجانية -->
@@ -619,6 +620,85 @@ function generateLicenseKey(phone){
 }
 function verifyLicenseKey(key,phone){
     return key===generateLicenseKey(phone);
+}
+// ===== عرض تفاصيل طريقة الدفع =====
+function showBuyMethod(type){
+    // تمييز الزر المختار
+    ['Zaincash','Qicard','Visa','Bank'].forEach(b=>{
+        const el=document.getElementById('bm'+b);
+        if(el)el.style.borderColor=el.id==='bm'+type.charAt(0).toUpperCase()+type.slice(1)?'#6366f1':'#e2e8f0';
+    });
+    document.getElementById('bmZaincash').style.borderColor=type==='zaincash'?'#0066FF':'#e2e8f0';
+    document.getElementById('bmQicard').style.borderColor=type==='qicard'?'#E31937':'#e2e8f0';
+    document.getElementById('bmVisa').style.borderColor=type==='visa'?'#1a1f71':'#e2e8f0';
+    document.getElementById('bmBank').style.borderColor=type==='bank'?'#6366f1':'#e2e8f0';
+    const ph1=CONTACT_PHONES[0],ph2=CONTACT_PHONES[1];
+    const methods={
+        zaincash:{
+            icon:'fas fa-mobile-alt',color:'#0066FF',title:'زين كاش — ZainCash',
+            account:ph1,
+            steps:[
+                'افتح تطبيق زين كاش على هاتفك',
+                'اختر "تحويل الى رقم"',
+                'ادخل الرقم: <b dir="ltr">'+ph1+'</b>',
+                'المبلغ: <b>'+LICENSE_PRICE+' د.ع</b>',
+                'في الملاحظات اكتب: <b>فاتورة المصفوفة</b>',
+                'بعد التحويل، ارسل لنا صورة الوصل عبر واتساب'
+            ]
+        },
+        qicard:{
+            icon:'fas fa-credit-card',color:'#E31937',title:'كي كارد — Qi Card',
+            account:ph1,
+            steps:[
+                'افتح تطبيق كي كارد',
+                'اختر "تحويل الى رقم هاتف" او "تحويل الى بطاقة"',
+                'ادخل الرقم: <b dir="ltr">'+ph1+'</b>',
+                'المبلغ: <b>'+LICENSE_PRICE+' د.ع</b>',
+                'في الملاحظات اكتب: <b>فاتورة المصفوفة</b>',
+                'بعد التحويل، ارسل لنا صورة الوصل عبر واتساب'
+            ]
+        },
+        visa:{
+            icon:'fab fa-cc-visa',color:'#1a1f71',title:'Visa / Mastercard',
+            account:null,
+            steps:[
+                'الدفع بالبطاقة الدولية متاح عبر التحويل البنكي',
+                'تواصل معنا عبر واتساب لتزويدك بتفاصيل الحساب',
+                'او يمكنك التحويل عبر اي من الطرق الاخرى المتاحة'
+            ]
+        },
+        bank:{
+            icon:'fas fa-university',color:'#6366f1',title:'تحويل مصرفي',
+            account:null,
+            steps:[
+                'تواصل معنا عبر واتساب لتزويدك ببيانات الحساب المصرفي',
+                'المبلغ: <b>'+LICENSE_PRICE+' د.ع</b>',
+                'بعد التحويل، ارسل لنا صورة الوصل وسيتم ارسال مفتاح التفعيل فوراً'
+            ]
+        }
+    };
+    const m=methods[type];if(!m)return;
+    let html='<div style="background:#f8fafc;border-radius:10px;padding:16px;border:2px solid '+m.color+'22">';
+    html+='<h4 style="color:'+m.color+';margin-bottom:12px;font-size:1rem"><i class="'+m.icon+'"></i> '+m.title+'</h4>';
+    if(m.account){
+        html+='<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
+        html+='<span dir="ltr" style="font-size:1.1rem;font-weight:700;letter-spacing:1px">'+m.account+'</span>';
+        html+='<button onclick="navigator.clipboard.writeText(\''+m.account+'\');this.innerHTML=\'<i class=\\'fas fa-check\\'></i> تم\';setTimeout(()=>this.innerHTML=\'<i class=\\'fas fa-copy\\'></i> نسخ\',1500)" style="background:'+m.color+';color:#fff;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:.8rem"><i class="fas fa-copy"></i> نسخ</button>';
+        html+='</div>';
+    }
+    html+='<div style="margin-bottom:14px">';
+    html+='<p style="font-weight:700;font-size:.85rem;margin-bottom:8px;color:#334155"><i class="fas fa-list-ol"></i> الخطوات:</p>';
+    html+='<ol style="margin:0;padding:0 20px;font-size:.85rem;color:#475569;line-height:2">';
+    m.steps.forEach(s=>html+='<li>'+s+'</li>');
+    html+='</ol></div>';
+    // ازرار التواصل
+    html+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
+    html+='<a href="https://wa.me/964'+ph1+'?text='+encodeURIComponent('السلام عليكم — اريد شراء ترخيص فاتورة المصفوفة ('+type+')')+'" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;background:#25d366;color:#fff;border-radius:8px;text-decoration:none;font-weight:700;font-size:.85rem"><i class="fab fa-whatsapp"></i> واتساب 1</a>';
+    html+='<a href="https://wa.me/964'+ph2+'?text='+encodeURIComponent('السلام عليكم — اريد شراء ترخيص فاتورة المصفوفة ('+type+')')+'" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;background:#25d366;color:#fff;border-radius:8px;text-decoration:none;font-weight:700;font-size:.85rem"><i class="fab fa-whatsapp"></i> واتساب 2</a>';
+    html+='</div>';
+    html+='<p style="text-align:center;font-size:.8rem;color:#94a3b8;margin-top:10px"><i class="fas fa-info-circle"></i> بعد التحويل سيتم ارسال مفتاح التفعيل خلال دقائق</p>';
+    html+='</div>';
+    document.getElementById('buyMethodDetails').innerHTML=html;
 }
 
 // ========== التخزين ==========
