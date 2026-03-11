@@ -496,29 +496,74 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
 
 <!-- شاشة الترخيص الاولية -->
 <div id="licenseGate" class="hide" style="min-height:100vh;background:linear-gradient(135deg,#0f172a,#1e3a5f);display:flex;align-items:center;justify-content:center;padding:20px">
-    <div style="background:#fff;border-radius:20px;padding:40px;max-width:500px;width:100%;box-shadow:0 10px 25px rgba(0,0,0,.15);text-align:center">
-        <i class="fas fa-shield-alt" style="font-size:3rem;color:#6366f1;margin-bottom:12px"></i>
-        <h2 style="color:#6366f1;margin-bottom:4px">فاتورة المصفوفة الذكية</h2>
-        <p style="color:#64748b;margin-bottom:20px;font-size:.9rem">النسخة 2.0 — نظام نقاط البيع الذكي</p>
-        <div style="background:#f8fafc;border-radius:12px;padding:16px;margin-bottom:16px;text-align:right">
-            <p style="font-weight:700;margin-bottom:8px;font-size:.9rem"><i class="fas fa-tag" style="color:#6366f1"></i> السعر: 45,000 دينار عراقي — ترخيص دائم</p>
-            <p style="font-size:.85rem;color:#64748b">فترة تجريبية مجانية 30 يوم</p>
+    <div style="background:#fff;border-radius:20px;padding:40px;max-width:520px;width:100%;box-shadow:0 10px 25px rgba(0,0,0,.15)">
+        <div style="text-align:center">
+            <i class="fas fa-shield-alt" style="font-size:3rem;color:#6366f1;margin-bottom:12px"></i>
+            <h2 style="color:#6366f1;margin-bottom:4px">فاتورة المصفوفة الذكية</h2>
+            <p style="color:#64748b;margin-bottom:16px;font-size:.9rem">النسخة 2.0 — نظام نقاط البيع الذكي</p>
         </div>
-        <div style="margin-bottom:16px;text-align:right">
-            <label style="display:block;margin-bottom:6px;font-weight:600;font-size:.85rem">مفتاح التفعيل:</label>
-            <input type="text" id="gateKeyInput" placeholder="MTRX-2026-XXXX-0000" maxlength="19" style="width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;text-align:center;letter-spacing:2px;direction:ltr" oninput="formatKey(this)" autocomplete="off">
-            <p id="gateKeyErr" style="color:#ef4444;font-size:.8rem;margin-top:4px;min-height:1.2em"></p>
+        <!-- تبويبات -->
+        <div style="display:flex;gap:4px;margin-bottom:16px">
+            <button id="gTabActivate" onclick="gateTab('activate')" style="flex:1;padding:10px;border:2px solid #6366f1;background:#6366f1;color:#fff;border-radius:8px;font-weight:700;cursor:pointer;font-size:.85rem"><i class="fas fa-key"></i> لدي مفتاح</button>
+            <button id="gTabBuy" onclick="gateTab('buy')" style="flex:1;padding:10px;border:2px solid #e2e8f0;background:#fff;color:#334155;border-radius:8px;font-weight:700;cursor:pointer;font-size:.85rem"><i class="fas fa-shopping-cart"></i> شراء ترخيص</button>
+            <button id="gTabTrial" onclick="gateTab('trial')" style="flex:1;padding:10px;border:2px solid #e2e8f0;background:#fff;color:#334155;border-radius:8px;font-weight:700;cursor:pointer;font-size:.85rem"><i class="fas fa-clock"></i> تجربة مجانية</button>
         </div>
-        <button onclick="activateKey()" style="width:100%;padding:12px;background:#6366f1;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;margin-bottom:8px"><i class="fas fa-key"></i> تفعيل</button>
-        <button onclick="startTrial()" style="width:100%;padding:10px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;margin-bottom:16px"><i class="fas fa-clock"></i> تجربة مجانية 30 يوم</button>
-        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px;text-align:center">
-            <p style="font-weight:700;font-size:.9rem;margin-bottom:8px"><i class="fas fa-phone-alt" style="color:#6366f1"></i> للحصول على مفتاح التفعيل:</p>
-            <p style="font-size:1.1rem;font-weight:700;direction:ltr;color:#0f172a">07808923210</p>
-            <p style="font-size:1.1rem;font-weight:700;direction:ltr;color:#0f172a">07725786161</p>
-            <div style="display:flex;gap:8px;justify-content:center;margin-top:10px">
-                <a href="https://wa.me/96407808923210" target="_blank" style="background:#25d366;color:#fff;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:.85rem;font-weight:600"><i class="fab fa-whatsapp"></i> واتساب 1</a>
-                <a href="https://wa.me/96407725786161" target="_blank" style="background:#25d366;color:#fff;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:.85rem;font-weight:600"><i class="fab fa-whatsapp"></i> واتساب 2</a>
+
+        <!-- تبويب: لدي مفتاح -->
+        <div id="gPanelActivate">
+            <div style="text-align:right;margin-bottom:12px">
+                <label style="display:block;margin-bottom:4px;font-weight:600;font-size:.85rem">رقم هاتفك:</label>
+                <input type="tel" id="gatePhone" placeholder="07xxxxxxxxx" maxlength="13" style="width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;direction:ltr;text-align:center" inputmode="tel">
             </div>
+            <div style="text-align:right;margin-bottom:12px">
+                <label style="display:block;margin-bottom:4px;font-weight:600;font-size:.85rem">مفتاح التفعيل:</label>
+                <input type="text" id="gateKeyInput" placeholder="MTRX-XXXX-XXXX-XXXX" maxlength="19" style="width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;text-align:center;letter-spacing:2px;direction:ltr" oninput="formatKey(this)" autocomplete="off">
+                <p id="gateKeyErr" style="color:#ef4444;font-size:.8rem;margin-top:4px;min-height:1.2em"></p>
+            </div>
+            <button onclick="activateKey()" style="width:100%;padding:12px;background:#6366f1;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer"><i class="fas fa-check-circle"></i> تفعيل</button>
+        </div>
+
+        <!-- تبويب: شراء ترخيص -->
+        <div id="gPanelBuy" style="display:none">
+            <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:16px;text-align:center;margin-bottom:16px">
+                <p style="font-size:1.5rem;font-weight:700;color:#059669">45,000 <span style="font-size:.9rem">د.ع</span></p>
+                <p style="font-size:.85rem;color:#64748b">ترخيص دائم — تحديثات مجانية — دعم فني</p>
+            </div>
+            <p style="font-weight:700;margin-bottom:10px;font-size:.9rem"><i class="fas fa-wallet" style="color:#6366f1"></i> حوّل المبلغ الى احد الحسابات التالية:</p>
+            <div style="background:#eef2ff;border-radius:10px;padding:12px;margin-bottom:8px">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                    <div><strong style="color:#0066FF">زين كاش</strong><br><span style="font-size:1.1rem;direction:ltr;font-weight:700">07808923210</span></div>
+                    <button onclick="navigator.clipboard.writeText('07808923210');toast('تم النسخ','ok')" style="background:#6366f1;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.8rem"><i class="fas fa-copy"></i></button>
+                </div>
+            </div>
+            <div style="background:#eef2ff;border-radius:10px;padding:12px;margin-bottom:12px">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                    <div><strong style="color:#0066FF">زين كاش</strong><br><span style="font-size:1.1rem;direction:ltr;font-weight:700">07725786161</span></div>
+                    <button onclick="navigator.clipboard.writeText('07725786161');toast('تم النسخ','ok')" style="background:#6366f1;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.8rem"><i class="fas fa-copy"></i></button>
+                </div>
+            </div>
+            <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px;margin-bottom:12px">
+                <p style="font-size:.9rem;font-weight:700;margin-bottom:6px"><i class="fas fa-info-circle" style="color:#f59e0b"></i> بعد التحويل:</p>
+                <ol style="font-size:.85rem;color:#334155;padding-right:20px;line-height:1.8">
+                    <li>ارسل لنا <strong>رقم هاتفك</strong> عبر واتساب</li>
+                    <li>نرسل لك <strong>مفتاح التفعيل</strong> خلال دقائق</li>
+                    <li>ادخل المفتاح في تبويب "لدي مفتاح"</li>
+                </ol>
+            </div>
+            <div style="display:flex;gap:8px">
+                <a href="https://wa.me/96407808923210?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%0A%D8%AA%D9%85%20%D8%AA%D8%AD%D9%88%D9%8A%D9%84%2045%2C000%20%D8%AF.%D8%B9%20%D9%84%D8%B4%D8%B1%D8%A7%D8%A1%20%D8%AA%D8%B1%D8%AE%D9%8A%D8%B5%20%D9%81%D8%A7%D8%AA%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D9%88%D9%81%D8%A9%20%D8%A7%D9%84%D8%B0%D9%83%D9%8A%D8%A9" target="_blank" style="flex:1;background:#25d366;color:#fff;padding:12px;border-radius:8px;text-decoration:none;font-weight:700;text-align:center;font-size:.9rem"><i class="fab fa-whatsapp"></i> واتساب 1</a>
+                <a href="https://wa.me/96407725786161?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%0A%D8%AA%D9%85%20%D8%AA%D8%AD%D9%88%D9%8A%D9%84%2045%2C000%20%D8%AF.%D8%B9%20%D9%84%D8%B4%D8%B1%D8%A7%D8%A1%20%D8%AA%D8%B1%D8%AE%D9%8A%D8%B5%20%D9%81%D8%A7%D8%AA%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%85%D8%B5%D9%81%D9%88%D9%81%D8%A9%20%D8%A7%D9%84%D8%B0%D9%83%D9%8A%D8%A9" target="_blank" style="flex:1;background:#25d366;color:#fff;padding:12px;border-radius:8px;text-decoration:none;font-weight:700;text-align:center;font-size:.9rem"><i class="fab fa-whatsapp"></i> واتساب 2</a>
+            </div>
+        </div>
+
+        <!-- تبويب: تجربة مجانية -->
+        <div id="gPanelTrial" style="display:none;text-align:center">
+            <div style="background:#f0fdf4;border-radius:12px;padding:24px;margin-bottom:16px">
+                <i class="fas fa-gift" style="font-size:2.5rem;color:#10b981;margin-bottom:10px"></i>
+                <h3 style="color:#059669;margin-bottom:6px">30 يوم مجاناً!</h3>
+                <p style="font-size:.85rem;color:#64748b">جرّب كل المميزات بدون قيود — بدون بطاقة — بدون التزام</p>
+            </div>
+            <button onclick="startTrial()" style="width:100%;padding:14px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:1.1rem;font-weight:700;cursor:pointer"><i class="fas fa-rocket"></i> ابدأ التجربة المجانية</button>
         </div>
     </div>
 </div>
@@ -547,14 +592,34 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
 const V='2.0.0';
 const UPDATE_CHECK_URL='https://zamboor15.github.io/almasfoufaakademy/downloads/invoice_version.json';
 const K={cfg:'msi_cfg',prod:'msi_prod',cust:'msi_cust',inv:'msi_inv',exp:'msi_exp',users:'msi_users',cnt:'msi_cnt',sales:'msi_sales',lic:'msi_lic'};
-const VALID_KEYS=[
-    'MTRX-2026-SMART-0001','MTRX-2026-SMART-0002','MTRX-2026-SMART-0003','MTRX-2026-SMART-0004','MTRX-2026-SMART-0005',
-    'MTRX-2026-SMART-0006','MTRX-2026-SMART-0007','MTRX-2026-SMART-0008','MTRX-2026-SMART-0009','MTRX-2026-SMART-0010',
-    'MTRX-2026-FADL-0001','MTRX-2026-FADL-0002','MTRX-2026-FADL-0003','MTRX-2026-FADL-0004','MTRX-2026-FADL-0005',
-    'MTRX-2026-PRO-0001','MTRX-2026-PRO-0002','MTRX-2026-PRO-0003','MTRX-2026-PRO-0004','MTRX-2026-PRO-0005'
-];
 const TRIAL_DAYS=30;
 const CONTACT_PHONES=['07808923210','07725786161'];
+const LICENSE_PRICE='45,000';
+// ===== مولّد المفاتيح — خوارزمية تشفير المصفوفة =====
+// المفتاح = MTRX-XXXX-XXXX-XXXX مُولّد من رقم الهاتف + السر
+const _SECRET=0x4D535846; // MSXF — مصفوفة
+function generateLicenseKey(phone){
+    // تنظيف الرقم
+    phone=phone.replace(/\D/g,'');
+    if(phone.startsWith('964'))phone=phone.substring(3);
+    if(phone.startsWith('0'))phone=phone.substring(1);
+    // توليد بصمة رقمية من الهاتف
+    let h=_SECRET;
+    for(let i=0;i<phone.length;i++){h=((h<<5)-h+phone.charCodeAt(i))|0;h=(h^(h>>>16))|0}
+    h=Math.abs(h);
+    // تحويل الى مفتاح مقروء
+    const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // بدون O,0,1,I لتجنب الخلط
+    let key='MTRX';
+    for(let b=0;b<3;b++){
+        key+='-';
+        let seg=Math.abs((h*(b+7))^(h>>>(b*8)))>>>0;
+        for(let c=0;c<4;c++){key+=chars[seg%32];seg=Math.floor(seg/32)}
+    }
+    return key;
+}
+function verifyLicenseKey(key,phone){
+    return key===generateLicenseKey(phone);
+}
 
 // ========== التخزين ==========
 const L=k=>{try{return JSON.parse(localStorage.getItem(K[k]))}catch{return null}};
@@ -1512,16 +1577,27 @@ function checkLicense(){
     return false;
 }
 function trialDaysLeft(){const lic=getLic();if(!lic||lic.type!=='trial')return -1;return Math.ceil((new Date(lic.expiry)-new Date())/(86400000))}
+function gateTab(tab){
+    ['activate','buy','trial'].forEach(t=>{
+        document.getElementById('gPanel'+t.charAt(0).toUpperCase()+t.slice(1)).style.display=t===tab?'block':'none';
+        const btn=document.getElementById('gTab'+t.charAt(0).toUpperCase()+t.slice(1));
+        btn.style.background=t===tab?'#6366f1':'#fff';
+        btn.style.color=t===tab?'#fff':'#334155';
+        btn.style.borderColor=t===tab?'#6366f1':'#e2e8f0';
+    });
+}
 function activateKey(){
+    const phone=document.getElementById('gatePhone').value.trim();
     const key=document.getElementById('gateKeyInput').value.trim();
     const err=document.getElementById('gateKeyErr');
+    if(!phone||phone.length<10){err.textContent='ادخل رقم هاتفك (نفس الرقم المُرسل عبر واتساب)';return}
     if(!key){err.textContent='ادخل مفتاح التفعيل';return}
-    if(VALID_KEYS.includes(key)){
-        S('lic',{type:'full',key:key,date:new Date().toISOString()});
+    if(verifyLicenseKey(key,phone)){
+        S('lic',{type:'full',key:key,phone:phone,date:new Date().toISOString()});
         toast('تم التفعيل بنجاح! ترخيص دائم','ok');
         document.getElementById('licenseGate').classList.add('hide');
         licenseCheck();
-    }else{err.textContent='مفتاح غير صحيح — تاكد من المفتاح او تواصل معنا'}
+    }else{err.textContent='مفتاح غير صحيح — تأكد من الرقم والمفتاح معاً'}
 }
 function startTrial(){
     const lic=getLic();
@@ -1529,13 +1605,12 @@ function startTrial(){
     if(lic&&lic.type==='full'){document.getElementById('licenseGate').classList.add('hide');licenseCheck();return}
     const exp=new Date();exp.setDate(exp.getDate()+TRIAL_DAYS);
     S('lic',{type:'trial',date:new Date().toISOString(),expiry:exp.toISOString()});
-    toast('بدات الفترة التجريبية — '+TRIAL_DAYS+' يوم مجاناً','ok');
+    toast('بدأت الفترة التجريبية — '+TRIAL_DAYS+' يوم مجاناً','ok');
     document.getElementById('licenseGate').classList.add('hide');
     licenseCheck();
 }
 function licenseCheck(){
     if(!checkLicense()){
-        // اخفاء كل شيء واظهار بوابة الترخيص
         document.getElementById('setupWizard').classList.add('hide');
         document.getElementById('loginScreen').classList.add('hide');
         document.getElementById('mainApp').classList.add('hide');
@@ -1554,39 +1629,67 @@ function renderLicense(){
             <i class="fas ${days<=0?'fa-times-circle':'fa-clock'}" style="font-size:2.5rem;color:${days<=0?'var(--err)':'var(--warn)'}"></i>
             <h3 style="margin:10px 0">${days<=0?'انتهت الفترة التجريبية':'فترة تجريبية'}</h3>
             <p style="font-size:1.2rem;font-weight:700;color:${days<=7?'var(--err)':'var(--ok)'}">${days>0?days+' يوم متبقي':'انتهت'}</p>
-            <p style="margin-top:8px;font-size:.85rem;color:var(--t2)">بدات: ${lic.date.split('T')[0]}</p>
+            <p style="margin-top:8px;font-size:.85rem;color:var(--t2)">بدأت: ${lic.date.split('T')[0]}</p>
         </div>
         <div style="text-align:center;padding:16px">
-            <p style="font-weight:700;margin-bottom:8px"><i class="fas fa-key" style="color:var(--p)"></i> ادخل مفتاح التفعيل للترخيص الدائم:</p>
-            <input type="text" id="licPageKey" placeholder="MTRX-2026-XXXX-0000" maxlength="19" style="padding:10px;border:2px solid var(--b);border-radius:8px;font-size:1rem;text-align:center;letter-spacing:2px;direction:ltr;width:280px" oninput="formatKey(this)">
+            <p style="font-weight:700;margin-bottom:8px"><i class="fas fa-key" style="color:var(--p)"></i> ادخل مفتاح التفعيل:</p>
+            <div class="fg"><label>رقم هاتفك</label><input type="tel" id="licPagePhone" placeholder="07xxxxxxxxx" maxlength="13" style="direction:ltr;text-align:center"></div>
+            <div class="fg"><label>المفتاح</label><input type="text" id="licPageKey" placeholder="MTRX-XXXX-XXXX-XXXX" maxlength="19" style="text-align:center;letter-spacing:2px;direction:ltr" oninput="formatKey(this)"></div>
             <p id="licPageErr" style="color:var(--err);font-size:.8rem;min-height:1.2em"></p>
             <button class="btn btn-p" onclick="activateFromPage()"><i class="fas fa-check"></i> تفعيل</button>
         </div>
         <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px;margin:16px;text-align:center">
-            <p style="font-weight:700;font-size:.9rem;margin-bottom:6px"><i class="fas fa-phone-alt" style="color:var(--p)"></i> للحصول على مفتاح:</p>
+            <p style="font-weight:700;font-size:.9rem;margin-bottom:6px"><i class="fas fa-shopping-cart" style="color:var(--p)"></i> شراء ترخيص: ${LICENSE_PRICE} د.ع</p>
             <p style="direction:ltr;font-weight:700">07808923210 — 07725786161</p>
         </div>`;
     }else{
         el.innerHTML=`<div style="text-align:center;padding:30px;background:#f0fdf4;border-radius:12px;margin:16px">
             <i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--ok)"></i>
             <h3 style="margin:10px 0;color:var(--ok)">ترخيص كامل — دائم</h3>
-            <p style="font-size:.85rem;color:var(--t2)">مفتاح: ${lic.key}</p>
+            <p style="font-size:.85rem;color:var(--t2)">هاتف: ${lic.phone||'-'}</p>
             <p style="font-size:.85rem;color:var(--t2)">تاريخ التفعيل: ${lic.date.split('T')[0]}</p>
         </div>
         <div style="padding:16px;margin:0 16px"><h3 style="margin-bottom:10px"><i class="fas fa-gavel"></i> شروط الترخيص</h3><ul style="font-size:.9rem;color:var(--t);line-height:2">
-            <li>الترخيص شخصي لجهاز واحد ومتجر واحد</li>
-            <li>يحق لك كل التحديثات المستقبلية مجاناً</li>
-            <li>لا يحق اعادة البيع او التوزيع</li>
-            <li>الدعم الفني عبر واتساب</li>
-        </ul></div>`;
+            <li>الترخيص شخصي لجهاز واحد ومتجر واحد</li><li>يحق لك كل التحديثات المستقبلية مجاناً</li>
+            <li>لا يحق اعادة البيع او التوزيع</li><li>الدعم الفني عبر واتساب</li>
+        </ul></div>
+        ${curUser&&curUser.role==='admin'?renderLicenseAdmin():''}`;
     }
 }
 function activateFromPage(){
+    const phone=document.getElementById('licPagePhone').value.trim();
     const key=document.getElementById('licPageKey').value.trim();
     const err=document.getElementById('licPageErr');
-    if(!key){err.textContent='ادخل مفتاح التفعيل';return}
-    if(VALID_KEYS.includes(key)){S('lic',{type:'full',key:key,date:new Date().toISOString()});toast('تم التفعيل — ترخيص دائم!','ok');renderLicense()}
-    else{err.textContent='مفتاح غير صحيح'}
+    if(!phone||phone.length<10){err.textContent='ادخل رقم هاتفك';return}
+    if(!key){err.textContent='ادخل المفتاح';return}
+    if(verifyLicenseKey(key,phone)){S('lic',{type:'full',key:key,phone:phone,date:new Date().toISOString()});toast('تم التفعيل — ترخيص دائم!','ok');renderLicense()}
+    else{err.textContent='مفتاح غير صحيح — تأكد من الرقم والمفتاح'}
+}
+// ========== مدير التراخيص (للمدير فقط) ==========
+function renderLicenseAdmin(){
+    return `<div style="margin:16px;padding:16px;background:#eef2ff;border:2px solid #c7d2fe;border-radius:12px">
+        <h3 style="font-size:.95rem;margin-bottom:12px;color:var(--p)"><i class="fas fa-user-shield"></i> مدير التراخيص (مدير فقط)</h3>
+        <p style="font-size:.85rem;color:var(--t);margin-bottom:12px">عند استلام الدفع، ادخل رقم هاتف الزبون لتوليد مفتاحه:</p>
+        <div class="fg"><label>رقم هاتف الزبون</label><input type="tel" id="adminLicPhone" placeholder="07xxxxxxxxx" maxlength="13" style="direction:ltr;text-align:center" inputmode="tel"></div>
+        <button class="btn btn-p" onclick="adminGenKey()" style="width:100%"><i class="fas fa-key"></i> توليد المفتاح</button>
+        <div id="adminKeyResult"></div>
+    </div>`;
+}
+function adminGenKey(){
+    const phone=document.getElementById('adminLicPhone').value.trim();
+    if(!phone||phone.length<10){toast('ادخل رقم هاتف الزبون','er');return}
+    const key=generateLicenseKey(phone);
+    const msg=encodeURIComponent('السلام عليكم\nتم تفعيل ترخيص فاتورة المصفوفة الذكية\n\nمفتاح التفعيل: '+key+'\nرقم هاتفك: '+phone+'\n\nادخل المفتاح والرقم في صفحة التفعيل\nشكراً لثقتكم — اكاديمية المصفوفة');
+    const cleanPhone=phone.replace(/^0/,'');
+    document.getElementById('adminKeyResult').innerHTML=`
+        <div style="margin-top:12px;padding:14px;background:#fff;border-radius:10px;border:2px solid var(--ok);text-align:center">
+            <p style="font-size:.85rem;color:var(--t2)">المفتاح المولّد لـ ${phone}:</p>
+            <p style="font-size:1.3rem;font-weight:700;color:var(--p);direction:ltr;letter-spacing:2px;margin:8px 0">${key}</p>
+            <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
+                <button class="btn btn-s" onclick="navigator.clipboard.writeText('${key}');toast('تم نسخ المفتاح','ok')"><i class="fas fa-copy"></i> نسخ المفتاح</button>
+                <a href="https://wa.me/964${cleanPhone}?text=${msg}" target="_blank" class="btn btn-p" style="text-decoration:none;color:#fff"><i class="fab fa-whatsapp"></i> ارسل للزبون</a>
+            </div>
+        </div>`;
 }
 
 // ========== التحديثات ==========
