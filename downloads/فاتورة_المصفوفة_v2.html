@@ -255,14 +255,36 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
 
 <!-- ====== شاشة الدخول ====== -->
 <div id="loginScreen" class="hide" style="min-height:100vh;background:linear-gradient(135deg,var(--d),#1e3a5f);display:flex;align-items:center;justify-content:center">
-<div class="wiz-card" style="max-width:400px;text-align:center">
-    <i class="fas fa-store" style="font-size:2.5rem;color:var(--p);margin-bottom:12px"></i>
-    <h2 id="loginShopName"></h2>
-    <p class="sub">ادخل اسمك ورمز الدخول</p>
-    <div class="fg"><select id="loginUser" style="text-align:center"><option value="">-- اختر اسمك --</option></select></div>
-    <div class="fg"><input type="password" id="loginPin" placeholder="رمز الدخول" style="text-align:center;font-size:1.2rem;letter-spacing:4px" maxlength="20"></div>
-    <button class="btn btn-p" style="width:100%;padding:12px;font-size:1rem" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> دخول</button>
-    <div id="loginErr" style="color:var(--err);margin-top:10px;font-size:.85rem"></div>
+<div class="wiz-card" style="max-width:420px;text-align:center">
+    <i class="fas fa-store" style="font-size:3rem;color:var(--p);margin-bottom:8px"></i>
+    <h2 style="color:var(--p);margin-bottom:4px">فاتورة المصفوفة الذكية</h2>
+    <p class="sub" id="loginSubtitle">ادخل اسمك ورمز الدخول</p>
+
+    <!-- نموذج تسجيل الدخول (حساب موجود) -->
+    <div id="loginForm">
+        <h3 id="loginShopName" style="color:var(--d);margin-bottom:16px;font-size:1.1rem"></h3>
+        <div class="fg"><select id="loginUser" style="text-align:center"><option value="">-- اختر اسمك --</option></select></div>
+        <div class="fg"><input type="password" id="loginPin" placeholder="رمز الدخول" style="text-align:center;font-size:1.2rem;letter-spacing:4px" maxlength="20" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <button class="btn btn-p" style="width:100%;padding:12px;font-size:1rem;margin-bottom:8px" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
+        <div id="loginErr" style="color:var(--err);margin-top:4px;font-size:.85rem;min-height:1.2em"></div>
+        <button onclick="forgotPassword()" style="background:transparent;border:none;color:var(--p);font-size:.8rem;cursor:pointer;text-decoration:underline;margin-top:4px"><i class="fas fa-question-circle"></i> نسيت كلمة المرور؟</button>
+        <div style="border-top:1px solid var(--b);margin-top:16px;padding-top:16px">
+            <button onclick="showNewAccountSetup()" style="background:transparent;border:2px solid var(--b);color:var(--t2);padding:10px 24px;border-radius:8px;font-size:.85rem;cursor:pointer;width:100%"><i class="fas fa-plus-circle"></i> انشاء حساب جديد (متجر جديد)</button>
+        </div>
+    </div>
+
+    <!-- نموذج انشاء حساب جديد -->
+    <div id="newAccountForm" style="display:none;text-align:right">
+        <h3 style="text-align:center;color:var(--d);margin-bottom:16px;font-size:1rem"><i class="fas fa-user-plus" style="color:var(--p)"></i> انشاء حساب جديد</h3>
+        <div class="fg"><label>اسم المتجر *</label><input type="text" id="qaShopName" placeholder="مثال: سوق الامانة"></div>
+        <div class="fg"><label>رقم الهاتف</label><input type="text" id="qaPhone" placeholder="07xxxxxxxxx"></div>
+        <div class="fg"><label>اسم المدير *</label><input type="text" id="qaAdminName" placeholder="الاسم الكامل"></div>
+        <div class="fg"><label>كلمة المرور *</label><input type="password" id="qaAdminPass" placeholder="4 ارقام على الاقل" minlength="4"></div>
+        <div class="fg"><label>تأكيد كلمة المرور *</label><input type="password" id="qaAdminPass2" placeholder="اعد كتابة كلمة المرور"></div>
+        <button class="btn btn-s" style="width:100%;padding:12px;font-size:1rem;margin-bottom:8px" onclick="quickCreateAccount()"><i class="fas fa-check-circle"></i> انشاء الحساب والدخول</button>
+        <button onclick="showLoginForm()" style="background:transparent;border:none;color:var(--t2);font-size:.85rem;cursor:pointer;text-decoration:underline;width:100%;padding:8px"><i class="fas fa-arrow-right"></i> عندي حساب — تسجيل الدخول</button>
+        <div id="newAccErr" style="color:var(--err);margin-top:4px;font-size:.85rem;min-height:1.2em"></div>
+    </div>
 </div>
 </div>
 
@@ -824,13 +846,61 @@ function finishSetup(adminName,adminPass){
 // ========== تسجيل الدخول ==========
 function showLogin(){
     document.getElementById('setupWizard').classList.add('hide');
+    document.getElementById('setupWizard').style.display='none';
     document.getElementById('loginScreen').classList.remove('hide');
+    document.getElementById('loginScreen').style.display='flex';
     document.getElementById('mainApp').classList.add('hide');
-    document.getElementById('loginShopName').textContent=cfg.shop;
+    // اذا يوجد حساب — اظهر نموذج الدخول
+    if(cfg&&cfg.installed&&users.length>0){
+        showLoginForm();
+    }else{
+        // لا يوجد حساب — اظهر انشاء حساب جديد مباشرة
+        showNewAccountSetup();
+    }
+}
+function showLoginForm(){
+    document.getElementById('loginForm').style.display='block';
+    document.getElementById('newAccountForm').style.display='none';
+    document.getElementById('loginSubtitle').textContent='ادخل اسمك ورمز الدخول';
+    if(cfg&&cfg.shop){
+        document.getElementById('loginShopName').textContent=cfg.shop;
+        document.getElementById('loginShopName').style.display='block';
+    }else{
+        document.getElementById('loginShopName').style.display='none';
+    }
     const sel=document.getElementById('loginUser');
     sel.innerHTML='<option value="">-- اختر اسمك --</option>'+users.map(u=>`<option value="${u.id}">${u.name} (${u.role==='admin'?'مدير':'بائع'})</option>`).join('');
+    // اذا مستخدم واحد فقط — اختره تلقائياً
+    if(users.length===1)sel.value=users[0].id;
     document.getElementById('loginPin').value='';
     document.getElementById('loginErr').textContent='';
+}
+function showNewAccountSetup(){
+    document.getElementById('loginForm').style.display='none';
+    document.getElementById('newAccountForm').style.display='block';
+    document.getElementById('loginSubtitle').textContent='انشئ حسابك وابدأ العمل';
+    document.getElementById('newAccErr').textContent='';
+}
+function quickCreateAccount(){
+    const shop=document.getElementById('qaShopName').value.trim();
+    const phone=document.getElementById('qaPhone').value.trim();
+    const name=document.getElementById('qaAdminName').value.trim();
+    const pass=document.getElementById('qaAdminPass').value;
+    const pass2=document.getElementById('qaAdminPass2').value;
+    const err=document.getElementById('newAccErr');
+    if(!shop){err.textContent='ادخل اسم المتجر';return}
+    if(!name){err.textContent='ادخل اسم المدير';return}
+    if(pass.length<4){err.textContent='كلمة المرور 4 خانات على الاقل';return}
+    if(pass!==pass2){err.textContent='كلمتا المرور غير متطابقتين';return}
+    // انشاء الحساب مباشرة
+    cfg={type:'مختلط',shop:shop,phone:phone,address:'',currency:'د.ع',prefix:'فت-',footerNote:'شكرا لتعاملكم معنا',safetyDays:3,installed:true};
+    expenses={rent:0,elec:0,water:0,salary:0,other:0,entered:false};
+    users=[{id:gid(),name:name,pin:pass,role:'admin',created:new Date().toISOString()}];
+    S('cfg',cfg);S('exp',expenses);S('users',users);
+    // دخول مباشر بدون اعادة تسجيل
+    curUser=users[0];
+    toast('تم انشاء الحساب بنجاح — مرحباً '+name+'!','ok');
+    startApp();
 }
 function doLogin(){
     const uid=document.getElementById('loginUser').value;
@@ -1556,9 +1626,15 @@ function renderSettings(){
             <button type="submit" class="btn btn-p"><i class="fas fa-save"></i> حفظ بيانات الدفع</button>
             </form></div>`;
     }else if(setTab==='users'){
-        el.innerHTML=`<div style="margin-top:16px"><button class="btn btn-p" onclick="addUserPrompt()"><i class="fas fa-user-plus"></i> اضافة بائع</button>
-            <div class="tw" style="margin-top:12px"><table><thead><tr><th>الاسم</th><th>الدور</th><th>تاريخ الانشاء</th><th>اجراء</th></tr></thead><tbody>`+
-            users.map(u=>`<tr><td><strong>${u.name}</strong></td><td>${u.role==='admin'?'مدير':'بائع'}</td><td>${u.created?u.created.split('T')[0]:'-'}</td><td>${u.role!=='admin'?`<button class="bi" style="background:var(--err)" onclick="delUser('${u.id}')"><i class="fas fa-trash"></i></button>`:''}</td></tr>`).join('')+
+        el.innerHTML=`<div style="margin-top:16px">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+                <button class="btn btn-p" onclick="addUserPrompt()"><i class="fas fa-user-plus"></i> اضافة بائع</button>
+                <button class="btn btn-o" onclick="showChangePassword()"><i class="fas fa-key"></i> تغيير كلمة المرور</button>
+            </div>
+            <div class="tw"><table><thead><tr><th>الاسم</th><th>الدور</th><th>تاريخ الانشاء</th><th>اجراء</th></tr></thead><tbody>`+
+            users.map(u=>`<tr><td><strong>${u.name}</strong></td><td>${u.role==='admin'?'مدير':'بائع'}</td><td>${u.created?u.created.split('T')[0]:'-'}</td><td>
+                <button class="bi" style="background:var(--warn)" onclick="showChangePasswordFor('${u.id}')" title="تغيير كلمة المرور"><i class="fas fa-key"></i></button>
+                ${u.role!=='admin'?`<button class="bi" style="background:var(--err)" onclick="delUser('${u.id}')" title="حذف"><i class="fas fa-trash"></i></button>`:''}</td></tr>`).join('')+
             '</tbody></table></div></div>';
     }else if(setTab==='backup'){
         el.innerHTML=`<div style="margin-top:16px;text-align:center">
@@ -1693,6 +1769,60 @@ function addUserPrompt(){
     S('users',users);renderSettings();toast('تم اضافة '+name);
 }
 function delUser(id){if(!confirm('حذف هذا المستخدم؟'))return;users=users.filter(u=>u.id!==id);S('users',users);renderSettings()}
+
+// ===== تغيير كلمة المرور =====
+function showChangePassword(){
+    // تغيير كلمة مرور المستخدم الحالي
+    if(!curUser){toast('سجّل دخولك اولاً','er');return}
+    showChangePasswordFor(curUser.id);
+}
+function showChangePasswordFor(uid){
+    const u=users.find(x=>x.id===uid);if(!u)return;
+    document.getElementById('prodModalTitle').textContent='تغيير كلمة المرور — '+u.name;
+    document.getElementById('prodModalBody').innerHTML=`
+        <input type="hidden" id="cpUid" value="${uid}">
+        <div class="fg"><label>كلمة المرور الحالية</label><input type="password" id="cpOld" placeholder="ادخل كلمة المرور الحالية" ${curUser&&curUser.role==='admin'&&curUser.id!==uid?'value="admin-skip" disabled style="background:#f0f0f0"':''}></div>
+        <div class="fg"><label>كلمة المرور الجديدة</label><input type="password" id="cpNew" placeholder="4 خانات على الاقل" minlength="4"></div>
+        <div class="fg"><label>تأكيد كلمة المرور الجديدة</label><input type="password" id="cpNew2" placeholder="اعد كتابة كلمة المرور"></div>
+        <div id="cpErr" style="color:var(--err);font-size:.85rem;min-height:1.2em"></div>`;
+    // تغيير زر الحفظ ليعمل مع تغيير كلمة المرور
+    const modal=document.getElementById('productModal');
+    const saveBtn=modal.querySelector('.mf .btn-p');
+    saveBtn.setAttribute('onclick','doChangePassword()');
+    saveBtn.innerHTML='<i class="fas fa-key"></i> تغيير';
+    openM('productModal');
+}
+function doChangePassword(){
+    const uid=document.getElementById('cpUid').value;
+    const u=users.find(x=>x.id===uid);if(!u)return;
+    const err=document.getElementById('cpErr');
+    const oldP=document.getElementById('cpOld');
+    const newP=document.getElementById('cpNew').value;
+    const newP2=document.getElementById('cpNew2').value;
+    // التحقق من كلمة المرور الحالية (المدير يمكنه تغيير كلمة مرور الآخرين بدون الحالية)
+    if(!oldP.disabled&&oldP.value!==u.pin){err.textContent='كلمة المرور الحالية غير صحيحة';return}
+    if(newP.length<4){err.textContent='كلمة المرور الجديدة 4 خانات على الاقل';return}
+    if(newP!==newP2){err.textContent='كلمتا المرور غير متطابقتين';return}
+    u.pin=newP;
+    S('users',users);
+    closeM('productModal');
+    // اعادة زر الحفظ الاصلي
+    const modal=document.getElementById('productModal');
+    const saveBtn=modal.querySelector('.mf .btn-p');
+    saveBtn.setAttribute('onclick','saveProduct()');
+    saveBtn.innerHTML='<i class="fas fa-save"></i> حفظ';
+    toast('تم تغيير كلمة المرور بنجاح','ok');
+    renderSettings();
+}
+
+// ===== نسيت كلمة المرور =====
+function forgotPassword(){
+    // ارسال رمز الاستعادة عبر واتساب
+    const ph1=CONTACT_PHONES[0];
+    const msg=encodeURIComponent('السلام عليكم — نسيت كلمة المرور لتطبيق فاتورة المصفوفة\nاسم المتجر: '+(cfg?cfg.shop:'غير معروف')+'\nرقم الهاتف: '+(cfg?cfg.phone:''));
+    window.open('https://wa.me/964'+ph1+'?text='+msg,'_blank');
+    toast('سيتم التواصل معك لاستعادة كلمة المرور','ok');
+}
 
 // ========== النسخ الاحتياطي ==========
 function exportAll(){
@@ -1881,15 +2011,10 @@ function licenseCheck(){
         gate.classList.remove('hide');gate.style.display='flex';
         return false;
     }
-    // الترخيص صالح — اظهار الشاشة المناسبة
+    // الترخيص صالح — انتقل لتسجيل الدخول مباشرة
     document.getElementById('licenseGate').classList.add('hide');
     document.getElementById('licenseGate').style.display='none';
-    if(cfg&&cfg.installed){
-        showLogin();
-    }else{
-        document.getElementById('setupWizard').classList.remove('hide');
-        document.getElementById('setupWizard').style.display='flex';
-    }
+    showLogin();
     return true;
 }
 function renderLicense(){
@@ -1998,8 +2123,7 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch
 
 // ========== البدء ==========
 window.addEventListener('DOMContentLoaded',()=>{
-    if(!licenseCheck())return;
-    if(cfg&&cfg.installed){showLogin()}
+    licenseCheck();
 });
 </script>
 </body>
