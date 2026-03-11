@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /assets/
 Disallow: /pages/admin.html
 
 Sitemap: https://zamboor15.github.io/almasfoufaakademy/sitemap.xml

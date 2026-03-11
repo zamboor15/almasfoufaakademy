@@ -4,7 +4,7 @@
 
 **Fadhil Abbas Al-Jafari — Iraq**
 
-[![Website](https://img.shields.io/badge/Academy-almasfoufaakademy.netlify.app-6366f1?style=for-the-badge)](https://almasfoufaakademy.netlify.app)
+[![Website](https://img.shields.io/badge/Academy-zamboor15.github.io-6366f1?style=for-the-badge)](https://zamboor15.github.io/almasfoufaakademy/)
 
 ---
 

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="فاتورة المصفوفة — نظام البيع بالفاتورة العربي الكامل من اكاديمية المصفوفة للذكاء الاصطناعي">
+    <title>فاتورة المصفوفة — نظام البيع بالفاتورة | اكاديمية المصفوفة</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .product-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #6366f1 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .product-hero h2 {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+        .product-hero p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        .price-hero {
+            display: inline-block;
+            background: linear-gradient(135deg, #ec4899, #f472b6);
+            padding: 16px 40px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        .price-hero .amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .price-hero .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .hero-btns .btn {
+            padding: 14px 36px;
+            font-size: 1.1rem;
+            border-radius: 12px;
+        }
+
+        .features-section {
+            padding: 80px 20px;
+            background: #f8fafc;
+        }
+        .features-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            color: #1e293b;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-top: 4px solid #6366f1;
+        }
+        .feat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px rgba(0,0,0,0.12);
+        }
+        .feat-card i {
+            font-size: 2.5rem;
+            color: #6366f1;
+            margin-bottom: 16px;
+        }
+        .feat-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+        .feat-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .screenshots-section {
+            padding: 80px 20px;
+        }
+        .screenshots-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            color: #1e293b;
+        }
+        .screen-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .screen-tab {
+            padding: 10px 24px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+        .screen-tab.active, .screen-tab:hover {
+            border-color: #6366f1;
+            color: #6366f1;
+            background: #eef2ff;
+        }
+        .screen-preview {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .screen-preview-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .screen-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .screen-dot.red { background: #ef4444; }
+        .screen-dot.yellow { background: #f59e0b; }
+        .screen-dot.green { background: #10b981; }
+        .screen-content {
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 30px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+        .screen-content i {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            color: #6366f1;
+        }
+
+        .pricing-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+            text-align: center;
+        }
+        .pricing-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+        .pricing-section > p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        .pricing-card {
+            background: white;
+            color: #1e293b;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .pricing-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+        .pricing-card .price-big {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #6366f1;
+            margin: 16px 0;
+        }
+        .pricing-card .price-note {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+        .pricing-features {
+            text-align: right;
+            list-style: none;
+            margin-bottom: 24px;
+        }
+        .pricing-features li {
+            padding: 8px 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .pricing-features li i {
+            color: #10b981;
+            font-size: 1rem;
+        }
+
+        .license-section {
+            padding: 80px 20px;
+            background: #f8fafc;
+        }
+        .license-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: #1e293b;
+        }
+        .license-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .license-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+        }
+        .license-card h3 {
+            color: #6366f1;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .license-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .license-card li {
+            padding: 6px 0;
+            font-size: 0.9rem;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .license-card li i { color: #6366f1; font-size: 0.8rem; }
+
+        .faq-section {
+            padding: 80px 20px;
+        }
+        .faq-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: #1e293b;
+        }
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        .faq-q {
+            padding: 18px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .faq-q:hover { background: #f8fafc; }
+        .faq-a {
+            padding: 0 24px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            color: #64748b;
+            line-height: 1.8;
+        }
+        .faq-item.open .faq-a {
+            padding: 0 24px 18px;
+            max-height: 300px;
+        }
+        .faq-item.open .faq-q i { transform: rotate(180deg); }
+
+        .cta-section {
+            padding: 60px 20px;
+            text-align: center;
+            background: #0f172a;
+            color: white;
+        }
+        .cta-section h2 { font-size: 2rem; margin-bottom: 16px; }
+        .cta-section p { color: #94a3b8; margin-bottom: 24px; font-size: 1.05rem; }
+        .cta-section .btn { padding: 16px 40px; font-size: 1.1rem; }
+    </style>
+    <link rel="canonical" href="https://zamboor15.github.io/almasfoufaakademy/pages/invoice.html">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>اكاديمية المصفوفة للذكاء الاصطناعي</h1>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="../index.html">الرئيسية</a>
+                <a href="about.html">عن الشركة</a>
+                <a href="services.html">الخدمات</a>
+                <a href="fdl.html">لغة فاضل</a>
+                <a href="invoice.html" class="active">الفاتورة</a>
+                <a href="opportunities.html">فرص الاستثمار</a>
+                <a href="contact.html">اتصل بنا</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- البسملة -->
+    <div style="background:linear-gradient(135deg,#0a1628,#0c2040);padding:35px 0 15px;text-align:center">
+        <p style="font-size:2.2rem;color:#e8b868;font-family:'Traditional Arabic','Amiri',serif;text-shadow:0 0 20px rgba(232,184,104,0.3);margin:0 0 8px">بسم الله الرحمن الرحيم</p>
+        <p style="font-size:1.1rem;color:#8899b0;font-family:'Traditional Arabic','Amiri',serif;margin:0">اللهم صلِّ على محمد وآله الطاهرين</p>
+    </div>
+
+    <!-- قسم البطل -->
+    <section class="product-hero">
+        <div style="max-width:800px;margin:0 auto">
+            <div style="font-size:4rem;margin-bottom:20px"><i class="fas fa-file-invoice-dollar"></i></div>
+            <h2>فاتورة المصفوفة</h2>
+            <p>نظام بيع بالفاتورة عربي متكامل — صُمم خصيصاً للتاجر العراقي والعربي. سهل الاستخدام، يعمل بدون انترنت، ولا يحتاج تنصيب.</p>
+            <div class="price-hero">
+                <div class="amount">45,000 د.ع</div>
+                <div class="label">ترخيص دائم — دفعة واحدة فقط</div>
+            </div>
+            <div class="hero-btns">
+                <a href="../downloads/%D9%81%D8%A7%D8%AA%D9%88%D8%B1%D8%A9_%D8%A7%D9%84%D9%85%D8%B5%D9%81%D9%88%D9%81%D8%A9.html" class="btn btn-primary" download>
+                    <i class="fas fa-download"></i> تحميل البرنامج
+                </a>
+                <a href="../downloads/%D9%81%D8%A7%D8%AA%D9%88%D8%B1%D8%A9_%D8%A7%D9%84%D9%85%D8%B5%D9%81%D9%88%D9%81%D8%A9.html" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-eye"></i> تجربة مجانية 30 يوم
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- الميزات -->
+    <section class="features-section">
+        <h2>لماذا فاتورة المصفوفة؟</h2>
+        <div class="features-grid">
+            <div class="feat-card">
+                <i class="fas fa-language"></i>
+                <h3>عربي بالكامل</h3>
+                <p>واجهة عربية من اليمين لليسار، مصممة للمستخدم العربي. لا تحتاج معرفة بالانجليزية.</p>
+            </div>
+            <div class="feat-card">
+                <i class="fas fa-wifi-slash"></i>
+                <h3>يعمل بدون انترنت</h3>
+                <p>ملف واحد يعمل على اي متصفح. لا يحتاج انترنت، لا تنصيب، لا خوادم.</p>
+            </div>
+            <div class="feat-card">
+                <i class="fas fa-print"></i>
+                <h3>طباعة احترافية</h3>
+                <p>فواتير مطبوعة بتصميم احترافي مع شعار متجرك ومعلوماتك الكاملة.</p>
+            </div>
+            <div class="feat-card">
+                <i class="fas fa-users"></i>
+                <h3>ادارة الزبائن</h3>
+                <p>سجل كامل للزبائن مع معلومات الاتصال وتاريخ الفواتير لكل زبون.</p>
+            </div>
+            <div class="feat-card">
+                <i class="fas fa-boxes-stacked"></i>
+                <h3>ادارة المنتجات</h3>
+                <p>كتالوج المنتجات مع الاسعار والتصنيفات والمخزون والوحدات المختلفة.</p>
+            </div>
+            <div class="feat-card">
+                <i class="fas fa-chart-bar"></i>
+                <h3>تقارير مفصلة</h3>
+                <p>تقارير المبيعات حسب الفترة مع تحليل المنتجات الاكثر مبيعاً وتصدير CSV.</p>
+            </div>
+            <div class="feat-card">
+                <i class="fas fa-money-bill-wave"></i>
+                <h3>تتبع المدفوعات</h3>
+                <p>نظام دفعات متكامل — نقدي، آجل، تحويل، بطاقة — مع تتبع الديون والمتبقي.</p>
+            </div>
+            <div class="feat-card">
+                <i class="fas fa-database"></i>
+                <h3>نسخ احتياطي</h3>
+                <p>تصدير واستيراد جميع البيانات بملف واحد. بياناتك في امان دائماً.</p>
+            </div>
+            <div class="feat-card">
+                <i class="fas fa-sync-alt"></i>
+                <h3>تحديثات مجانية</h3>
+                <p>تحديثات تلقائية مجانية مدى الحياة مع اشعارات فورية عند توفر تحديث.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ما يتضمنه البرنامج -->
+    <section class="screenshots-section">
+        <h2>ما يتضمنه البرنامج</h2>
+        <div class="screen-preview" style="max-width:900px;margin:0 auto">
+            <div class="screen-preview-bar">
+                <div class="screen-dot red"></div>
+                <div class="screen-dot yellow"></div>
+                <div class="screen-dot green"></div>
+            </div>
+            <div class="screen-content" style="flex-direction:column;gap:20px;text-align:center">
+                <i class="fas fa-desktop"></i>
+                <div>
+                    <h3 style="color:#1e293b;margin-bottom:8px">8 اقسام متكاملة</h3>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:20px;text-align:right">
+                        <div style="background:white;padding:14px;border-radius:10px;display:flex;align-items:center;gap:10px">
+                            <i class="fas fa-tachometer-alt" style="color:#6366f1;font-size:1.2rem"></i>
+                            <span style="color:#1e293b;font-weight:600">لوحة التحكم</span>
+                        </div>
+                        <div style="background:white;padding:14px;border-radius:10px;display:flex;align-items:center;gap:10px">
+                            <i class="fas fa-file-invoice" style="color:#6366f1;font-size:1.2rem"></i>
+                            <span style="color:#1e293b;font-weight:600">ادارة الفواتير</span>
+                        </div>
+                        <div style="background:white;padding:14px;border-radius:10px;display:flex;align-items:center;gap:10px">
+                            <i class="fas fa-plus-circle" style="color:#6366f1;font-size:1.2rem"></i>
+                            <span style="color:#1e293b;font-weight:600">فاتورة جديدة</span>
+                        </div>
+                        <div style="background:white;padding:14px;border-radius:10px;display:flex;align-items:center;gap:10px">
+                            <i class="fas fa-users" style="color:#6366f1;font-size:1.2rem"></i>
+                            <span style="color:#1e293b;font-weight:600">ادارة الزبائن</span>
+                        </div>
+                        <div style="background:white;padding:14px;border-radius:10px;display:flex;align-items:center;gap:10px">
+                            <i class="fas fa-boxes-stacked" style="color:#6366f1;font-size:1.2rem"></i>
+                            <span style="color:#1e293b;font-weight:600">ادارة المنتجات</span>
+                        </div>
+                        <div style="background:white;padding:14px;border-radius:10px;display:flex;align-items:center;gap:10px">
+                            <i class="fas fa-chart-bar" style="color:#6366f1;font-size:1.2rem"></i>
+                            <span style="color:#1e293b;font-weight:600">التقارير</span>
+                        </div>
+                        <div style="background:white;padding:14px;border-radius:10px;display:flex;align-items:center;gap:10px">
+                            <i class="fas fa-cog" style="color:#6366f1;font-size:1.2rem"></i>
+                            <span style="color:#1e293b;font-weight:600">الاعدادات</span>
+                        </div>
+                        <div style="background:white;padding:14px;border-radius:10px;display:flex;align-items:center;gap:10px">
+                            <i class="fas fa-shield-alt" style="color:#6366f1;font-size:1.2rem"></i>
+                            <span style="color:#1e293b;font-weight:600">الترخيص</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- التسعير -->
+    <section class="pricing-section">
+        <h2>تسعير بسيط وواضح</h2>
+        <p>بدون اشتراكات شهرية — دفعة واحدة فقط</p>
+        <div class="pricing-card">
+            <h3>ترخيص دائم</h3>
+            <div class="price-big">45,000 د.ع</div>
+            <div class="price-note">دفعة واحدة — بدون رسوم اضافية</div>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check-circle"></i> ترخيص دائم مدى الحياة</li>
+                <li><i class="fas fa-check-circle"></i> تحديثات مجانية للابد</li>
+                <li><i class="fas fa-check-circle"></i> دعم فني عبر الهاتف والبريد</li>
+                <li><i class="fas fa-check-circle"></i> جميع الميزات مفتوحة</li>
+                <li><i class="fas fa-check-circle"></i> يعمل بدون انترنت</li>
+                <li><i class="fas fa-check-circle"></i> نسخ احتياطي واستيراد</li>
+                <li><i class="fas fa-check-circle"></i> طباعة فواتير احترافية</li>
+                <li><i class="fas fa-check-circle"></i> تجربة مجانية 30 يوم</li>
+            </ul>
+            <a href="../downloads/%D9%81%D8%A7%D8%AA%D9%88%D8%B1%D8%A9_%D8%A7%D9%84%D9%85%D8%B5%D9%81%D9%88%D9%81%D8%A9.html" class="btn btn-primary" style="width:100%;padding:14px;font-size:1.1rem" download>
+                <i class="fas fa-download"></i> تحميل الان
+            </a>
+        </div>
+    </section>
+
+    <!-- شروط الترخيص -->
+    <section class="license-section">
+        <h2>شروط الترخيص</h2>
+        <div class="license-grid">
+            <div class="license-card">
+                <h3><i class="fas fa-check-circle" style="color:#10b981"></i> مسموح</h3>
+                <ul>
+                    <li><i class="fas fa-chevron-left"></i> استخدام البرنامج لنشاطك التجاري</li>
+                    <li><i class="fas fa-chevron-left"></i> اصدار فواتير غير محدودة</li>
+                    <li><i class="fas fa-chevron-left"></i> تخصيص اعدادات المتجر</li>
+                    <li><i class="fas fa-chevron-left"></i> تصدير واستيراد البيانات</li>
+                    <li><i class="fas fa-chevron-left"></i> الحصول على التحديثات المجانية</li>
+                    <li><i class="fas fa-chevron-left"></i> التواصل مع الدعم الفني</li>
+                </ul>
+            </div>
+            <div class="license-card">
+                <h3><i class="fas fa-times-circle" style="color:#ef4444"></i> غير مسموح</h3>
+                <ul>
+                    <li><i class="fas fa-chevron-left"></i> نسخ البرنامج وتوزيعه لاطراف اخرى</li>
+                    <li><i class="fas fa-chevron-left"></i> بيع البرنامج او اعادة ترخيصه</li>
+                    <li><i class="fas fa-chevron-left"></i> تعديل الكود المصدري</li>
+                    <li><i class="fas fa-chevron-left"></i> ازالة حقوق الملكية الفكرية</li>
+                    <li><i class="fas fa-chevron-left"></i> استخدام المفتاح على اكثر من جهاز</li>
+                    <li><i class="fas fa-chevron-left"></i> الهندسة العكسية للبرنامج</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- الاسئلة الشائعة -->
+    <section class="faq-section">
+        <h2>الاسئلة الشائعة</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span>كيف يعمل البرنامج؟</span>
+                    <i class="fas fa-chevron-down" style="transition:transform 0.3s"></i>
+                </div>
+                <div class="faq-a">البرنامج ملف HTML واحد يعمل على اي متصفح (Chrome, Firefox, Edge). فقط افتح الملف وابدأ العمل. لا يحتاج تنصيب ولا انترنت.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span>اين تُحفظ البيانات؟</span>
+                    <i class="fas fa-chevron-down" style="transition:transform 0.3s"></i>
+                </div>
+                <div class="faq-a">البيانات تُحفظ في المتصفح (localStorage) على جهازك. لا ترسل لاي خادم. يمكنك عمل نسخة احتياطية واستيرادها في اي وقت.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span>كيف احصل على مفتاح التفعيل؟</span>
+                    <i class="fas fa-chevron-down" style="transition:transform 0.3s"></i>
+                </div>
+                <div class="faq-a">تواصل معنا على الرقم +964-78-08923210 او البريد fadhilabbas51@gmail.com. بعد الدفع نرسل لك مفتاح التفعيل فوراً.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span>هل يمكنني تجربة البرنامج قبل الشراء؟</span>
+                    <i class="fas fa-chevron-down" style="transition:transform 0.3s"></i>
+                </div>
+                <div class="faq-a">نعم! البرنامج يوفر فترة تجريبية مجانية 30 يوم بكامل المميزات. جرّبه اولاً ثم قرر.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span>هل التحديثات مجانية؟</span>
+                    <i class="fas fa-chevron-down" style="transition:transform 0.3s"></i>
+                </div>
+                <div class="faq-a">نعم، جميع التحديثات مجانية مدى الحياة. البرنامج يتحقق تلقائياً من التحديثات ويُعلمك عند توفر اصدار جديد.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                    <span>ماذا لو فقدت البيانات؟</span>
+                    <i class="fas fa-chevron-down" style="transition:transform 0.3s"></i>
+                </div>
+                <div class="faq-a">استخدم خاصية النسخ الاحتياطي دورياً. البرنامج يصدّر ملف JSON يمكنك استيراده لاحقاً. ننصح بعمل نسخة كل اسبوع.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- دعوة للعمل -->
+    <section class="cta-section">
+        <h2>ابدأ بادارة فواتيرك الان</h2>
+        <p>حمّل البرنامج وجرّبه مجاناً لمدة 30 يوم — بدون اي التزام</p>
+        <a href="../downloads/%D9%81%D8%A7%D8%AA%D9%88%D8%B1%D8%A9_%D8%A7%D9%84%D9%85%D8%B5%D9%81%D9%88%D9%81%D8%A9.html" class="btn btn-primary" download>
+            <i class="fas fa-download"></i> تحميل فاتورة المصفوفة
+        </a>
+    </section>
+
+    <!-- الذيل -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>اكاديمية المصفوفة</h4>
+                    <p>منصة متخصصة في التقنية والذكاء الاصطناعي</p>
+                    <p>تقدم حلولاً برمجية عربية مبتكرة</p>
+                </div>
+                <div class="footer-section">
+                    <h4>المنتجات</h4>
+                    <ul>
+                        <li><a href="fdl.html">بيئة تطوير فاضل IDE</a></li>
+                        <li><a href="invoice.html">فاتورة المصفوفة</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معنا</h4>
+                    <p><i class="fas fa-phone"></i> +964-78-08923210</p>
+                    <p><i class="fas fa-envelope"></i> fadhilabbas51@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة &copy; 2026 — اكاديمية المصفوفة للذكاء الاصطناعي</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // قائمة الموبايل
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

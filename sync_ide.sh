@@ -69,7 +69,7 @@ deploy() {
 
     rm -f "$FLAG_FILE"
     echo ""
-    echo "[تم] الموقع محدّث: https://almasfoufaakademy.netlify.app"
+    echo "[تم] الموقع محدّث: https://zamboor15.github.io/almasfoufaakademy/"
 
     if command -v notify-send &>/dev/null; then
         notify-send -u normal -i dialog-information \
