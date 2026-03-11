@@ -622,6 +622,13 @@ function verifyLicenseKey(key,phone){
     return key===generateLicenseKey(phone);
 }
 // ===== عرض تفاصيل طريقة الدفع =====
+let _buyAccount='';
+function copyAccount(){
+    navigator.clipboard.writeText(_buyAccount).then(()=>{
+        const btn=document.getElementById('copyAccBtn');
+        if(btn){btn.innerHTML='<i class="fas fa-check"></i> تم';setTimeout(()=>{btn.innerHTML='<i class="fas fa-copy"></i> نسخ'},1500)}
+    }).catch(()=>{});
+}
 function showBuyMethod(type){
     // تمييز الزر المختار
     ['Zaincash','Qicard','Visa','Bank'].forEach(b=>{
@@ -678,12 +685,13 @@ function showBuyMethod(type){
         }
     };
     const m=methods[type];if(!m)return;
+    _buyAccount=m.account||'';
     let html='<div style="background:#f8fafc;border-radius:10px;padding:16px;border:2px solid '+m.color+'22">';
     html+='<h4 style="color:'+m.color+';margin-bottom:12px;font-size:1rem"><i class="'+m.icon+'"></i> '+m.title+'</h4>';
     if(m.account){
         html+='<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
         html+='<span dir="ltr" style="font-size:1.1rem;font-weight:700;letter-spacing:1px">'+m.account+'</span>';
-        html+='<button onclick="navigator.clipboard.writeText(\''+m.account+'\');this.innerHTML=\'<i class=\\'fas fa-check\\'></i> تم\';setTimeout(()=>this.innerHTML=\'<i class=\\'fas fa-copy\\'></i> نسخ\',1500)" style="background:'+m.color+';color:#fff;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:.8rem"><i class="fas fa-copy"></i> نسخ</button>';
+        html+='<button id="copyAccBtn" onclick="copyAccount()" style="background:'+m.color+';color:#fff;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:.8rem"><i class="fas fa-copy"></i> نسخ</button>';
         html+='</div>';
     }
     html+='<div style="margin-bottom:14px">';
