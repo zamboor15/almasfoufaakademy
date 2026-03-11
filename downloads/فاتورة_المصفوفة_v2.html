@@ -335,7 +335,27 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
         <!-- الزبون -->
         <div class="fr" style="margin-bottom:12px">
             <div class="fg" style="margin:0"><label>الزبون</label><select id="posCustomer"><option value="">زبون عابر (نقدي)</option></select></div>
-            <div class="fg" style="margin:0"><label>طريقة الدفع</label><select id="posPayment"><option value="نقدي">نقدي</option><option value="اجل">آجل</option><option value="تحويل">تحويل</option><option value="بطاقة">بطاقة</option></select></div>
+            <div class="fg" style="margin:0"><label>طريقة الدفع</label><select id="posPayment" onchange="onPaymentChange()">
+                <option value="نقدي">نقدي</option>
+                <option value="اجل">آجل (دين)</option>
+                <option value="بطاقة">بطاقة (Visa/Master)</option>
+                <option value="زين كاش">زين كاش</option>
+                <option value="كي كارد">كي كارد (Qi Card)</option>
+                <option value="تحويل">تحويل مصرفي</option>
+                <option value="مختلط">مختلط (نقدي + الكتروني)</option>
+            </select></div>
+        </div>
+        <!-- معلومات الدفع الالكتروني -->
+        <div id="ePayInfo" class="hide" style="margin-bottom:12px;padding:12px;background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px">
+            <div id="ePayContent"></div>
+        </div>
+        <!-- الدفع المختلط -->
+        <div id="mixedPayInfo" class="hide" style="margin-bottom:12px;padding:12px;background:#fef3c7;border:1px solid #fed7aa;border-radius:10px">
+            <div class="fr">
+                <div class="fg" style="margin:0"><label>المبلغ النقدي</label><input type="number" id="mixCash" step="250" inputmode="numeric" placeholder="0" oninput="calcMixRemain()"></div>
+                <div class="fg" style="margin:0"><label>المبلغ الالكتروني</label><input type="number" id="mixElec" readonly style="background:#f0f0f0"></div>
+            </div>
+            <p style="font-size:.8rem;color:var(--t2);margin-top:4px"><i class="fas fa-info-circle"></i> ادخل المبلغ النقدي وسيُحسب الباقي تلقائياً</p>
         </div>
         <!-- السلة -->
         <div class="tw"><table><thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>الاجمالي</th><th></th></tr></thead>
@@ -454,6 +474,7 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
         <div class="ch"><h2><i class="fas fa-cog"></i> الاعدادات</h2></div>
         <div class="tabs">
             <button class="tab active" onclick="setTab='shop';renderSettings();actTab(this)">المتجر</button>
+            <button class="tab" onclick="setTab='payment';renderSettings();actTab(this)">الدفع الالكتروني</button>
             <button class="tab" onclick="setTab='users';renderSettings();actTab(this)">المستخدمين</button>
             <button class="tab" onclick="setTab='backup';renderSettings();actTab(this)">النسخ الاحتياطي</button>
         </div>
@@ -926,7 +947,9 @@ function completeSale(){
         notes:'',seller:curUser?curUser.name:'',
         payments:[],debtNotifs:0,lastNotif:null,debtResponded:false
     };
-    if(inv.paymentMethod==='نقدي'||!inv.customerId)inv.payments=[{amount:total,date:today(),note:'دفع نقدي'}];
+    if(inv.paymentMethod==='نقدي'||(!inv.customerId&&inv.paymentMethod!=='اجل'))inv.payments=[{amount:total,date:today(),note:'دفع '+inv.paymentMethod}];
+    if(inv.paymentMethod==='بطاقة'||inv.paymentMethod==='زين كاش'||inv.paymentMethod==='كي كارد'||inv.paymentMethod==='تحويل')inv.payments=[{amount:total,date:today(),note:'دفع '+inv.paymentMethod}];
+    if(inv.paymentMethod==='مختلط'){const cash=+document.getElementById('mixCash').value||0;const elec=total-cash;inv.payments=[{amount:cash,date:today(),note:'نقدي'},{amount:elec,date:today(),note:'الكتروني'}]}
     // خصم المخزون
     cart.forEach(c=>{const p=products.find(x=>x.id===c.productId);if(p)p.stock=Math.max(0,(p.stock||0)-c.qty)});
     invoices.push(inv);cnt++;
@@ -1175,6 +1198,32 @@ function renderSettings(){
             <div class="fr"><div class="fg"><label>بادئة الفاتورة</label><input type="text" id="cfgPre" value="${cfg.prefix}"></div>
             <div class="fg"><label>أيام الأمان (للمخزون)</label><input type="number" id="cfgSafe" value="${cfg.safetyDays||3}" min="1" max="30"></div></div>
             <button type="submit" class="btn btn-p"><i class="fas fa-save"></i> حفظ</button></form>`;
+    }else if(setTab==='payment'){
+        const pay=cfg.epay||{};
+        el.innerHTML=`<div style="margin-top:16px">
+            <div style="background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:16px;margin-bottom:16px">
+                <h3 style="font-size:.95rem;margin-bottom:8px"><i class="fas fa-info-circle" style="color:var(--p)"></i> كيف يعمل الدفع الالكتروني؟</h3>
+                <p style="font-size:.85rem;color:var(--t)">عند اختيار دفع الكتروني في نقطة البيع، يُولّد البرنامج <strong>رابط دفع + رمز QR</strong> يرسله للزبون عبر واتساب. الزبون يفتح الرابط ويدفع من تطبيقه. أدخل بيانات حساباتك هنا:</p>
+            </div>
+            <form onsubmit="savePayCfg(event)">
+            <div style="background:#fff;border:2px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:12px">
+                <h3 style="font-size:.9rem;margin-bottom:10px;color:#0f172a"><img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><circle cx='10' cy='10' r='10' fill='%230066FF'/><text x='10' y='14' text-anchor='middle' font-size='10' fill='white' font-weight='bold'>Z</text></svg>" style="vertical-align:middle"> زين كاش (ZainCash)</h3>
+                <div class="fr"><div class="fg"><label>رقم المحفظة</label><input type="text" id="payZainNum" value="${pay.zainNum||''}" placeholder="07xxxxxxxxx" inputmode="tel"></div>
+                <div class="fg"><label>اسم صاحب المحفظة</label><input type="text" id="payZainName" value="${pay.zainName||''}" placeholder="الاسم كما في زين كاش"></div></div>
+            </div>
+            <div style="background:#fff;border:2px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:12px">
+                <h3 style="font-size:.9rem;margin-bottom:10px;color:#0f172a"><img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><circle cx='10' cy='10' r='10' fill='%23E31937'/><text x='10' y='14' text-anchor='middle' font-size='10' fill='white' font-weight='bold'>Q</text></svg>" style="vertical-align:middle"> كي كارد (Qi Card)</h3>
+                <div class="fr"><div class="fg"><label>رقم البطاقة / الحساب</label><input type="text" id="payQiNum" value="${pay.qiNum||''}" placeholder="رقم الحساب"></div>
+                <div class="fg"><label>اسم صاحب الحساب</label><input type="text" id="payQiName" value="${pay.qiName||''}" placeholder="الاسم كما في كي كارد"></div></div>
+            </div>
+            <div style="background:#fff;border:2px solid #e2e8f0;border-radius:10px;padding:16px;margin-bottom:12px">
+                <h3 style="font-size:.9rem;margin-bottom:10px;color:#0f172a"><i class="fas fa-university" style="color:var(--p)"></i> تحويل مصرفي</h3>
+                <div class="fr"><div class="fg"><label>اسم البنك</label><input type="text" id="payBankName" value="${pay.bankName||''}" placeholder="مصرف الرشيد، الرافدين..."></div>
+                <div class="fg"><label>رقم الحساب / IBAN</label><input type="text" id="payBankAcc" value="${pay.bankAcc||''}" placeholder="رقم الحساب"></div></div>
+                <div class="fg"><label>اسم صاحب الحساب</label><input type="text" id="payBankHolder" value="${pay.bankHolder||''}" placeholder="الاسم الكامل"></div>
+            </div>
+            <button type="submit" class="btn btn-p"><i class="fas fa-save"></i> حفظ بيانات الدفع</button>
+            </form></div>`;
     }else if(setTab==='users'){
         el.innerHTML=`<div style="margin-top:16px"><button class="btn btn-p" onclick="addUserPrompt()"><i class="fas fa-user-plus"></i> اضافة بائع</button>
             <div class="tw" style="margin-top:12px"><table><thead><tr><th>الاسم</th><th>الدور</th><th>تاريخ الانشاء</th><th>اجراء</th></tr></thead><tbody>`+
@@ -1189,6 +1238,116 @@ function renderSettings(){
             </div>`;
     }
 }
+function savePayCfg(e){
+    e.preventDefault();
+    if(!cfg.epay)cfg.epay={};
+    cfg.epay.zainNum=document.getElementById('payZainNum').value.trim();
+    cfg.epay.zainName=document.getElementById('payZainName').value.trim();
+    cfg.epay.qiNum=document.getElementById('payQiNum').value.trim();
+    cfg.epay.qiName=document.getElementById('payQiName').value.trim();
+    cfg.epay.bankName=document.getElementById('payBankName').value.trim();
+    cfg.epay.bankAcc=document.getElementById('payBankAcc').value.trim();
+    cfg.epay.bankHolder=document.getElementById('payBankHolder').value.trim();
+    S('cfg',cfg);toast('تم حفظ بيانات الدفع الالكتروني');
+}
+
+// ========== الدفع الالكتروني ==========
+function onPaymentChange(){
+    const method=document.getElementById('posPayment').value;
+    const ePayDiv=document.getElementById('ePayInfo');
+    const mixDiv=document.getElementById('mixedPayInfo');
+    const total=cart.reduce((s,c)=>s+c.total,0);
+    ePayDiv.classList.add('hide');
+    mixDiv.classList.add('hide');
+    if(method==='زين كاش'||method==='كي كارد'||method==='تحويل'||method==='بطاقة'){
+        const pay=cfg.epay||{};
+        let info='';
+        if(method==='زين كاش'){
+            if(!pay.zainNum){info='<p style="color:var(--err)"><i class="fas fa-exclamation-triangle"></i> لم تُدخل رقم محفظة زين كاش — اذهب للاعدادات > الدفع الالكتروني</p>'}
+            else{info=`<div style="text-align:center">
+                <p style="font-weight:700;margin-bottom:6px"><img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><circle cx='10' cy='10' r='10' fill='%230066FF'/><text x='10' y='14' text-anchor='middle' font-size='10' fill='white' font-weight='bold'>Z</text></svg>" style="vertical-align:middle"> ارسل ${fnum(total)} ${cfg.currency} عبر زين كاش الى:</p>
+                <p style="font-size:1.3rem;font-weight:700;direction:ltr;color:var(--p)">${pay.zainNum}</p>
+                <p style="font-size:.85rem;color:var(--t2)">باسم: ${pay.zainName}</p>
+                <div style="margin-top:10px;display:flex;gap:8px;justify-content:center">
+                    <button class="btn btn-s" style="font-size:.8rem" onclick="sendPayLink('zaincash')"><i class="fab fa-whatsapp"></i> ارسل للزبون</button>
+                    <button class="btn btn-o" style="font-size:.8rem" onclick="copyPayInfo('zaincash')"><i class="fas fa-copy"></i> نسخ</button>
+                </div>
+                ${genQRCode(pay.zainNum+' | '+fnum(total)+' '+cfg.currency)}
+            </div>`}
+        }else if(method==='كي كارد'){
+            if(!pay.qiNum){info='<p style="color:var(--err)"><i class="fas fa-exclamation-triangle"></i> لم تُدخل رقم كي كارد — اذهب للاعدادات > الدفع الالكتروني</p>'}
+            else{info=`<div style="text-align:center">
+                <p style="font-weight:700;margin-bottom:6px"><img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><circle cx='10' cy='10' r='10' fill='%23E31937'/><text x='10' y='14' text-anchor='middle' font-size='10' fill='white' font-weight='bold'>Q</text></svg>" style="vertical-align:middle"> ارسل ${fnum(total)} ${cfg.currency} عبر كي كارد الى:</p>
+                <p style="font-size:1.3rem;font-weight:700;direction:ltr;color:var(--p)">${pay.qiNum}</p>
+                <p style="font-size:.85rem;color:var(--t2)">باسم: ${pay.qiName}</p>
+                <div style="margin-top:10px;display:flex;gap:8px;justify-content:center">
+                    <button class="btn btn-s" style="font-size:.8rem" onclick="sendPayLink('qicard')"><i class="fab fa-whatsapp"></i> ارسل للزبون</button>
+                    <button class="btn btn-o" style="font-size:.8rem" onclick="copyPayInfo('qicard')"><i class="fas fa-copy"></i> نسخ</button>
+                </div>
+                ${genQRCode(pay.qiNum+' | '+fnum(total)+' '+cfg.currency)}
+            </div>`}
+        }else if(method==='تحويل'){
+            if(!pay.bankAcc){info='<p style="color:var(--err)"><i class="fas fa-exclamation-triangle"></i> لم تُدخل بيانات الحساب البنكي — اذهب للاعدادات > الدفع الالكتروني</p>'}
+            else{info=`<div style="text-align:center">
+                <p style="font-weight:700;margin-bottom:6px"><i class="fas fa-university" style="color:var(--p)"></i> حوّل ${fnum(total)} ${cfg.currency} الى:</p>
+                <p style="font-size:.85rem"><strong>البنك:</strong> ${pay.bankName}</p>
+                <p style="font-size:1.1rem;font-weight:700;direction:ltr;color:var(--p)">${pay.bankAcc}</p>
+                <p style="font-size:.85rem;color:var(--t2)">باسم: ${pay.bankHolder}</p>
+                <div style="margin-top:10px;display:flex;gap:8px;justify-content:center">
+                    <button class="btn btn-s" style="font-size:.8rem" onclick="sendPayLink('bank')"><i class="fab fa-whatsapp"></i> ارسل للزبون</button>
+                    <button class="btn btn-o" style="font-size:.8rem" onclick="copyPayInfo('bank')"><i class="fas fa-copy"></i> نسخ</button>
+                </div>
+            </div>`}
+        }else if(method==='بطاقة'){
+            info=`<div style="text-align:center;padding:8px">
+                <i class="fab fa-cc-visa" style="font-size:2rem;color:#1a1f71;margin-left:8px"></i>
+                <i class="fab fa-cc-mastercard" style="font-size:2rem;color:#eb001b;margin-left:8px"></i>
+                <p style="margin-top:8px;font-size:.85rem;color:var(--t)">الدفع بالبطاقة يتم عبر <strong>جهاز POS المصرفي</strong> المتصل بحسابك</p>
+                <p style="font-size:.8rem;color:var(--t2);margin-top:4px"><i class="fas fa-info-circle"></i> مرّر البطاقة على الجهاز — المبلغ: <strong>${fnum(total)} ${cfg.currency}</strong></p>
+            </div>`;
+        }
+        document.getElementById('ePayContent').innerHTML=info;
+        ePayDiv.classList.remove('hide');
+    }else if(method==='مختلط'){
+        mixDiv.classList.remove('hide');
+        document.getElementById('mixCash').value='';
+        document.getElementById('mixElec').value=fnum(total);
+    }
+}
+function calcMixRemain(){
+    const total=cart.reduce((s,c)=>s+c.total,0);
+    const cash=+document.getElementById('mixCash').value||0;
+    document.getElementById('mixElec').value=fnum(Math.max(0,total-cash));
+}
+function genQRCode(data){
+    // QR Code بسيط بـ SVG — جدول 21x21 مبسط
+    // نستخدم API مجاني لتوليد QR (يعمل اوفلاين بعد التخزين)
+    const url='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='+encodeURIComponent(data);
+    return `<div style="margin-top:10px"><img src="${url}" alt="QR" style="border-radius:8px;border:2px solid var(--b)" onerror="this.style.display='none'"><p style="font-size:.75rem;color:var(--t2);margin-top:4px">امسح الرمز بالكاميرا</p></div>`;
+}
+function getPayMsg(type){
+    const total=cart.reduce((s,c)=>s+c.total,0);
+    const pay=cfg.epay||{};
+    if(type==='zaincash')return `السلام عليكم\nمبلغ الفاتورة: ${fnum(total)} ${cfg.currency}\nارسل المبلغ عبر زين كاش الى:\nرقم: ${pay.zainNum}\nباسم: ${pay.zainName}\n\n${cfg.shop}`;
+    if(type==='qicard')return `السلام عليكم\nمبلغ الفاتورة: ${fnum(total)} ${cfg.currency}\nارسل المبلغ عبر كي كارد الى:\nرقم: ${pay.qiNum}\nباسم: ${pay.qiName}\n\n${cfg.shop}`;
+    if(type==='bank')return `السلام عليكم\nمبلغ الفاتورة: ${fnum(total)} ${cfg.currency}\nحوّل المبلغ الى:\nبنك: ${pay.bankName}\nحساب: ${pay.bankAcc}\nباسم: ${pay.bankHolder}\n\n${cfg.shop}`;
+    return '';
+}
+function sendPayLink(type){
+    const custId=document.getElementById('posCustomer').value;
+    const cust=custId?customers.find(x=>x.id===custId):null;
+    const msg=encodeURIComponent(getPayMsg(type));
+    if(cust&&cust.phone){window.open('https://wa.me/964'+cust.phone.replace(/^0/,'')+'?text='+msg,'_blank')}
+    else{
+        // نسخ الرسالة ثم فتح واتساب
+        navigator.clipboard.writeText(getPayMsg(type)).then(()=>toast('تم نسخ رسالة الدفع — الصقها في واتساب','ok'));
+        window.open('https://wa.me/?text='+msg,'_blank');
+    }
+}
+function copyPayInfo(type){
+    navigator.clipboard.writeText(getPayMsg(type)).then(()=>toast('تم النسخ','ok')).catch(()=>toast('فشل النسخ','er'));
+}
+
 function saveCfg(e){
     e.preventDefault();
     cfg.shop=document.getElementById('cfgShop').value.trim();cfg.phone=document.getElementById('cfgPhone').value.trim();
