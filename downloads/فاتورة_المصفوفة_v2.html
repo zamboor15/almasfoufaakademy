@@ -650,7 +650,7 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
 <!-- النوافذ المنبثقة -->
 <div class="modal-o" id="productModal"><div class="modal"><div class="mh"><h3><i class="fas fa-box"></i> <span id="prodModalTitle">منتج جديد</span></h3><button class="mx" onclick="closeM('productModal')">&times;</button></div><div class="mb" id="prodModalBody"></div><div class="mf"><button class="btn btn-p" onclick="saveProduct()"><i class="fas fa-save"></i> حفظ</button><button class="btn btn-o" onclick="closeM('productModal')">الغاء</button></div></div></div>
 <div class="modal-o" id="custModal"><div class="modal"><div class="mh"><h3><i class="fas fa-user-plus"></i> <span id="custModalTitle">زبون جديد</span></h3><button class="mx" onclick="closeM('custModal')">&times;</button></div><div class="mb" id="custModalBody"></div><div class="mf"><button class="btn btn-p" onclick="saveCust()"><i class="fas fa-save"></i> حفظ</button><button class="btn btn-o" onclick="closeM('custModal')">الغاء</button></div></div></div>
-<div class="modal-o" id="invViewModal"><div class="modal" style="max-width:850px"><div class="mh"><h3><i class="fas fa-file-invoice"></i> الفاتورة</h3><div style="display:flex;gap:6px"><button class="btn btn-s" style="font-size:.8rem" onclick="printInv()"><i class="fas fa-print"></i></button><button class="mx" onclick="closeM('invViewModal')">&times;</button></div></div><div class="mb" id="invViewBody"></div></div></div>
+<div class="modal-o" id="invViewModal"><div class="modal" style="max-width:850px"><div class="mh"><h3><i class="fas fa-file-invoice"></i> الفاتورة</h3><div style="display:flex;gap:6px"><button class="btn btn-p" style="font-size:.8rem" onclick="printInv('receipt')" title="طباعة رول (كاشير)"><i class="fas fa-receipt"></i> رول</button><button class="btn btn-o" style="font-size:.8rem" onclick="printInv('a4')" title="طباعة A4"><i class="fas fa-print"></i> A4</button><button class="mx" onclick="closeM('invViewModal')">&times;</button></div></div><div class="mb" id="invViewBody"></div></div></div>
 <div class="modal-o" id="payModal"><div class="modal" style="max-width:400px"><div class="mh"><h3><i class="fas fa-money-bill-wave"></i> تسجيل دفعة</h3><button class="mx" onclick="closeM('payModal')">&times;</button></div><div class="mb" id="payModalBody"></div><div class="mf"><button class="btn btn-s" onclick="recordPay()"><i class="fas fa-check"></i> تسجيل</button><button class="btn btn-o" onclick="closeM('payModal')">الغاء</button></div></div></div>
 <div class="modal-o" id="cameraModal"><div class="modal" style="max-width:500px"><div class="mh"><h3><i class="fas fa-camera"></i> مسح الباركود</h3><button class="mx" onclick="closeCamera()">&times;</button></div><div class="mb" style="text-align:center">
 <div style="position:relative;display:inline-block;width:100%">
@@ -1336,6 +1336,8 @@ function completeSale(){
         if(c){c.totalSpent=(c.totalSpent||0)+total;c.invoiceCount=(c.invoiceCount||0)+1;c.lastVisit=today();S('cust',customers)}
     }
     toast('تم البيع — '+inv.number);
+    // طباعة الفاتورة تلقائياً (رول)
+    if(confirm('طباعة فاتورة رول؟')){printInvReceipt(inv)}
     cart=[];renderCart();updateProfitBar();
     // تنظيف حقل الزبون
     document.getElementById('posCustomerInput').value='';
@@ -1993,7 +1995,7 @@ function viewInv(id){
     const inv=invoices.find(x=>x.id===id);if(!inv)return;
     const c=customers.find(x=>x.id===inv.customerId);
     const paid=inv.payments?inv.payments.reduce((s,p)=>s+p.amount,0):0;
-    document.getElementById('invViewBody').innerHTML=`<div class="inv-print" id="printArea">
+    document.getElementById('invViewBody').innerHTML=`<div class="inv-print" id="printArea" data-inv-id="${id}">
         <div style="display:flex;justify-content:space-between;border-bottom:3px solid var(--p);padding-bottom:16px;margin-bottom:20px">
             <div><h2 style="color:var(--p)">${cfg.shop}</h2><p style="font-size:.85rem;color:var(--t2)">${cfg.address||''}</p><p style="font-size:.85rem;color:var(--t2)">${cfg.phone||''}</p></div>
             <div style="text-align:left"><h3 style="color:var(--p);font-size:1.5rem">فاتورة</h3><p style="font-size:.85rem">${inv.number}</p><p style="font-size:.85rem">${inv.date}</p><p style="font-size:.85rem">${inv.paymentMethod}</p></div>
@@ -2011,7 +2013,99 @@ function viewInv(id){
         </div>`;
     openM('invViewModal');
 }
-function printInv(){const w=window.open('','_blank');w.document.write('<!DOCTYPE html><html lang=ar dir=rtl><head><meta charset=UTF-8><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Segoe UI,Tahoma,sans-serif;direction:rtl;padding:20px}table{width:100%;border-collapse:collapse}th,td{padding:6px 8px;text-align:right}th{background:#6366f1;color:white}td{border-bottom:1px solid #e2e8f0}</style></head><body>'+document.getElementById('printArea').innerHTML+'</body></html>');w.document.close();setTimeout(()=>w.print(),300)}
+function printInv(mode){
+    const inv=invoices.find(x=>x.id===document.getElementById('printArea')?.dataset?.invId);
+    if(!inv){
+        // طباعة من محتوى printArea مباشرة
+        const w=window.open('','_blank');
+        w.document.write('<!DOCTYPE html><html lang=ar dir=rtl><head><meta charset=UTF-8><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Segoe UI,Tahoma,sans-serif;direction:rtl;padding:20px}table{width:100%;border-collapse:collapse}th,td{padding:6px 8px;text-align:right}th{background:#333;color:white}td{border-bottom:1px solid #ddd}</style></head><body>'+document.getElementById('printArea').innerHTML+'</body></html>');
+        w.document.close();setTimeout(()=>w.print(),300);
+        return;
+    }
+    if(mode==='a4')printInvA4(inv);
+    else printInvReceipt(inv);
+}
+function printInvReceipt(inv){
+    const c=customers.find(x=>x.id===inv.customerId);
+    const paid=inv.payments?inv.payments.reduce((s,p)=>s+p.amount,0):0;
+    const remain=inv.total-paid;
+    const w=window.open('','_blank');
+    let html=`<!DOCTYPE html><html lang=ar dir=rtl><head><meta charset=UTF-8>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Courier New',monospace;direction:rtl;width:72mm;max-width:72mm;padding:2mm;font-size:11px;color:#000}
+.center{text-align:center}
+.bold{font-weight:700}
+.sep{border-top:1px dashed #000;margin:4px 0}
+.sep2{border-top:2px solid #000;margin:4px 0}
+table{width:100%;border-collapse:collapse}
+td{padding:2px 0;vertical-align:top;font-size:11px}
+.r{text-align:left;direction:ltr}
+.item-row td{border-bottom:1px dotted #ccc}
+.total-row td{font-weight:700;font-size:13px;padding-top:4px}
+h1{font-size:16px;margin-bottom:2px}
+h2{font-size:13px;margin-bottom:1px}
+@media print{
+    @page{size:72mm auto;margin:0}
+    body{width:72mm;padding:2mm}
+}
+</style></head><body>`;
+    // رأس الفاتورة
+    html+=`<div class="center">
+        <h1>${cfg.shop}</h1>
+        ${cfg.address?'<div>'+cfg.address+'</div>':''}
+        ${cfg.phone?'<div>هاتف: '+cfg.phone+'</div>':''}
+    </div>
+    <div class="sep2"></div>
+    <div class="center bold" style="font-size:14px;margin:4px 0">فاتورة مبيعات</div>
+    <div class="sep"></div>`;
+    // معلومات الفاتورة
+    html+=`<table>
+        <tr><td>رقم:</td><td class="r">${inv.number}</td></tr>
+        <tr><td>تاريخ:</td><td class="r">${inv.date}</td></tr>
+        ${c?'<tr><td>الزبون:</td><td class="r">'+c.name+'</td></tr>':''}
+        <tr><td>الدفع:</td><td class="r">${inv.paymentMethod}</td></tr>
+        ${inv.seller?'<tr><td>البائع:</td><td class="r">'+inv.seller+'</td></tr>':''}
+    </table>
+    <div class="sep2"></div>`;
+    // المنتجات
+    html+=`<table>
+        <tr style="font-weight:700"><td>المنتج</td><td class="r" style="width:25px">عدد</td><td class="r" style="width:50px">سعر</td><td class="r" style="width:55px">مجموع</td></tr>
+        <tr><td colspan="4"><div class="sep"></div></td></tr>`;
+    inv.items.forEach(it=>{
+        html+=`<tr class="item-row"><td>${it.name}</td><td class="r">${it.qty}</td><td class="r">${fnum(it.price)}</td><td class="r">${fnum(it.total)}</td></tr>`;
+    });
+    html+=`</table><div class="sep2"></div>`;
+    // المجاميع
+    html+=`<table>
+        <tr class="total-row"><td>الاجمالي:</td><td class="r">${fnum(inv.total)} ${cfg.currency}</td></tr>`;
+    if(paid>0&&paid<inv.total){
+        html+=`<tr><td>المدفوع:</td><td class="r">${fnum(paid)}</td></tr>`;
+        html+=`<tr><td style="color:#c00">المتبقي:</td><td class="r" style="color:#c00">${fnum(remain)}</td></tr>`;
+    }else if(paid>=inv.total){
+        html+=`<tr><td style="color:#060">المدفوع:</td><td class="r" style="color:#060">مدفوعة بالكامل</td></tr>`;
+    }
+    html+=`</table><div class="sep"></div>`;
+    // عدد الاصناف
+    html+=`<div class="center" style="font-size:10px;margin:4px 0">عدد الاصناف: ${inv.items.length} | عدد القطع: ${inv.items.reduce((s,i)=>s+i.qty,0)}</div>`;
+    // تذييل
+    html+=`<div class="sep"></div>
+    <div class="center" style="margin:6px 0">
+        ${cfg.footerNote?'<div>'+cfg.footerNote+'</div>':''}
+        <div style="font-size:9px;margin-top:4px;color:#666">فاتورة المصفوفة الذكية v${V}</div>
+    </div>`;
+    html+=`</body></html>`;
+    w.document.write(html);
+    w.document.close();
+    setTimeout(()=>w.print(),300);
+}
+function printInvA4(inv){
+    const c=customers.find(x=>x.id===inv.customerId);
+    const paid=inv.payments?inv.payments.reduce((s,p)=>s+p.amount,0):0;
+    const w=window.open('','_blank');
+    w.document.write('<!DOCTYPE html><html lang=ar dir=rtl><head><meta charset=UTF-8><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Segoe UI,Tahoma,sans-serif;direction:rtl;padding:20px}table{width:100%;border-collapse:collapse}th,td{padding:6px 8px;text-align:right}th{background:#333;color:white}td{border-bottom:1px solid #ddd}</style></head><body>'+document.getElementById('printArea').innerHTML+'</body></html>');
+    w.document.close();setTimeout(()=>w.print(),300);
+}
 
 // ========== التقارير ==========
 function genReport(){
