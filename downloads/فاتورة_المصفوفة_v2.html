@@ -316,7 +316,7 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
     </div>
     <div class="topbar-r">
         <div class="user-badge" id="curUserBadge"><i class="fas fa-user"></i> <span id="curUserName">المدير</span></div>
-        <span class="vbadge">v2.0</span>
+        <span class="vbadge" id="vBadge">v2.1</span>
         <button id="installBtn" class="hide" onclick="installApp()" title="تثبيت على سطح المكتب"><i class="fas fa-desktop"></i> تثبيت</button>
         <button onclick="checkForUpdates()" title="التحقق من التحديثات"><i class="fas fa-sync-alt"></i></button>
         <button onclick="exportAll()" title="نسخة احتياطية"><i class="fas fa-download"></i></button>
@@ -668,7 +668,7 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
 
 <script>
 // ========== الثوابت ==========
-const V='2.0.0';
+const V='2.1.0';
 const UPDATE_CHECK_URL='https://zamboor15.github.io/almasfoufaakademy/downloads/invoice_version.json';
 const K={cfg:'msi_cfg',prod:'msi_prod',cust:'msi_cust',inv:'msi_inv',exp:'msi_exp',users:'msi_users',cnt:'msi_cnt',sales:'msi_sales',lic:'msi_lic'};
 const TRIAL_DAYS=30;
@@ -2168,17 +2168,48 @@ function adminGenKey(){
 // ========== التحديثات ==========
 let _updateUrl='';
 function checkForUpdates(){
-    fetch(UPDATE_CHECK_URL,{cache:'no-cache'}).then(r=>r.json()).then(data=>{
+    // تجاوز الكاش بإضافة timestamp للرابط
+    const url=UPDATE_CHECK_URL+'?t='+Date.now();
+    fetch(url,{cache:'no-store',headers:{'Cache-Control':'no-cache'}}).then(r=>{
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        return r.json();
+    }).then(data=>{
         if(data.version&&data.version!==V){
             _updateUrl=data.url||'';
+            _updateVersion=data.version;
             document.getElementById('updateMsg').textContent='يتوفر تحديث جديد: v'+data.version+' — '+(data.notes||'');
             const b=document.getElementById('updateBanner');b.classList.remove('hide');b.style.display='flex';
-        }else{toast('لا يوجد تحديث — انت على آخر اصدار v'+V,'ok')}
-    }).catch(()=>toast('تعذر التحقق من التحديثات — تحقق من الاتصال','er'));
+            toast('يتوفر تحديث جديد v'+data.version,'ok');
+        }else{toast('انت على آخر اصدار v'+V,'ok')}
+    }).catch(e=>{
+        console.log('Update check error:',e);
+        toast('تعذر التحقق — تحقق من اتصال الانترنت','wr');
+    });
 }
+let _updateVersion='';
 function doUpdate(){
-    if(_updateUrl){window.open(_updateUrl,'_blank')}
-    else{window.location.reload(true)}
+    toast('جاري التحديث...','in');
+    // 1. حذف كاش Service Worker
+    if('caches' in window){
+        caches.keys().then(keys=>{
+            return Promise.all(keys.map(k=>caches.delete(k)));
+        }).then(()=>{
+            console.log('Cache cleared');
+            // 2. اعادة تسجيل Service Worker
+            if('serviceWorker' in navigator){
+                navigator.serviceWorker.getRegistrations().then(regs=>{
+                    regs.forEach(r=>r.unregister());
+                });
+            }
+            // 3. اعادة تحميل الصفحة من الخادم
+            setTimeout(()=>{
+                window.location.href=window.location.href.split('?')[0]+'?updated='+Date.now();
+            },500);
+        });
+    }else{
+        // متصفح لا يدعم caches — اعادة تحميل مباشرة
+        window.location.href=window.location.href.split('?')[0]+'?updated='+Date.now();
+    }
 }
 
 // ========== PWA — تثبيت كتطبيق سطح مكتب ==========
@@ -2293,7 +2324,26 @@ function showManualInstallGuide(){
     openM('productModal');
 }
 window.addEventListener('appinstalled',()=>{toast('فاتورة المصفوفة مثبتة على سطح المكتب!','ok');hideInstallBanner()});
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('sw.js').then(reg=>{
+        // فحص تحديث Service Worker كل 30 دقيقة
+        setInterval(()=>reg.update(),1800000);
+        // اذا وصل تحديث — اعلم المستخدم
+        reg.addEventListener('updatefound',()=>{
+            const nw=reg.installing;
+            if(nw)nw.addEventListener('statechange',()=>{
+                if(nw.state==='installed'&&navigator.serviceWorker.controller){
+                    toast('تحديث جاهز — اعد تشغيل التطبيق لتطبيقه','ok');
+                }
+            });
+        });
+    }).catch(()=>{});
+    // اذا جاء من عملية تحديث — اظهر رسالة
+    if(window.location.search.includes('updated')){
+        history.replaceState(null,'',window.location.pathname);
+        setTimeout(()=>toast('تم التحديث بنجاح! v'+V,'ok'),1000);
+    }
+}
 
 // ========== البدء ==========
 window.addEventListener('DOMContentLoaded',()=>{
