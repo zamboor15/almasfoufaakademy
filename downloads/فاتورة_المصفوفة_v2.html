@@ -385,7 +385,13 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
 <div id="pg-products" class="page">
     <div class="card">
         <div class="ch"><h2><i class="fas fa-boxes-stacked"></i> المنتجات</h2>
-            <button class="btn btn-p" onclick="openProductModal()"><i class="fas fa-plus"></i> منتج جديد</button></div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <button class="btn btn-p" onclick="openProductModal()"><i class="fas fa-plus"></i> اضافة يدوية</button>
+                <button class="btn btn-s" onclick="scanToAddProduct()"><i class="fas fa-barcode"></i> مسح باركود</button>
+                <button class="btn btn-o" onclick="document.getElementById('excelFileInput').click()"><i class="fas fa-file-excel"></i> استيراد Excel</button>
+                <button class="btn btn-o" onclick="exportProductsExcel()"><i class="fas fa-download"></i> تصدير</button>
+            </div></div>
+        <input type="file" id="excelFileInput" accept=".csv,.xlsx,.xls,.tsv,.txt" style="display:none" onchange="importExcelFile(event)">
         <div class="sbar"><i class="fas fa-search"></i><input type="text" id="prodSearch" placeholder="بحث بالاسم او الباركود..." oninput="renderProducts()"></div>
         <div class="tw"><table><thead><tr><th>المنتج</th><th>الباركود</th><th>المنشأ</th><th>الشراء</th><th>البيع</th><th>المخزون</th><th>الحالة</th><th>اجراء</th></tr></thead>
         <tbody id="prodList"></tbody></table></div>
@@ -992,14 +998,25 @@ function processScan(code){
     if(!code)return;
     // اظهار اشعار اكتشاف الماسح (مرة واحدة)
     if(!_scannerDetected){_scannerDetected=true;toast('تم اكتشاف ماسح الباركود — جاهز للعمل!','ok');updateScannerStatus(true)}
-    // انتقال تلقائي لنقطة البيع اذا لم نكن فيها
+    // وضع اضافة منتج — فتح نافذة المنتج مع الباركود
+    if(_scanMode==='addProduct'){
+        _scanMode='pos'; // اعادة الوضع الافتراضي
+        const existing=products.find(p=>p.barcode===code);
+        if(existing){
+            toast(existing.name+' — موجود بالفعل، تم فتحه للتعديل','warn');
+            openProductModal(existing.id);
+        }else{
+            toast('باركود: '+code+' — املأ بيانات المنتج','ok');
+            showQuickAdd(code);
+        }
+        return;
+    }
+    // الوضع الافتراضي: نقطة البيع
     const posPage=document.getElementById('pg-pos');
     if(!posPage||!posPage.classList.contains('active')){showPage('pos')}
-    // البحث عن المنتج واضافته
     const prod=products.find(p=>p.barcode===code);
     if(prod){addToCart(prod.id);toast(prod.name+' — '+fnum(prod.price)+' '+cfg.currency,'ok')}
     else{toast('باركود غير مسجل: '+code+' — اضف المنتج','warn');showQuickAdd(code)}
-    // تنظيف حقل الباركود
     const bi=document.getElementById('barcodeInput');if(bi){bi.value='';bi.focus()}
 }
 function updateScannerStatus(connected){
@@ -1148,6 +1165,107 @@ function saveProduct(){
     S('prod',products);closeM('productModal');renderProducts();refreshDropdowns();toast(id?'تم التحديث':'تم الاضافة');
 }
 function deleteProduct(id){if(!confirm('حذف هذا المنتج؟'))return;products=products.filter(x=>x.id!==id);S('prod',products);renderProducts();refreshDropdowns()}
+
+// ===== مسح باركود لاضافة منتج =====
+let _scanMode='pos'; // pos = نقطة بيع ، addProduct = اضافة منتج
+function scanToAddProduct(){
+    _scanMode='addProduct';
+    openCamera();
+}
+// تعديل processScan لدعم وضعين
+const _origProcessScan=typeof processScan==='function'?processScan:null;
+
+// ===== استيراد من ملف Excel/CSV =====
+function importExcelFile(event){
+    const file=event.target.files[0];
+    if(!file){return}
+    const reader=new FileReader();
+    reader.onload=function(e){
+        const text=e.target.result;
+        let rows;
+        // تحديد الفاصل (tab, comma, semicolon)
+        const firstLine=text.split('\n')[0]||'';
+        let sep=',';
+        if(firstLine.split('\t').length>firstLine.split(',').length)sep='\t';
+        else if(firstLine.split(';').length>firstLine.split(',').length)sep=';';
+        rows=text.split('\n').map(r=>r.split(sep).map(c=>c.trim().replace(/^["']|["']$/g,'')));
+        if(rows.length<2){toast('الملف فارغ','er');event.target.value='';return}
+        // التعرف على الاعمدة من الصف الاول
+        const header=rows[0].map(h=>h.toLowerCase().replace(/\s+/g,''));
+        const colMap={};
+        const patterns={
+            name:['الاسم','اسم','المنتج','name','product','item','الصنف','المادة','البضاعة'],
+            barcode:['الباركود','باركود','barcode','code','رمز','كود'],
+            origin:['المنشأ','منشأ','المنشا','منشا','الماركة','ماركة','brand','origin'],
+            cost:['الشراء','شراء','التكلفة','تكلفة','cost','buy','سعرالشراء'],
+            price:['البيع','بيع','السعر','سعر','price','sell','سعرالبيع'],
+            stock:['المخزون','مخزون','الكمية','كمية','stock','qty','quantity','العدد','عدد'],
+            unit:['الوحدة','وحدة','unit'],
+            category:['الصنف','صنف','التصنيف','category','cat','النوع','نوع','القسم']
+        };
+        for(const[key,words]of Object.entries(patterns)){
+            const idx=header.findIndex(h=>words.some(w=>h.includes(w)));
+            if(idx>=0)colMap[key]=idx;
+        }
+        // اذا لم يتعرف على عمود الاسم، نفترض: الاسم=0، الباركود=1، الشراء=2، البيع=3، الكمية=4
+        if(colMap.name===undefined){
+            colMap.name=0;
+            if(rows[0].length>=2&&colMap.barcode===undefined)colMap.barcode=1;
+            if(rows[0].length>=3&&colMap.cost===undefined)colMap.cost=2;
+            if(rows[0].length>=4&&colMap.price===undefined)colMap.price=3;
+            if(rows[0].length>=5&&colMap.stock===undefined)colMap.stock=4;
+        }
+        let added=0,updated=0,skipped=0;
+        for(let i=1;i<rows.length;i++){
+            const r=rows[i];
+            if(!r||r.length<1)continue;
+            const name=(r[colMap.name]||'').trim();
+            if(!name)continue;
+            const barcode=(colMap.barcode!==undefined?r[colMap.barcode]:'').trim();
+            const cost=parseFloat((colMap.cost!==undefined?r[colMap.cost]:'0').replace(/[^\d.]/g,''))||0;
+            const price=parseFloat((colMap.price!==undefined?r[colMap.price]:'0').replace(/[^\d.]/g,''))||0;
+            const stock=parseInt((colMap.stock!==undefined?r[colMap.stock]:'0').replace(/[^\d]/g,''))||0;
+            const origin=(colMap.origin!==undefined?r[colMap.origin]:'').trim();
+            const unit=(colMap.unit!==undefined?r[colMap.unit]:'قطعة').trim()||'قطعة';
+            const category=(colMap.category!==undefined?r[colMap.category]:'').trim();
+            if(!name&&!barcode){skipped++;continue}
+            // تحقق من التكرار (بالباركود او الاسم)
+            let existing=null;
+            if(barcode)existing=products.find(p=>p.barcode===barcode);
+            if(!existing)existing=products.find(p=>p.name===name);
+            if(existing){
+                // تحديث المنتج الموجود
+                if(cost)existing.cost=cost;
+                if(price)existing.price=price;
+                if(stock)existing.stock=(existing.stock||0)+stock;
+                if(origin)existing.origin=origin;
+                if(category)existing.category=category;
+                updated++;
+            }else{
+                products.push({id:gid(),name,barcode,origin,cost,price,stock,unit,category});
+                added++;
+            }
+        }
+        S('prod',products);renderProducts();refreshDropdowns();
+        toast('تم الاستيراد: '+added+' جديد، '+updated+' تحديث'+(skipped?' ('+skipped+' تخطي)':''),'ok');
+        event.target.value='';
+    };
+    reader.readAsText(file,'UTF-8');
+}
+
+// ===== تصدير المنتجات كملف Excel/CSV =====
+function exportProductsExcel(){
+    if(products.length===0){toast('لا توجد منتجات للتصدير','er');return}
+    let csv='\uFEFF'+'الاسم\tالباركود\tالمنشأ\tسعر الشراء\tسعر البيع\tالمخزون\tالوحدة\tالصنف\n';
+    products.forEach(p=>{
+        csv+=[p.name,p.barcode||'',p.origin||'',p.cost||0,p.price||0,p.stock||0,p.unit||'قطعة',p.category||''].join('\t')+'\n';
+    });
+    const b=new Blob([csv],{type:'text/tab-separated-values;charset=utf-8'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(b);
+    a.download='منتجات_'+cfg.shop.replace(/\s/g,'_')+'_'+today()+'.csv';a.click();
+    toast('تم تصدير '+products.length+' منتج');
+}
+
 function renderProducts(){
     const q=(document.getElementById('prodSearch')?.value||'').toLowerCase();
     let f=products;if(q)f=f.filter(p=>p.name.toLowerCase().includes(q)||(p.barcode&&p.barcode.includes(q)));
@@ -1585,12 +1703,9 @@ function scanCamLoop(){
                         const code=codes[0].rawValue;
                         const format=codes[0].format||'';
                         closeCamera();
-                        // اضافة للسلة مباشرة
-                        const posPage=document.getElementById('pg-pos');
-                        if(!posPage||!posPage.classList.contains('active'))showPage('pos');
-                        document.getElementById('barcodeInput').value=code;
-                        scanBarcode();
                         toast('تم المسح: '+code+(format?' ('+format+')':''),'ok');
+                        // توجيه حسب الوضع الحالي
+                        processScan(code);
                         // اهتزاز الموبايل كتأكيد
                         if(navigator.vibrate)navigator.vibrate(100);
                         return;
