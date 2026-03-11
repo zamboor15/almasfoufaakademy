@@ -269,9 +269,18 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
         <div class="user-badge" id="curUserBadge"><i class="fas fa-user"></i> <span id="curUserName">المدير</span></div>
         <span class="vbadge">v2.0</span>
         <button id="installBtn" class="hide" onclick="installApp()" title="تثبيت على سطح المكتب"><i class="fas fa-desktop"></i> تثبيت</button>
+        <button onclick="checkForUpdates()" title="التحقق من التحديثات"><i class="fas fa-sync-alt"></i></button>
         <button onclick="exportAll()" title="نسخة احتياطية"><i class="fas fa-download"></i></button>
         <button onclick="doLogout()" title="خروج"><i class="fas fa-sign-out-alt"></i></button>
     </div>
+</div>
+
+<!-- شريط التحديث -->
+<div id="updateBanner" class="hide" style="background:#fef3c7;border-bottom:2px solid #f59e0b;padding:8px 16px;display:flex;align-items:center;gap:10px;font-size:.85rem;color:#92400e;position:sticky;top:48px;z-index:99">
+    <i class="fas fa-arrow-up" style="color:#f59e0b"></i>
+    <span id="updateMsg" style="flex:1">يتوفر تحديث جديد!</span>
+    <button onclick="doUpdate()" style="background:#f59e0b;color:#fff;border:none;padding:6px 14px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.8rem">تحديث الان</button>
+    <button onclick="this.parentElement.classList.add('hide')" style="background:transparent;border:none;color:#92400e;text-decoration:underline;cursor:pointer;font-size:.8rem">لاحقاً</button>
 </div>
 
 <div class="layout">
@@ -515,6 +524,7 @@ table th:first-child{border-radius:0 8px 0 0}table th:last-child{border-radius:8
 <script>
 // ========== الثوابت ==========
 const V='2.0.0';
+const UPDATE_CHECK_URL='https://zamboor15.github.io/almasfoufaakademy/downloads/invoice_version.json';
 const K={cfg:'msi_cfg',prod:'msi_prod',cust:'msi_cust',inv:'msi_inv',exp:'msi_exp',users:'msi_users',cnt:'msi_cnt',sales:'msi_sales',lic:'msi_lic'};
 const VALID_KEYS=[
     'MTRX-2026-SMART-0001','MTRX-2026-SMART-0002','MTRX-2026-SMART-0003','MTRX-2026-SMART-0004','MTRX-2026-SMART-0005',
@@ -624,6 +634,8 @@ function startApp(){
         if(curUser.role!=='admin'&&(t==='الاعدادات'||t==='التحليل الذكي'))s.style.display='none';
         else s.style.display='';
     });
+    // فحص التحديثات تلقائياً
+    setTimeout(checkForUpdates,2000);
     // تنبيه الترخيص التجريبي
     const _td=trialDaysLeft();
     if(_td>=0&&_td<=7)toast('تنبيه: متبقي '+_td+' يوم على انتهاء الفترة التجريبية — فعّل الترخيص من صفحة الترخيص','warn');
@@ -1416,6 +1428,22 @@ function activateFromPage(){
     if(!key){err.textContent='ادخل مفتاح التفعيل';return}
     if(VALID_KEYS.includes(key)){S('lic',{type:'full',key:key,date:new Date().toISOString()});toast('تم التفعيل — ترخيص دائم!','ok');renderLicense()}
     else{err.textContent='مفتاح غير صحيح'}
+}
+
+// ========== التحديثات ==========
+let _updateUrl='';
+function checkForUpdates(){
+    fetch(UPDATE_CHECK_URL,{cache:'no-cache'}).then(r=>r.json()).then(data=>{
+        if(data.version&&data.version!==V){
+            _updateUrl=data.url||'';
+            document.getElementById('updateMsg').textContent='يتوفر تحديث جديد: v'+data.version+' — '+(data.notes||'');
+            const b=document.getElementById('updateBanner');b.classList.remove('hide');b.style.display='flex';
+        }else{toast('لا يوجد تحديث — انت على آخر اصدار v'+V,'ok')}
+    }).catch(()=>toast('تعذر التحقق من التحديثات — تحقق من الاتصال','er'));
+}
+function doUpdate(){
+    if(_updateUrl){window.open(_updateUrl,'_blank')}
+    else{window.location.reload(true)}
 }
 
 // ========== PWA — تثبيت كتطبيق سطح مكتب ==========

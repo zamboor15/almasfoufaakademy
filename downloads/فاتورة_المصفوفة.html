@@ -2063,11 +2063,13 @@ function importAllData(event) {
 }
 
 // ===== التحديثات =====
+let _updateUrl = '';
 function checkForUpdates() {
     fetch(UPDATE_URL, { cache: 'no-cache' })
         .then(r => r.json())
         .then(data => {
             if (data.version && data.version !== APP_VERSION) {
+                _updateUrl = data.url || '';
                 document.getElementById('updateMsg').textContent =
                     'يتوفر تحديث جديد: v' + data.version + ' — ' + (data.notes || '');
                 document.getElementById('updateBanner').classList.add('show');
@@ -2077,8 +2079,12 @@ function checkForUpdates() {
 }
 
 function doUpdate() {
-    window.location.href = UPDATE_URL.replace('invoice_version.json',
-        encodeURIComponent('فاتورة_المصفوفة.html')) + '?v=' + Date.now();
+    if (_updateUrl) {
+        window.open(_updateUrl, '_blank');
+    } else {
+        window.location.href = UPDATE_URL.replace('invoice_version.json',
+            encodeURIComponent('فاتورة_المصفوفة_v2.html')) + '?v=' + Date.now();
+    }
 }
 
 // ===== ادوات =====
