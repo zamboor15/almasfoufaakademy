@@ -1698,6 +1698,15 @@ function licenseCheck(){
         gate.classList.remove('hide');gate.style.display='flex';
         return false;
     }
+    // الترخيص صالح — اظهار الشاشة المناسبة
+    document.getElementById('licenseGate').classList.add('hide');
+    document.getElementById('licenseGate').style.display='none';
+    if(cfg&&cfg.installed){
+        showLogin();
+    }else{
+        document.getElementById('setupWizard').classList.remove('hide');
+        document.getElementById('setupWizard').style.display='flex';
+    }
     return true;
 }
 function renderLicense(){
