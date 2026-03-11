@@ -2108,22 +2108,126 @@ function doUpdate(){
 // ========== PWA — تثبيت كتطبيق سطح مكتب ==========
 let deferredPrompt=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;
-    // اظهار زر التثبيت في شريط التطبيق
     const ib=document.getElementById('installBtn');if(ib)ib.classList.remove('hide');
+    // اظهار بانر التثبيت الكبير
+    showInstallBanner();
 });
 function installApp(){
-    if(!deferredPrompt){toast('افتح التطبيق من المتصفح اولا ثم اضغط تثبيت','warn');return}
+    if(!deferredPrompt){
+        // عرض تعليمات التثبيت اليدوية
+        showManualInstallGuide();
+        return;
+    }
     deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(r=>{if(r.outcome==='accepted')toast('تم التثبيت كتطبيق سطح مكتب!','ok');deferredPrompt=null;
+    deferredPrompt.userChoice.then(r=>{
+        if(r.outcome==='accepted'){toast('تم التثبيت كتطبيق سطح مكتب!','ok');hideInstallBanner()}
+        deferredPrompt=null;
         const ib=document.getElementById('installBtn');if(ib)ib.classList.add('hide');
     });
 }
-window.addEventListener('appinstalled',()=>{toast('فاتورة المصفوفة مثبتة على سطح المكتب!','ok')});
+function isInstalledPWA(){
+    return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+}
+function showInstallBanner(){
+    if(isInstalledPWA())return; // مثبّت بالفعل
+    if(localStorage.getItem('installDismissed'))return; // رفض المستخدم سابقاً
+    let banner=document.getElementById('installBanner');
+    if(banner){banner.classList.remove('hide');return}
+    banner=document.createElement('div');
+    banner.id='installBanner';
+    banner.style.cssText='position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;padding:16px 20px;z-index:250;box-shadow:0 -4px 20px rgba(0,0,0,.3);animation:slideUp .4s';
+    banner.innerHTML=`
+        <style>@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}</style>
+        <div style="max-width:700px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+            <div style="flex:1;min-width:200px">
+                <h3 style="font-size:1.1rem;margin-bottom:4px"><i class="fas fa-download"></i> ثبّت التطبيق على جهازك!</h3>
+                <p style="font-size:.85rem;opacity:.9">يعمل بدون انترنت — ايقونة على سطح المكتب — شاشة كاملة بدون متصفح</p>
+            </div>
+            <div style="display:flex;gap:8px;flex-shrink:0">
+                <button onclick="installApp()" style="background:#fff;color:#6366f1;border:none;padding:10px 24px;border-radius:8px;font-weight:700;font-size:.95rem;cursor:pointer"><i class="fas fa-download"></i> تثبيت الان</button>
+                <button onclick="dismissInstallBanner()" style="background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);padding:10px 16px;border-radius:8px;font-size:.85rem;cursor:pointer">لاحقاً</button>
+            </div>
+        </div>`;
+    document.body.appendChild(banner);
+}
+function hideInstallBanner(){
+    const b=document.getElementById('installBanner');if(b)b.classList.add('hide');
+}
+function dismissInstallBanner(){
+    hideInstallBanner();
+    localStorage.setItem('installDismissed','1');
+}
+function showManualInstallGuide(){
+    // كشف نوع الجهاز
+    const ua=navigator.userAgent;
+    const isIOS=/iPad|iPhone|iPod/.test(ua);
+    const isAndroid=/Android/.test(ua);
+    const isChrome=/Chrome/.test(ua)&&!/Edge/.test(ua);
+    const isEdge=/Edg/.test(ua);
+    const isFirefox=/Firefox/.test(ua);
+    let steps='';
+    if(isIOS){
+        steps=`<div style="text-align:center;margin-bottom:16px">
+            <i class="fab fa-apple" style="font-size:2.5rem;color:#333"></i>
+            <h3 style="margin-top:8px">تثبيت على الايفون/الايباد</h3>
+        </div>
+        <ol style="font-size:.95rem;line-height:2.2;padding-right:24px">
+            <li>اضغط على زر <strong>المشاركة</strong> <span style="background:#007aff;color:#fff;padding:2px 8px;border-radius:4px;font-size:.8rem">↑</span> في اسفل الشاشة</li>
+            <li>مرّر للاسفل واختر <strong>"اضافة الى الشاشة الرئيسية"</strong></li>
+            <li>اضغط <strong>"اضافة"</strong> في الزاوية العليا</li>
+            <li>ستظهر ايقونة التطبيق على شاشتك الرئيسية!</li>
+        </ol>`;
+    }else if(isAndroid){
+        steps=`<div style="text-align:center;margin-bottom:16px">
+            <i class="fab fa-android" style="font-size:2.5rem;color:#3ddc84"></i>
+            <h3 style="margin-top:8px">تثبيت على اندرويد</h3>
+        </div>
+        <ol style="font-size:.95rem;line-height:2.2;padding-right:24px">
+            <li>اضغط على <strong>قائمة المتصفح</strong> <span style="background:#333;color:#fff;padding:2px 8px;border-radius:4px;font-size:.8rem">⋮</span> في الاعلى</li>
+            <li>اختر <strong>"اضافة الى الشاشة الرئيسية"</strong> او <strong>"تثبيت التطبيق"</strong></li>
+            <li>اضغط <strong>"تثبيت"</strong> او <strong>"اضافة"</strong></li>
+            <li>ستظهر ايقونة التطبيق — يعمل بشاشة كاملة!</li>
+        </ol>`;
+    }else{
+        steps=`<div style="text-align:center;margin-bottom:16px">
+            <i class="fas fa-desktop" style="font-size:2.5rem;color:#6366f1"></i>
+            <h3 style="margin-top:8px">تثبيت على الكمبيوتر</h3>
+        </div>
+        <ol style="font-size:.95rem;line-height:2.2;padding-right:24px">
+            ${isEdge?'<li>في شريط العنوان ستظهر ايقونة <strong>"تثبيت"</strong> على اليسار — اضغط عليها</li>':
+              isChrome?'<li>في شريط العنوان ستظهر ايقونة <strong>تثبيت</strong> <span style="background:#333;color:#fff;padding:2px 8px;border-radius:4px;font-size:.8rem">⊕</span> — اضغط عليها</li>':
+              '<li>استخدم <strong>Chrome</strong> او <strong>Edge</strong> لأفضل تجربة تثبيت</li>'}
+            <li>او من قائمة المتصفح <span style="background:#333;color:#fff;padding:2px 8px;border-radius:4px;font-size:.8rem">⋮</span> اختر <strong>"تثبيت فاتورة المصفوفة..."</strong></li>
+            <li>اضغط <strong>"تثبيت"</strong></li>
+            <li>ستظهر ايقونة على سطح المكتب — يعمل كتطبيق مستقل!</li>
+        </ol>`;
+    }
+    document.getElementById('prodModalTitle').textContent='تثبيت التطبيق';
+    document.getElementById('prodModalBody').innerHTML=`
+        <div style="padding:8px">${steps}
+            <div style="background:#f0fdf4;border-radius:10px;padding:14px;margin-top:16px;text-align:center">
+                <i class="fas fa-check-circle" style="color:#10b981;font-size:1.2rem"></i>
+                <p style="font-size:.85rem;color:#166534;margin-top:6px">بعد التثبيت يعمل <strong>بدون انترنت</strong> وبشاشة كاملة بدون شريط المتصفح!</p>
+            </div>
+        </div>`;
+    const modal=document.getElementById('productModal');
+    const saveBtn=modal.querySelector('.mf .btn-p');
+    saveBtn.setAttribute('onclick',"closeM('productModal')");
+    saveBtn.innerHTML='<i class="fas fa-check"></i> حسناً';
+    openM('productModal');
+}
+window.addEventListener('appinstalled',()=>{toast('فاتورة المصفوفة مثبتة على سطح المكتب!','ok');hideInstallBanner()});
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
 
 // ========== البدء ==========
 window.addEventListener('DOMContentLoaded',()=>{
     licenseCheck();
+    // اظهار بانر التثبيت اذا لم يكن مثبتاً
+    setTimeout(()=>{
+        if(!isInstalledPWA()&&!localStorage.getItem('installDismissed')){
+            showInstallBanner();
+        }
+    },2000);
 });
 </script>
 </body>
