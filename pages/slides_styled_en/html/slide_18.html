@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+    width: 1200px; height: 675px; overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #e8e8e8;
+    background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 100%);
+}
+.slide {
+    width: 1200px; height: 675px;
+    padding: 48px 60px 56px 60px;
+    display: flex; flex-direction: column;
+    position: relative;
+}
+.title {
+    color: #ffd700; font-size: 34px; font-weight: bold;
+    margin-bottom: 18px; line-height: 1.25;
+}
+.content { flex: 1; overflow: hidden; }
+.content p, .content li { font-size: 20px; line-height: 1.55; margin-bottom: 8px; }
+.content ul { padding-left: 28px; }
+
+.verse-box {
+    border: 2px solid #ffd700; border-radius: 10px;
+    background: rgba(255,215,0,0.07);
+    padding: 14px 22px; margin: 14px 0;
+    color: #ffd700; font-size: 22px; line-height: 1.6;
+    font-family: 'Traditional Arabic', 'Scheherazade New', serif;
+    text-align: center; direction: rtl;
+}
+.verse-ref { font-size: 14px; color: #cca800; margin-top: 4px; text-align: center; }
+
+.eq-box {
+    background: rgba(0,0,0,0.35); border-radius: 8px;
+    padding: 14px 24px; margin: 12px 0;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #88aacc; font-size: 22px; text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.highlight-box {
+    border: 2px solid #4a8abf; border-radius: 8px;
+    background: rgba(74,138,191,0.08);
+    padding: 14px 22px; margin: 12px 0;
+}
+
+table.styled {
+    width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 18px;
+}
+table.styled th {
+    background: #1a3a5c; color: #ffd700; padding: 10px 14px;
+    border: 1px solid #2a5a8c; text-align: left;
+}
+table.styled td {
+    background: rgba(10,22,40,0.7); padding: 8px 14px;
+    border: 1px solid #1a3a5c; color: #e8e8e8;
+}
+
+.footer {
+    position: absolute; bottom: 16px; left: 60px; right: 60px;
+    display: flex; justify-content: space-between;
+    font-size: 13px; color: #7a9abf;
+    border-top: 1px solid rgba(122,154,191,0.25);
+    padding-top: 8px;
+}
+
+.subtitle { color: #a0c4e8; font-size: 22px; margin-bottom: 12px; }
+.gold { color: #ffd700; }
+.cyan { color: #88aacc; }
+.small { font-size: 16px; }
+</style>
+</head>
+<body>
+<div class="slide">
+    <div class="title">Proven vs. Hypothesized</div>
+    <div class="content">
+        
+        <table class="styled" style="font-size:19px; margin-top:8px;">
+            <tr><th style="width:55%;">Claim</th><th style="width:22%;">Status</th><th>Evidence Level</th></tr>
+            <tr><td>Magnetic fields affect human body</td>
+                <td style="color:#4f4;font-weight:bold;">Proven</td>
+                <td>Peer-reviewed studies</td></tr>
+            <tr><td>Grounding discharges the body</td>
+                <td style="color:#4f4;font-weight:bold;">Proven</td>
+                <td>Measured (Oschman et al.)</td></tr>
+            <tr><td>Earth's field dominates magnetism (95%)</td>
+                <td style="color:#4f4;font-weight:bold;">Proven</td>
+                <td>Maurer's experiment</td></tr>
+            <tr><td>Prostration = electrical discharge</td>
+                <td style="color:#ffd700;font-weight:bold;">Strong hypothesis</td>
+                <td>Consistent with physics</td></tr>
+            <tr><td>Prayer timing matches solar events</td>
+                <td style="color:#ffd700;font-weight:bold;">Strong hypothesis</td>
+                <td>Correlation observed</td></tr>
+            <tr><td>Collective prostration reduces earthquakes</td>
+                <td style="color:#f84;font-weight:bold;">Needs research</td>
+                <td>Theoretical prediction</td></tr>
+        </table>
+        
+    </div>
+    <div class="footer">
+        <span>Fadhil's Charged Medium Theory &mdash; Eng. Fadhil Abbas Al-Jaafari</span>
+        <span>18 / 20</span>
+    </div>
+</div>
+</body>
+</html>

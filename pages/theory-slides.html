@@ -49,6 +49,7 @@ body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a1628;color:#e8e8e8;m
     <div class="lang-btns">
         <button id="btn-ar" class="active" onclick="switchLang('ar')">العربية</button>
         <button id="btn-en" onclick="switchLang('en')">English</button>
+        <button id="btn-styled" class="active" onclick="toggleMode()" style="background:#2a8a5c;border-color:#4aba7c;font-size:.8rem;">مصمّمة</button>
     </div>
     <button class="nav-btn" onclick="goFirst()" title="الأولى">⏮</button>
     <button class="nav-btn" onclick="goPrev()" id="prevBtn" title="السابقة">◀</button>
@@ -86,14 +87,20 @@ body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a1628;color:#e8e8e8;m
 <script>
 let current = 1;
 let lang = 'ar';
-const totalAr = 47;
-const totalEn = 35;
-let total = totalAr;
+let mode = 'styled'; // 'styled' or 'pdf'
+const counts = {
+    styled: { ar: 47, en: 20 },
+    pdf: { ar: 47, en: 35 }
+};
+let total = counts[mode][lang];
 let autoTimer = null;
 let speed = 5000;
 
 function getPath(n) {
     const pad = String(n).padStart(2, '0');
+    if (mode === 'styled' && lang === 'en') {
+        return 'slides_styled_en/slide_' + pad + '.png';
+    }
     return 'slides_' + lang + '/slide-' + pad + '.png';
 }
 
@@ -114,12 +121,22 @@ function goLast() { current = total; updateSlide(); }
 
 function switchLang(l) {
     lang = l;
-    total = (l === 'ar') ? totalAr : totalEn;
+    total = counts[mode][lang];
     current = 1;
     document.getElementById('btn-ar').classList.toggle('active', l === 'ar');
     document.getElementById('btn-en').classList.toggle('active', l === 'en');
     if (l === 'en') { document.documentElement.dir = 'ltr'; document.documentElement.lang = 'en'; }
     else { document.documentElement.dir = 'rtl'; document.documentElement.lang = 'ar'; }
+    updateSlide();
+}
+
+function toggleMode() {
+    mode = (mode === 'styled') ? 'pdf' : 'styled';
+    const btn = document.getElementById('btn-styled');
+    if (mode === 'styled') { btn.textContent = 'مصمّمة'; btn.style.background = '#2a8a5c'; }
+    else { btn.textContent = 'PDF'; btn.style.background = '#1a2a3a'; }
+    total = counts[mode][lang];
+    if (current > total) current = total;
     updateSlide();
 }
 
