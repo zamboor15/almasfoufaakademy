@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نظرية فاضل للوسط المشحون — عرض الشرائح</title>
+<meta name="description" content="نظرية فاضل للوسط المشحون — عرض تتابعي للنظرية كاملة كسلسلة صور">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a1628;color:#e8e8e8;min-height:100vh;}
+.header{text-align:center;padding:1rem;background:linear-gradient(180deg,#0a1628,#1a3a5c);}
+.header h1{font-size:1.6rem;color:#ffd700;margin-bottom:.3rem;}
+.header .sub{font-size:.9rem;color:#9ab;}
+.controls{display:flex;justify-content:center;align-items:center;gap:.8rem;padding:.8rem;background:#111d30;position:sticky;top:0;z-index:100;flex-wrap:wrap;}
+.controls button{background:#1a2a3a;color:#b8d4e8;border:2px solid #2a5a8c;padding:.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:1rem;transition:all .2s;}
+.controls button:hover{border-color:#ffd700;color:#ffd700;}
+.controls button.active{background:#ffd700;color:#0a1628;border-color:#ffd700;font-weight:700;}
+.controls button:disabled{opacity:.3;cursor:not-allowed;}
+.nav-btn{font-size:1.3rem;padding:.5rem 1rem !important;min-width:50px;}
+.counter{color:#ffd700;font-weight:700;font-size:1.1rem;min-width:80px;text-align:center;}
+.lang-btns{display:flex;gap:.3rem;}
+.slide-container{display:flex;justify-content:center;align-items:flex-start;padding:1rem;min-height:60vh;}
+.slide-container img{max-width:100%;max-height:85vh;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.5);transition:opacity .3s;}
+.auto-controls{display:flex;justify-content:center;gap:.5rem;padding:.5rem;background:#0d1520;}
+.auto-controls button{background:#1a3a2a;border-color:#2a8a5c;color:#4a8a4f;}
+.auto-controls button.playing{background:#ffd700;color:#0a1628;border-color:#ffd700;}
+.speed-label{color:#9ab;font-size:.8rem;align-self:center;}
+.progress{height:3px;background:#1a2a3a;margin:0;}
+.progress-bar{height:100%;background:#ffd700;transition:width .3s;}
+.share-section{text-align:center;padding:1.5rem;background:#111d30;margin-top:1rem;}
+.share-section h3{color:#ffd700;margin-bottom:.8rem;}
+.share-section button{background:#2a5a8c;color:#fff;border:none;padding:.5rem 1.5rem;border-radius:8px;cursor:pointer;margin:.3rem;font-size:.9rem;}
+.share-section button:hover{background:#4a8abf;}
+.footer{text-align:center;padding:1rem;color:#666;font-size:.8rem;border-top:1px solid #1a2a3a;}
+.footer a{color:#4a8abf;}
+@media(max-width:600px){.controls{gap:.4rem;padding:.5rem;}.nav-btn{padding:.4rem .7rem !important;}.header h1{font-size:1.2rem;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>نظرية فاضل للوسط المشحون</h1>
+    <div class="sub">عرض تتابعي — Slideshow | م. فاضل عباس الجعيفري</div>
+</div>
+
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+<div class="controls">
+    <div class="lang-btns">
+        <button id="btn-ar" class="active" onclick="switchLang('ar')">العربية</button>
+        <button id="btn-en" onclick="switchLang('en')">English</button>
+    </div>
+    <button class="nav-btn" onclick="goFirst()" title="الأولى">⏮</button>
+    <button class="nav-btn" onclick="goPrev()" id="prevBtn" title="السابقة">◀</button>
+    <span class="counter" id="counter">1 / 47</span>
+    <button class="nav-btn" onclick="goNext()" id="nextBtn" title="التالية">▶</button>
+    <button class="nav-btn" onclick="goLast()" title="الأخيرة">⏭</button>
+</div>
+
+<div class="auto-controls">
+    <button id="autoBtn" onclick="toggleAuto()">▶ تشغيل تلقائي</button>
+    <span class="speed-label">السرعة:</span>
+    <button onclick="setSpeed(3)">3 ث</button>
+    <button onclick="setSpeed(5)" class="active" id="speed5">5 ث</button>
+    <button onclick="setSpeed(8)">8 ث</button>
+    <button onclick="setSpeed(12)">12 ث</button>
+</div>
+
+<div class="slide-container">
+    <img id="slideImg" src="slides_ar/slide-01.png" alt="شريحة 1">
+</div>
+
+<div class="share-section">
+    <h3>مشاركة الشرائح</h3>
+    <button onclick="downloadCurrent()">تحميل هذه الشريحة</button>
+    <button onclick="downloadAll()">تحميل الكل كـ ZIP</button>
+    <button onclick="copyLink()">نسخ رابط الشريحة</button>
+    <p style="margin-top:.8rem;color:#9ab;font-size:.85rem;">يمكن نشر كل شريحة كصورة مستقلة على فيسبوك، تويتر، إنستغرام، تلغرام</p>
+</div>
+
+<div class="footer">
+    <p>نظرية فاضل للوسط المشحون © 2026 — م. فاضل عباس عبدالحسن الجعيفري</p>
+    <p><a href="charged-medium-theory.html">← العودة للنظرية الكاملة</a> | <a href="https://zamboor15.github.io/almasfoufaakademy">أكاديمية المصفوفة</a></p>
+</div>
+
+<script>
+let current = 1;
+let lang = 'ar';
+const totalAr = 47;
+const totalEn = 35;
+let total = totalAr;
+let autoTimer = null;
+let speed = 5000;
+
+function getPath(n) {
+    const pad = String(n).padStart(2, '0');
+    return 'slides_' + lang + '/slide-' + pad + '.png';
+}
+
+function updateSlide() {
+    const img = document.getElementById('slideImg');
+    img.src = getPath(current);
+    img.alt = (lang === 'ar' ? 'شريحة ' : 'Slide ') + current;
+    document.getElementById('counter').textContent = current + ' / ' + total;
+    document.getElementById('prevBtn').disabled = (current === 1);
+    document.getElementById('nextBtn').disabled = (current === total);
+    document.getElementById('progressBar').style.width = ((current / total) * 100) + '%';
+}
+
+function goNext() { if (current < total) { current++; updateSlide(); } else if (autoTimer) { toggleAuto(); } }
+function goPrev() { if (current > 1) { current--; updateSlide(); } }
+function goFirst() { current = 1; updateSlide(); }
+function goLast() { current = total; updateSlide(); }
+
+function switchLang(l) {
+    lang = l;
+    total = (l === 'ar') ? totalAr : totalEn;
+    current = 1;
+    document.getElementById('btn-ar').classList.toggle('active', l === 'ar');
+    document.getElementById('btn-en').classList.toggle('active', l === 'en');
+    if (l === 'en') { document.documentElement.dir = 'ltr'; document.documentElement.lang = 'en'; }
+    else { document.documentElement.dir = 'rtl'; document.documentElement.lang = 'ar'; }
+    updateSlide();
+}
+
+function toggleAuto() {
+    const btn = document.getElementById('autoBtn');
+    if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+        btn.classList.remove('playing');
+        btn.textContent = '▶ تشغيل تلقائي';
+    } else {
+        autoTimer = setInterval(goNext, speed);
+        btn.classList.add('playing');
+        btn.textContent = '⏸ إيقاف';
+    }
+}
+
+function setSpeed(s) {
+    speed = s * 1000;
+    document.querySelectorAll('.auto-controls button').forEach(b => b.classList.remove('active'));
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = setInterval(goNext, speed); }
+}
+
+function downloadCurrent() {
+    const a = document.createElement('a');
+    a.href = getPath(current);
+    a.download = 'fadhil_theory_' + lang + '_slide_' + current + '.png';
+    a.click();
+}
+
+function downloadAll() {
+    alert(lang === 'ar'
+        ? 'لتحميل الكل: حمّل ملف PDF من صفحة النظرية الكاملة'
+        : 'To download all: get the PDF from the full theory page');
+}
+
+function copyLink() {
+    const url = window.location.origin + window.location.pathname + '?lang=' + lang + '&slide=' + current;
+    navigator.clipboard.writeText(url).then(() => {
+        alert(lang === 'ar' ? 'تم نسخ الرابط!' : 'Link copied!');
+    });
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); lang === 'ar' ? goPrev() : goNext(); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); lang === 'ar' ? goNext() : goPrev(); }
+    if (e.key === ' ') { e.preventDefault(); toggleAuto(); }
+    if (e.key === 'Home') { goFirst(); }
+    if (e.key === 'End') { goLast(); }
+});
+
+// Touch swipe
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? (lang === 'ar' ? goPrev() : goNext()) : (lang === 'ar' ? goNext() : goPrev()); }
+});
+
+// URL params
+const params = new URLSearchParams(window.location.search);
+if (params.get('lang')) switchLang(params.get('lang'));
+if (params.get('slide')) { current = parseInt(params.get('slide')) || 1; updateSlide(); }
+</script>
+</body>
+</html>
