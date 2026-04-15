@@ -18,10 +18,17 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 .container{max-width:900px;margin:0 auto;padding:2rem 1.5rem;}
 .toc{background:#111d30;border-radius:12px;padding:1.5rem;margin-bottom:2rem;}
 .toc h2{color:#ffd700;font-size:1.3rem;margin-bottom:1rem;border-bottom:2px solid #2a5a8c;padding-bottom:.5rem;}
-.toc ul{list-style:none;padding:0;}
-.toc li{padding:.4rem 0;border-bottom:1px solid #1a2a3a;}
-.toc li a{color:#4a9acf;text-decoration:none;display:block;}
-.toc li a:hover{color:#ffd700;}
+.toc ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem;}
+.toc li{padding:0;border:none;}
+.toc li a{color:#b8d4e8;text-decoration:none;display:block;background:#0d1520;border:1px solid #2a5a8c;border-radius:8px;padding:.7rem 1rem;transition:all .2s;cursor:pointer;}
+.toc li a:hover{color:#ffd700;border-color:#ffd700;background:#1a2a3a;}
+.toc li a.active{background:#ffd700;color:#0a1628;border-color:#ffd700;font-weight:700;}
+.ch-nav-top, .ch-nav-bottom{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin:1rem 0;flex-wrap:wrap;}
+.ch-nav-top button, .ch-nav-bottom button{background:#1a2a3a;color:#b8d4e8;border:2px solid #2a5a8c;padding:.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:.9rem;transition:all .2s;font-family:inherit;}
+.ch-nav-top button:hover:not(:disabled), .ch-nav-bottom button:hover:not(:disabled){border-color:#ffd700;color:#ffd700;}
+.ch-nav-top button:disabled, .ch-nav-bottom button:disabled{opacity:.3;cursor:not-allowed;}
+.ch-counter{color:#ffd700;font-weight:700;}
+.ch-nav-bottom{border-top:1px solid #2a5a8c;padding-top:1rem;margin-top:2rem;}
 .chapter{background:#111d30;border-radius:12px;padding:2rem;margin:2rem 0;border-right:4px solid #ffd700;}
 .chapter h1, .chapter h2{color:#ffd700;margin:1rem 0 .8rem;border-bottom:1px solid #2a5a8c;padding-bottom:.5rem;}
 .chapter h3{color:#4a9acf;margin:1rem 0 .5rem;}
@@ -42,10 +49,10 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 </head>
 <body>
 <div class="hero">
-    <img src="أخوات_موزة/Pasted image.png" alt="قصة أخوات موزة" style="max-width:280px;width:100%;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.5);margin-bottom:1rem;">
+    <img src="أخوات_موزة/cover.png" alt="قصة أخوات موزة" style="max-width:280px;width:100%;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.5);margin-bottom:1rem;">
     <h1>قصة أخوات موزة</h1>
     <div class="subtitle">رواية كاملة الفصول — 18 فصلاً</div>
-    <div class="meta">آخر تحديث: 2026-04-15 23:24</div>
+    <div class="meta">آخر تحديث: 2026-04-15 23:39</div>
 </div>
 <div class="controls">
     <a href="index.html">← كل القصص</a>
@@ -57,30 +64,37 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
     <div class="update-info">
         🔄 يتم فحص التحديثات تلقائياً كل دقيقتين <span class="live-dot"></span>
     </div>
-    <div class="toc">
-        <h2>📑 فهرس الفصول</h2>
+    <div class="toc" id="toc">
+        <h2>📑 فهرس الفصول — انقر فصلاً للقراءة</h2>
         <ul>
-<li><a href="#ch1">المعمارية0</a></li>
-<li><a href="#ch2">المعمارية1</a></li>
-<li><a href="#ch3">اخوات موزة الفصل الاول</a></li>
-<li><a href="#ch4">اخوات موزة الفصل الثاني</a></li>
-<li><a href="#ch5">الفصل الثالث</a></li>
-<li><a href="#ch6">الفصل الرابع</a></li>
-<li><a href="#ch7">الفصل الخامس</a></li>
-<li><a href="#ch8">الفصل السادس</a></li>
-<li><a href="#ch9">الفصل السابع أ</a></li>
-<li><a href="#ch10">الفصل السابع ب</a></li>
-<li><a href="#ch11">الفصل الثامن</a></li>
-<li><a href="#ch12">الفصل التاسع</a></li>
-<li><a href="#ch13">الفصل العاشر</a></li>
-<li><a href="#ch14">الفصل الحادي عشر</a></li>
-<li><a href="#ch15">الفصل الثاني عشر</a></li>
-<li><a href="#ch16">الفصل الثالث عشر</a></li>
-<li><a href="#ch17">الفصل الرابع عشر</a></li>
-<li><a href="#ch18">المعمارية الكاملة</a></li>
+<li><a href="#ch1" onclick="showChapter(1);return false;" data-ch="1">المعمارية0</a></li>
+<li><a href="#ch2" onclick="showChapter(2);return false;" data-ch="2">المعمارية1</a></li>
+<li><a href="#ch3" onclick="showChapter(3);return false;" data-ch="3">اخوات موزة الفصل الاول</a></li>
+<li><a href="#ch4" onclick="showChapter(4);return false;" data-ch="4">اخوات موزة الفصل الثاني</a></li>
+<li><a href="#ch5" onclick="showChapter(5);return false;" data-ch="5">الفصل الثالث</a></li>
+<li><a href="#ch6" onclick="showChapter(6);return false;" data-ch="6">الفصل الرابع</a></li>
+<li><a href="#ch7" onclick="showChapter(7);return false;" data-ch="7">الفصل الخامس</a></li>
+<li><a href="#ch8" onclick="showChapter(8);return false;" data-ch="8">الفصل السادس</a></li>
+<li><a href="#ch9" onclick="showChapter(9);return false;" data-ch="9">الفصل السابع أ</a></li>
+<li><a href="#ch10" onclick="showChapter(10);return false;" data-ch="10">الفصل السابع ب</a></li>
+<li><a href="#ch11" onclick="showChapter(11);return false;" data-ch="11">الفصل الثامن</a></li>
+<li><a href="#ch12" onclick="showChapter(12);return false;" data-ch="12">الفصل التاسع</a></li>
+<li><a href="#ch13" onclick="showChapter(13);return false;" data-ch="13">الفصل العاشر</a></li>
+<li><a href="#ch14" onclick="showChapter(14);return false;" data-ch="14">الفصل الحادي عشر</a></li>
+<li><a href="#ch15" onclick="showChapter(15);return false;" data-ch="15">الفصل الثاني عشر</a></li>
+<li><a href="#ch16" onclick="showChapter(16);return false;" data-ch="16">الفصل الثالث عشر</a></li>
+<li><a href="#ch17" onclick="showChapter(17);return false;" data-ch="17">الفصل الرابع عشر</a></li>
+<li><a href="#ch18" onclick="showChapter(18);return false;" data-ch="18">المعمارية الكاملة</a></li>
         </ul>
     </div>
-<div class="chapter" id="ch1"><h2>المعمارية0</h2><h1>أخوات موزة — المعمارية الكاملة</h1>
+<div class="chapter" id="ch1" data-ch="1" >
+    <div class="ch-nav-top">
+        <button onclick="showChapter(18)" disabled>◀ السابق</button>
+        <span class="ch-counter">الفصل 1 / 18</span>
+        <button onclick="showChapter(2)" >التالي ▶</button>
+    </div>
+    <h2>المعمارية0</h2>
+    <h1>أخوات موزة — المعمارية الكاملة</h1>
 <h2>الشجرة المرجعية للمشروع الأدبي</h2>
 <br>
 <hr>
@@ -394,8 +408,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <br>
 <p><em>هذه الوثيقة حية — تتطور مع كل فصل نكتبه</em></p>
 <p><em>آخر تحديث: مارس 2026</em></p>
-<br></div>
-<div class="chapter" id="ch2"><h2>المعمارية1</h2><h1>أخوات موزة — المعمارية الكاملة</h1>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(18)" disabled>◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(2)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch2" data-ch="2" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(1)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 2 / 18</span>
+        <button onclick="showChapter(3)" >التالي ▶</button>
+    </div>
+    <h2>المعمارية1</h2>
+    <h1>أخوات موزة — المعمارية الكاملة</h1>
 <h2>الشجرة المرجعية للمشروع الأدبي (النسخة المحدّثة)</h2>
 <br>
 <hr>
@@ -893,8 +920,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>هذه الوثيقة حية — تتطور مع كل فصل نكتبه</em></p>
 <p><em>النسخة: ٣ — محدّثة برؤية فاضل النهائية للجزء الثاني</em></p>
 <p><em>آخر تحديث: مارس ٢٠٢٦</em></p>
-<br></div>
-<div class="chapter" id="ch3"><h2>اخوات موزة الفصل الاول</h2><h1>أخوات موزة</h1>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(1)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(3)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch3" data-ch="3" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(2)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 3 / 18</span>
+        <button onclick="showChapter(4)" >التالي ▶</button>
+    </div>
+    <h2>اخوات موزة الفصل الاول</h2>
+    <h1>أخوات موزة</h1>
 <br>
 <hr>
 <br>
@@ -1127,8 +1167,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>ستكبر الصغيرات.</em></p>
 <br>
 <p><em>وسيتبدّل كل شيء في ليلة واحدة — مرة أخرى.</em></p>
-<br></div>
-<div class="chapter" id="ch4"><h2>اخوات موزة الفصل الثاني</h2><h1>أخوات موزة</h1>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(2)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(4)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch4" data-ch="4" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(3)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 4 / 18</span>
+        <button onclick="showChapter(5)" >التالي ▶</button>
+    </div>
+    <h2>اخوات موزة الفصل الثاني</h2>
+    <h1>أخوات موزة</h1>
 <br>
 <hr>
 <br>
@@ -1615,8 +1668,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>لم تكن أيّ منهنّ تعرف أن هذا هو آخر يوم عادي في حياتهنّ.</em></p>
 <br>
 <p><em>غداً ستأتي العاصفة.</em></p>
-<br></div>
-<div class="chapter" id="ch5"><h2>الفصل الثالث</h2><h2>الفصل الثالث: ليلة كل شيء</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(3)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(5)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch5" data-ch="5" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(4)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 5 / 18</span>
+        <button onclick="showChapter(6)" >التالي ▶</button>
+    </div>
+    <h2>الفصل الثالث</h2>
+    <h2>الفصل الثالث: ليلة كل شيء</h2>
 <br>
 <hr>
 <br>
@@ -2049,8 +2115,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>بلا أب. بلا أم. بلا بيت. بلا شيء.</em></p>
 <br>
 <p><em>إلا بعضهن.</em></p>
-<br></div>
-<div class="chapter" id="ch6"><h2>الفصل الرابع</h2><h2>الفصل الرابع: الصباح الأول</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(4)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(6)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch6" data-ch="6" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(5)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 6 / 18</span>
+        <button onclick="showChapter(7)" >التالي ▶</button>
+    </div>
+    <h2>الفصل الرابع</h2>
+    <h2>الفصل الرابع: الصباح الأول</h2>
 <br>
 <hr>
 <br>
@@ -2227,8 +2306,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>أمامهنّ بغداد — مدينة لم يدخلنها من قبل.</em></p>
 <br>
 <p><em>والعربة ثقيلة. والطريق طويل. والشمس ترتفع.</em></p>
-<br></div>
-<div class="chapter" id="ch7"><h2>الفصل الخامس</h2><h2>الفصل الخامس: رشيدة والحمار</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(5)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(7)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch7" data-ch="7" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(6)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 7 / 18</span>
+        <button onclick="showChapter(8)" >التالي ▶</button>
+    </div>
+    <h2>الفصل الخامس</h2>
+    <h2>الفصل الخامس: رشيدة والحمار</h2>
 <br>
 <hr>
 <br>
@@ -2411,8 +2503,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p>ولم يكنّ يعرفن ماذا ينتظرهنّ خلف تلك الأسوار.</p>
 <br>
 <p>&amp;lrm;</p>
-<br></div>
-<div class="chapter" id="ch8"><h2>الفصل السادس</h2><h2>الفصل السادس: سوق السمك</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(6)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(8)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch8" data-ch="8" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(7)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 8 / 18</span>
+        <button onclick="showChapter(9)" >التالي ▶</button>
+    </div>
+    <h2>الفصل السادس</h2>
+    <h2>الفصل السادس: سوق السمك</h2>
 <br>
 <hr>
 <br>
@@ -2853,8 +2958,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <hr>
 <br>
 <p><em>مشوا في شوارع بغداد — الرجل الذي يحمل سراً، والبنات اللاتي لا يعرفن ما ينتظرهنّ في بيته.</em></p>
-<br></div>
-<div class="chapter" id="ch9"><h2>الفصل السابع أ</h2><h2>الفصل السابع: بيت الغيرة (الجزء الأول)</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(7)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(9)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch9" data-ch="9" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(8)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 9 / 18</span>
+        <button onclick="showChapter(10)" >التالي ▶</button>
+    </div>
+    <h2>الفصل السابع أ</h2>
+    <h2>الفصل السابع: بيت الغيرة (الجزء الأول)</h2>
 <br>
 <hr>
 <br>
@@ -3149,8 +3267,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>واللّيل يقترب.</em></p>
 <br>
 <p>&amp;lrm;</p>
-<br></div>
-<div class="chapter" id="ch10"><h2>الفصل السابع ب</h2><h2>الفصل السابع: بيت الغيرة (الجزء الثاني)</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(8)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(10)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch10" data-ch="10" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(9)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 10 / 18</span>
+        <button onclick="showChapter(11)" >التالي ▶</button>
+    </div>
+    <h2>الفصل السابع ب</h2>
+    <h2>الفصل السابع: بيت الغيرة (الجزء الثاني)</h2>
 <br>
 <hr>
 <br>
@@ -3433,8 +3564,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>ثلاث بنات جائعات ينتظرن ملكاً.</em></p>
 <br>
 <p><em>ولكل واحدة حلم لا تعرف عنه أختاها شيئاً.</em></p>
-<br></div>
-<div class="chapter" id="ch11"><h2>الفصل الثامن</h2><h2>الفصل الثامن: ثلاثة أحلام عند السياج</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(9)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(11)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch11" data-ch="11" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(10)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 11 / 18</span>
+        <button onclick="showChapter(12)" >التالي ▶</button>
+    </div>
+    <h2>الفصل الثامن</h2>
+    <h2>الفصل الثامن: ثلاثة أحلام عند السياج</h2>
 <br>
 <hr>
 <br>
@@ -3831,8 +3975,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>ومن مكان ما في أعلى القصر — وصل خبر إلى أذن لن تنساه.</em></p>
 <br>
 <p>&amp;lrm;</p>
-<br></div>
-<div class="chapter" id="ch12"><h2>الفصل التاسع</h2><h2>الفصل التاسع: الملك وبنات جواد</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(10)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(12)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch12" data-ch="12" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(11)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 12 / 18</span>
+        <button onclick="showChapter(13)" >التالي ▶</button>
+    </div>
+    <h2>الفصل التاسع</h2>
+    <h2>الفصل التاسع: الملك وبنات جواد</h2>
 <br>
 <hr>
 <br>
@@ -4089,8 +4246,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>بعد.</em></p>
 <br>
 <p>&amp;lrm;</p>
-<br></div>
-<div class="chapter" id="ch13"><h2>الفصل العاشر</h2><h2>الفصل العاشر: عقد بطعم العزاء</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(11)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(13)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch13" data-ch="13" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(12)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 13 / 18</span>
+        <button onclick="showChapter(14)" >التالي ▶</button>
+    </div>
+    <h2>الفصل العاشر</h2>
+    <h2>الفصل العاشر: عقد بطعم العزاء</h2>
 <br>
 <hr>
 <br>
@@ -4405,8 +4575,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>والأب غائب.</em></p>
 <br>
 <p><em>وموزة — لأول مرة في حياتها — وحيدة.</em></p>
-<br></div>
-<div class="chapter" id="ch14"><h2>الفصل الحادي عشر</h2><h2>الفصل الحادي عشر: قصر وكوخ</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(12)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(14)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch14" data-ch="14" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(13)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 14 / 18</span>
+        <button onclick="showChapter(15)" >التالي ▶</button>
+    </div>
+    <h2>الفصل الحادي عشر</h2>
+    <h2>الفصل الحادي عشر: قصر وكوخ</h2>
 <br>
 <hr>
 <br>
@@ -4737,8 +4920,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>إلا موزة.</em></p>
 <br>
 <p>&amp;lrm;</p>
-<br></div>
-<div class="chapter" id="ch15"><h2>الفصل الثاني عشر</h2><h2>الفصل الثاني عشر: الصندوق الأول</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(13)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(15)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch15" data-ch="15" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(14)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 15 / 18</span>
+        <button onclick="showChapter(16)" >التالي ▶</button>
+    </div>
+    <h2>الفصل الثاني عشر</h2>
+    <h2>الفصل الثاني عشر: الصندوق الأول</h2>
 <br>
 <hr>
 <br>
@@ -4967,8 +5163,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>لأن دجلة — كأمه — لا يرمي ما يخرج منه.</em></p>
 <br>
 <p>&amp;lrm;</p>
-<br></div>
-<div class="chapter" id="ch16"><h2>الفصل الثالث عشر</h2><h2>الفصل الثالث عشر: الصندوق الثاني</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(14)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(16)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch16" data-ch="16" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(15)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 16 / 18</span>
+        <button onclick="showChapter(17)" >التالي ▶</button>
+    </div>
+    <h2>الفصل الثالث عشر</h2>
+    <h2>الفصل الثالث عشر: الصندوق الثاني</h2>
 <br>
 <hr>
 <br>
@@ -5535,8 +5744,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>والولادة الثالثة — لم تأتِ بعد.</em></p>
 <br>
 <p>&amp;lrm;</p>
-<br></div>
-<div class="chapter" id="ch17"><h2>الفصل الرابع عشر</h2><h2>الفصل الرابع عشر: الصندوق الثالث</h2>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(15)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(17)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch17" data-ch="17" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(16)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 17 / 18</span>
+        <button onclick="showChapter(18)" >التالي ▶</button>
+    </div>
+    <h2>الفصل الرابع عشر</h2>
+    <h2>الفصل الرابع عشر: الصندوق الثالث</h2>
 <br>
 <hr>
 <br>
@@ -5981,8 +6203,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>لأن النهر لم يتوقف عن العطاء بعد.</em></p>
 <br>
 <p>&amp;lrm;</p>
-<br></div>
-<div class="chapter" id="ch18"><h2>المعمارية الكاملة</h2><h1>أخوات موزة — المعمارية الكاملة</h1>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(16)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(18)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch18" data-ch="18" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(17)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 18 / 18</span>
+        <button onclick="showChapter(1)" disabled>التالي ▶</button>
+    </div>
+    <h2>المعمارية الكاملة</h2>
+    <h1>أخوات موزة — المعمارية الكاملة</h1>
 <h2>الشجرة المرجعية للمشروع الأدبي (النسخة المحدّثة)</h2>
 <br>
 <hr>
@@ -6474,13 +6709,50 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <p><em>هذه الوثيقة حية — تتطور مع كل فصل نكتبه</em></p>
 <p><em>النسخة: ٢ — محدّثة بتصحيحات فاضل</em></p>
 <p><em>آخر تحديث: مارس ٢٠٢٦</em></p>
-<br></div>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(17)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(1)" disabled>الفصل التالي ▶</button>
+    </div>
+</div>
 </div>
 <div class="footer">
     <p><a href="index.html">← مكتبة القصص</a> | <a href="../../index.html">الرئيسية</a></p>
     <p style="margin-top:.5rem;">© 2026 — أكاديمية المصفوفة للذكاء الاصطناعي</p>
 </div>
 <script>
+function showChapter(n) {
+    document.querySelectorAll('.chapter').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.toc li a').forEach(a => a.classList.remove('active'));
+    const ch = document.querySelector('.chapter[data-ch="' + n + '"]');
+    if (ch) {
+        ch.style.display = 'block';
+        ch.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+    const link = document.querySelector('.toc li a[data-ch="' + n + '"]');
+    if (link) link.classList.add('active');
+    history.replaceState(null, '', '#ch' + n);
+}
+// Load chapter from URL hash on page load
+window.addEventListener('load', () => {
+    const m = location.hash.match(/^#ch(\d+)$/);
+    if (m) showChapter(parseInt(m[1]));
+    else {
+        const first = document.querySelector('.toc li a[data-ch="1"]');
+        if (first) first.classList.add('active');
+    }
+});
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+    const visible = document.querySelector('.chapter[style*="display: block"], .chapter:not([style*="display: none"])');
+    if (!visible) return;
+    const cur = parseInt(visible.dataset.ch);
+    const total = document.querySelectorAll('.chapter').length;
+    if (e.key === 'ArrowLeft') showChapter(cur < total ? cur + 1 : 1);
+    if (e.key === 'ArrowRight') showChapter(cur > 1 ? cur - 1 : total);
+});
+
 const SIG = 'd2b3850a14ce';
 async function check() {
     try {

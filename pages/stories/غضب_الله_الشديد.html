@@ -18,10 +18,17 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 .container{max-width:900px;margin:0 auto;padding:2rem 1.5rem;}
 .toc{background:#111d30;border-radius:12px;padding:1.5rem;margin-bottom:2rem;}
 .toc h2{color:#ffd700;font-size:1.3rem;margin-bottom:1rem;border-bottom:2px solid #2a5a8c;padding-bottom:.5rem;}
-.toc ul{list-style:none;padding:0;}
-.toc li{padding:.4rem 0;border-bottom:1px solid #1a2a3a;}
-.toc li a{color:#4a9acf;text-decoration:none;display:block;}
-.toc li a:hover{color:#ffd700;}
+.toc ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem;}
+.toc li{padding:0;border:none;}
+.toc li a{color:#b8d4e8;text-decoration:none;display:block;background:#0d1520;border:1px solid #2a5a8c;border-radius:8px;padding:.7rem 1rem;transition:all .2s;cursor:pointer;}
+.toc li a:hover{color:#ffd700;border-color:#ffd700;background:#1a2a3a;}
+.toc li a.active{background:#ffd700;color:#0a1628;border-color:#ffd700;font-weight:700;}
+.ch-nav-top, .ch-nav-bottom{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin:1rem 0;flex-wrap:wrap;}
+.ch-nav-top button, .ch-nav-bottom button{background:#1a2a3a;color:#b8d4e8;border:2px solid #2a5a8c;padding:.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:.9rem;transition:all .2s;font-family:inherit;}
+.ch-nav-top button:hover:not(:disabled), .ch-nav-bottom button:hover:not(:disabled){border-color:#ffd700;color:#ffd700;}
+.ch-nav-top button:disabled, .ch-nav-bottom button:disabled{opacity:.3;cursor:not-allowed;}
+.ch-counter{color:#ffd700;font-weight:700;}
+.ch-nav-bottom{border-top:1px solid #2a5a8c;padding-top:1rem;margin-top:2rem;}
 .chapter{background:#111d30;border-radius:12px;padding:2rem;margin:2rem 0;border-right:4px solid #ffd700;}
 .chapter h1, .chapter h2{color:#ffd700;margin:1rem 0 .8rem;border-bottom:1px solid #2a5a8c;padding-bottom:.5rem;}
 .chapter h3{color:#4a9acf;margin:1rem 0 .5rem;}
@@ -42,10 +49,10 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 </head>
 <body>
 <div class="hero">
-    <img src="غضب_الله_الشديد/Pasted image (2).png" alt="قصة غضب الله الشديد" style="max-width:280px;width:100%;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.5);margin-bottom:1rem;">
+    <img src="غضب_الله_الشديد/cover.png" alt="قصة غضب الله الشديد" style="max-width:280px;width:100%;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.5);margin-bottom:1rem;">
     <h1>قصة غضب الله الشديد</h1>
     <div class="subtitle">حكاية موجعة — 7 فصلاً</div>
-    <div class="meta">آخر تحديث: 2026-04-15 23:24</div>
+    <div class="meta">آخر تحديث: 2026-04-15 23:39</div>
 </div>
 <div class="controls">
     <a href="index.html">← كل القصص</a>
@@ -57,19 +64,26 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
     <div class="update-info">
         🔄 يتم فحص التحديثات تلقائياً كل دقيقتين <span class="live-dot"></span>
     </div>
-    <div class="toc">
-        <h2>📑 فهرس الفصول</h2>
+    <div class="toc" id="toc">
+        <h2>📑 فهرس الفصول — انقر فصلاً للقراءة</h2>
         <ul>
-<li><a href="#ch1">الفصل1,2,3</a></li>
-<li><a href="#ch2">الفصل الرابع</a></li>
-<li><a href="#ch3">الفصل الخامس</a></li>
-<li><a href="#ch4">الفصل 6,7</a></li>
-<li><a href="#ch5">الفصل الثامن</a></li>
-<li><a href="#ch6">الفصل التاسع</a></li>
-<li><a href="#ch7">الفصل العاشر</a></li>
+<li><a href="#ch1" onclick="showChapter(1);return false;" data-ch="1">الفصل1,2,3</a></li>
+<li><a href="#ch2" onclick="showChapter(2);return false;" data-ch="2">الفصل الرابع</a></li>
+<li><a href="#ch3" onclick="showChapter(3);return false;" data-ch="3">الفصل الخامس</a></li>
+<li><a href="#ch4" onclick="showChapter(4);return false;" data-ch="4">الفصل 6,7</a></li>
+<li><a href="#ch5" onclick="showChapter(5);return false;" data-ch="5">الفصل الثامن</a></li>
+<li><a href="#ch6" onclick="showChapter(6);return false;" data-ch="6">الفصل التاسع</a></li>
+<li><a href="#ch7" onclick="showChapter(7);return false;" data-ch="7">الفصل العاشر</a></li>
         </ul>
     </div>
-<div class="chapter" id="ch1"><h2>الفصل1,2,3</h2><h1>غضب الله الشديد</h1>
+<div class="chapter" id="ch1" data-ch="1" >
+    <div class="ch-nav-top">
+        <button onclick="showChapter(7)" disabled>◀ السابق</button>
+        <span class="ch-counter">الفصل 1 / 7</span>
+        <button onclick="showChapter(2)" >التالي ▶</button>
+    </div>
+    <h2>الفصل1,2,3</h2>
+    <h1>غضب الله الشديد</h1>
 <br>
 <h2>رواية عراقية</h2>
 <br>
@@ -530,8 +544,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <hr>
 <br>
 <p><em>يتبع — الفصل الرابع: سيد هاشم</em></p>
-<br></div>
-<div class="chapter" id="ch2"><h2>الفصل الرابع</h2><h1>غضب الله الشديد — الفصل الرابع (معدّل نهائي)</h1>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(7)" disabled>◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(2)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch2" data-ch="2" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(1)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 2 / 7</span>
+        <button onclick="showChapter(3)" >التالي ▶</button>
+    </div>
+    <h2>الفصل الرابع</h2>
+    <h1>غضب الله الشديد — الفصل الرابع (معدّل نهائي)</h1>
 <br>
 <h2>الفصل الرابع: سيد هاشم</h2>
 <br>
@@ -816,8 +843,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <hr>
 <br>
 <p><em>يتبع — الفصل الخامس: زينة</em></p>
-<br></div>
-<div class="chapter" id="ch3"><h2>الفصل الخامس</h2><h1>غضب الله الشديد — الفصل الخامس (معدّل نهائي)</h1>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(1)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(3)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch3" data-ch="3" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(2)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 3 / 7</span>
+        <button onclick="showChapter(4)" >التالي ▶</button>
+    </div>
+    <h2>الفصل الخامس</h2>
+    <h1>غضب الله الشديد — الفصل الخامس (معدّل نهائي)</h1>
 <br>
 <h2>الفصل الخامس: زينة</h2>
 <br>
@@ -1034,8 +1074,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <hr>
 <br>
 <p><em>يتبع — الفصل السادس: المقدم ناظم</em></p>
-<br></div>
-<div class="chapter" id="ch4"><h2>الفصل 6,7</h2><h1>غضب الله الشديد — الفصل السادس (النسخة النهائية الكاملة)</h1>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(2)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(4)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch4" data-ch="4" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(3)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 4 / 7</span>
+        <button onclick="showChapter(5)" >التالي ▶</button>
+    </div>
+    <h2>الفصل 6,7</h2>
+    <h1>غضب الله الشديد — الفصل السادس (النسخة النهائية الكاملة)</h1>
 <br>
 <h2>الفصل السادس: المقدم ناظم</h2>
 <br>
@@ -1727,8 +1780,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <hr>
 <br>
 <p><em>يتبع — الفصل الثامن: الطريق إلى بيت بزون</em></p>
-<br></div>
-<div class="chapter" id="ch5"><h2>الفصل الثامن</h2><h1>غضب الله الشديد — الفصل الثامن</h1>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(3)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(5)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch5" data-ch="5" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(4)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 5 / 7</span>
+        <button onclick="showChapter(6)" >التالي ▶</button>
+    </div>
+    <h2>الفصل الثامن</h2>
+    <h1>غضب الله الشديد — الفصل الثامن</h1>
 <br>
 <h2>الفصل الثامن: الطريق إلى بيت بزون</h2>
 <br>
@@ -1907,8 +1973,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <hr>
 <br>
 <p><em>يتبع — الفصل التاسع: بيت بزون</em></p>
-<br></div>
-<div class="chapter" id="ch6"><h2>الفصل التاسع</h2><h1>غضب الله الشديد — الفصل التاسع</h1>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(4)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(6)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch6" data-ch="6" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(5)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 6 / 7</span>
+        <button onclick="showChapter(7)" >التالي ▶</button>
+    </div>
+    <h2>الفصل التاسع</h2>
+    <h1>غضب الله الشديد — الفصل التاسع</h1>
 <br>
 <h2>الفصل التاسع: بيت بزون</h2>
 <br>
@@ -2157,8 +2236,21 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <hr>
 <br>
 <p><em>يتبع — الفصل العاشر: أبو ياسر</em></p>
-<br></div>
-<div class="chapter" id="ch7"><h2>الفصل العاشر</h2><h1>غضب الله الشديد — الفصل العاشر</h1>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(5)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(7)" >الفصل التالي ▶</button>
+    </div>
+</div>
+<div class="chapter" id="ch7" data-ch="7" style="display:none;">
+    <div class="ch-nav-top">
+        <button onclick="showChapter(6)" >◀ السابق</button>
+        <span class="ch-counter">الفصل 7 / 7</span>
+        <button onclick="showChapter(1)" disabled>التالي ▶</button>
+    </div>
+    <h2>الفصل العاشر</h2>
+    <h1>غضب الله الشديد — الفصل العاشر</h1>
 <br>
 <h2>الفصل العاشر: أبو ياسر</h2>
 <br>
@@ -2357,13 +2449,50 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <hr>
 <br>
 <p><em>يتبع — الفصل الحادي عشر: الحقيقة</em></p>
-<br></div>
+<br>
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter(6)" >◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})">📑 الفهرس</button>
+        <button onclick="showChapter(1)" disabled>الفصل التالي ▶</button>
+    </div>
+</div>
 </div>
 <div class="footer">
     <p><a href="index.html">← مكتبة القصص</a> | <a href="../../index.html">الرئيسية</a></p>
     <p style="margin-top:.5rem;">© 2026 — أكاديمية المصفوفة للذكاء الاصطناعي</p>
 </div>
 <script>
+function showChapter(n) {
+    document.querySelectorAll('.chapter').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.toc li a').forEach(a => a.classList.remove('active'));
+    const ch = document.querySelector('.chapter[data-ch="' + n + '"]');
+    if (ch) {
+        ch.style.display = 'block';
+        ch.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+    const link = document.querySelector('.toc li a[data-ch="' + n + '"]');
+    if (link) link.classList.add('active');
+    history.replaceState(null, '', '#ch' + n);
+}
+// Load chapter from URL hash on page load
+window.addEventListener('load', () => {
+    const m = location.hash.match(/^#ch(\d+)$/);
+    if (m) showChapter(parseInt(m[1]));
+    else {
+        const first = document.querySelector('.toc li a[data-ch="1"]');
+        if (first) first.classList.add('active');
+    }
+});
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+    const visible = document.querySelector('.chapter[style*="display: block"], .chapter:not([style*="display: none"])');
+    if (!visible) return;
+    const cur = parseInt(visible.dataset.ch);
+    const total = document.querySelectorAll('.chapter').length;
+    if (e.key === 'ArrowLeft') showChapter(cur < total ? cur + 1 : 1);
+    if (e.key === 'ArrowRight') showChapter(cur > 1 ? cur - 1 : total);
+});
+
 const SIG = '681b3cffca4a';
 async function check() {
     try {

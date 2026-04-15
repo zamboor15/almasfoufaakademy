@@ -13,7 +13,7 @@ STORIES = [
         "subtitle_ar": "رواية كاملة الفصول",
         "color": "#8b5cf6",
         "icon": "📖",
-        "cover": "Pasted image.png"
+        "cover": "cover.png"
     },
     {
         "slug": "غضب_الله_الشديد",
@@ -21,7 +21,7 @@ STORIES = [
         "subtitle_ar": "حكاية موجعة",
         "color": "#ef4444",
         "icon": "📜",
-        "cover": "Pasted image (2).png"
+        "cover": "cover.png"
     },
 ]
 
@@ -103,10 +103,17 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 .container{max-width:900px;margin:0 auto;padding:2rem 1.5rem;}
 .toc{background:#111d30;border-radius:12px;padding:1.5rem;margin-bottom:2rem;}
 .toc h2{color:#ffd700;font-size:1.3rem;margin-bottom:1rem;border-bottom:2px solid #2a5a8c;padding-bottom:.5rem;}
-.toc ul{list-style:none;padding:0;}
-.toc li{padding:.4rem 0;border-bottom:1px solid #1a2a3a;}
-.toc li a{color:#4a9acf;text-decoration:none;display:block;}
-.toc li a:hover{color:#ffd700;}
+.toc ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem;}
+.toc li{padding:0;border:none;}
+.toc li a{color:#b8d4e8;text-decoration:none;display:block;background:#0d1520;border:1px solid #2a5a8c;border-radius:8px;padding:.7rem 1rem;transition:all .2s;cursor:pointer;}
+.toc li a:hover{color:#ffd700;border-color:#ffd700;background:#1a2a3a;}
+.toc li a.active{background:#ffd700;color:#0a1628;border-color:#ffd700;font-weight:700;}
+.ch-nav-top, .ch-nav-bottom{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin:1rem 0;flex-wrap:wrap;}
+.ch-nav-top button, .ch-nav-bottom button{background:#1a2a3a;color:#b8d4e8;border:2px solid #2a5a8c;padding:.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:.9rem;transition:all .2s;font-family:inherit;}
+.ch-nav-top button:hover:not(:disabled), .ch-nav-bottom button:hover:not(:disabled){border-color:#ffd700;color:#ffd700;}
+.ch-nav-top button:disabled, .ch-nav-bottom button:disabled{opacity:.3;cursor:not-allowed;}
+.ch-counter{color:#ffd700;font-weight:700;}
+.ch-nav-bottom{border-top:1px solid #2a5a8c;padding-top:1rem;margin-top:2rem;}
 .chapter{background:#111d30;border-radius:12px;padding:2rem;margin:2rem 0;border-right:4px solid #ffd700;}
 .chapter h1, .chapter h2{color:#ffd700;margin:1rem 0 .8rem;border-bottom:1px solid #2a5a8c;padding-bottom:.5rem;}
 .chapter h3{color:#4a9acf;margin:1rem 0 .5rem;}
@@ -192,7 +199,7 @@ def build_story(story):
         print(f"  [SKIP] {story['slug']} — no chapters")
         return None
 
-    # Build chapters HTML
+    # Build chapters HTML — one shown at a time
     chapters_html = []
     toc_items = []
     full_text = []  # for download
@@ -203,8 +210,23 @@ def build_story(story):
         chapter_html = md_to_html_simple(md_content)
         chapter_id = f"ch{i}"
         chapter_title = os.path.basename(md_file).replace('.md','').replace('_',' ')
-        toc_items.append(f'<li><a href="#{chapter_id}">{chapter_title}</a></li>')
-        chapters_html.append(f'<div class="chapter" id="{chapter_id}"><h2>{chapter_title}</h2>{chapter_html}</div>')
+        toc_items.append(f'<li><a href="#{chapter_id}" onclick="showChapter({i});return false;" data-ch="{i}">{chapter_title}</a></li>')
+        # Hidden by default, only first chapter visible
+        display = '' if i == 1 else 'style="display:none;"'
+        chapters_html.append(f'''<div class="chapter" id="{chapter_id}" data-ch="{i}" {display}>
+    <div class="ch-nav-top">
+        <button onclick="showChapter({i-1 if i>1 else len(md_files)})" {'disabled' if i==1 else ''}>◀ السابق</button>
+        <span class="ch-counter">الفصل {i} / {len(md_files)}</span>
+        <button onclick="showChapter({i+1 if i<len(md_files) else 1})" {'disabled' if i==len(md_files) else ''}>التالي ▶</button>
+    </div>
+    <h2>{chapter_title}</h2>
+    {chapter_html}
+    <div class="ch-nav-bottom">
+        <button onclick="showChapter({i-1 if i>1 else len(md_files)})" {'disabled' if i==1 else ''}>◀ الفصل السابق</button>
+        <button onclick="document.getElementById('toc').scrollIntoView({{behavior:'smooth'}})">📑 الفهرس</button>
+        <button onclick="showChapter({i+1 if i<len(md_files) else 1})" {'disabled' if i==len(md_files) else ''}>الفصل التالي ▶</button>
+    </div>
+</div>''')
 
     # Save full story as downloadable text
     download_file = os.path.join(src_dir, f"{story['slug']}_كاملة.txt")
@@ -247,8 +269,8 @@ def build_story(story):
     <div class="update-info">
         🔄 يتم فحص التحديثات تلقائياً كل دقيقتين <span class="live-dot"></span>
     </div>
-    <div class="toc">
-        <h2>📑 فهرس الفصول</h2>
+    <div class="toc" id="toc">
+        <h2>📑 فهرس الفصول — انقر فصلاً للقراءة</h2>
         <ul>
 {chr(10).join(toc_items)}
         </ul>
@@ -260,6 +282,37 @@ def build_story(story):
     <p style="margin-top:.5rem;">© 2026 — أكاديمية المصفوفة للذكاء الاصطناعي</p>
 </div>
 <script>
+function showChapter(n) {{
+    document.querySelectorAll('.chapter').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.toc li a').forEach(a => a.classList.remove('active'));
+    const ch = document.querySelector('.chapter[data-ch="' + n + '"]');
+    if (ch) {{
+        ch.style.display = 'block';
+        ch.scrollIntoView({{behavior: 'smooth', block: 'start'}});
+    }}
+    const link = document.querySelector('.toc li a[data-ch="' + n + '"]');
+    if (link) link.classList.add('active');
+    history.replaceState(null, '', '#ch' + n);
+}}
+// Load chapter from URL hash on page load
+window.addEventListener('load', () => {{
+    const m = location.hash.match(/^#ch(\\d+)$/);
+    if (m) showChapter(parseInt(m[1]));
+    else {{
+        const first = document.querySelector('.toc li a[data-ch="1"]');
+        if (first) first.classList.add('active');
+    }}
+}});
+// Keyboard navigation
+document.addEventListener('keydown', e => {{
+    const visible = document.querySelector('.chapter[style*="display: block"], .chapter:not([style*="display: none"])');
+    if (!visible) return;
+    const cur = parseInt(visible.dataset.ch);
+    const total = document.querySelectorAll('.chapter').length;
+    if (e.key === 'ArrowLeft') showChapter(cur < total ? cur + 1 : 1);
+    if (e.key === 'ArrowRight') showChapter(cur > 1 ? cur - 1 : total);
+}});
+
 const SIG = '{sig}';
 async function check() {{
     try {{

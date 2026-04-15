@@ -18,10 +18,17 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 .container{max-width:900px;margin:0 auto;padding:2rem 1.5rem;}
 .toc{background:#111d30;border-radius:12px;padding:1.5rem;margin-bottom:2rem;}
 .toc h2{color:#ffd700;font-size:1.3rem;margin-bottom:1rem;border-bottom:2px solid #2a5a8c;padding-bottom:.5rem;}
-.toc ul{list-style:none;padding:0;}
-.toc li{padding:.4rem 0;border-bottom:1px solid #1a2a3a;}
-.toc li a{color:#4a9acf;text-decoration:none;display:block;}
-.toc li a:hover{color:#ffd700;}
+.toc ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem;}
+.toc li{padding:0;border:none;}
+.toc li a{color:#b8d4e8;text-decoration:none;display:block;background:#0d1520;border:1px solid #2a5a8c;border-radius:8px;padding:.7rem 1rem;transition:all .2s;cursor:pointer;}
+.toc li a:hover{color:#ffd700;border-color:#ffd700;background:#1a2a3a;}
+.toc li a.active{background:#ffd700;color:#0a1628;border-color:#ffd700;font-weight:700;}
+.ch-nav-top, .ch-nav-bottom{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin:1rem 0;flex-wrap:wrap;}
+.ch-nav-top button, .ch-nav-bottom button{background:#1a2a3a;color:#b8d4e8;border:2px solid #2a5a8c;padding:.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:.9rem;transition:all .2s;font-family:inherit;}
+.ch-nav-top button:hover:not(:disabled), .ch-nav-bottom button:hover:not(:disabled){border-color:#ffd700;color:#ffd700;}
+.ch-nav-top button:disabled, .ch-nav-bottom button:disabled{opacity:.3;cursor:not-allowed;}
+.ch-counter{color:#ffd700;font-weight:700;}
+.ch-nav-bottom{border-top:1px solid #2a5a8c;padding-top:1rem;margin-top:2rem;}
 .chapter{background:#111d30;border-radius:12px;padding:2rem;margin:2rem 0;border-right:4px solid #ffd700;}
 .chapter h1, .chapter h2{color:#ffd700;margin:1rem 0 .8rem;border-bottom:1px solid #2a5a8c;padding-bottom:.5rem;}
 .chapter h3{color:#4a9acf;margin:1rem 0 .5rem;}
@@ -54,7 +61,7 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <div class="hero">
     <h1>📚 مكتبة القصص</h1>
     <div class="subtitle">قصص أكاديمية المصفوفة</div>
-    <div class="meta">آخر تحديث تلقائي: <span id="lastUpdate">2026-04-15 23:24</span> <span class="live-dot" style="display:inline-block;width:8px;height:8px;background:#4a8a4f;border-radius:50%;margin-right:.5rem;animation:pulse 2s infinite;"></span></div>
+    <div class="meta">آخر تحديث تلقائي: <span id="lastUpdate">2026-04-15 23:39</span> <span class="live-dot" style="display:inline-block;width:8px;height:8px;background:#4a8a4f;border-radius:50%;margin-right:.5rem;animation:pulse 2s infinite;"></span></div>
 </div>
 <div class="container">
     <div class="stories-grid">
