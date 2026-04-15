@@ -12,14 +12,16 @@ STORIES = [
         "title_ar": "قصة أخوات موزة",
         "subtitle_ar": "رواية كاملة الفصول",
         "color": "#8b5cf6",
-        "icon": "📖"
+        "icon": "📖",
+        "cover": "Pasted image.png"
     },
     {
         "slug": "غضب_الله_الشديد",
         "title_ar": "قصة غضب الله الشديد",
         "subtitle_ar": "حكاية موجعة",
         "color": "#ef4444",
-        "icon": "📜"
+        "icon": "📜",
+        "cover": "Pasted image (2).png"
     },
 ]
 
@@ -131,9 +133,11 @@ INDEX_PAGE = """<!DOCTYPE html>
 <title>القصص — أكاديمية المصفوفة</title>
 <style>{css}
 .stories-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;padding:2rem 0;}}
-.story-card{{background:#111d30;border-radius:12px;padding:2rem;border-top:4px solid var(--accent,#ffd700);transition:transform .2s;text-decoration:none;color:inherit;display:block;}}
+.story-card{{background:#111d30;border-radius:12px;overflow:hidden;border-top:4px solid var(--accent,#ffd700);transition:transform .2s;text-decoration:none;color:inherit;display:block;}}
 .story-card:hover{{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.4);}}
-.story-card .icon{{font-size:3rem;margin-bottom:1rem;display:block;}}
+.story-card .cover-wrap{{width:100%;aspect-ratio:3/4;overflow:hidden;background:#0a1628;display:flex;align-items:center;justify-content:center;}}
+.story-card .cover-wrap img{{width:100%;height:100%;object-fit:cover;display:block;}}
+.story-card .body{{padding:1.5rem;}}
 .story-card h2{{color:#ffd700;font-size:1.4rem;margin-bottom:.5rem;}}
 .story-card .sub{{color:#9ab;font-size:.95rem;margin-bottom:1rem;}}
 .story-card .info{{color:#4a9acf;font-size:.85rem;}}
@@ -213,6 +217,11 @@ def build_story(story):
     sig = hashlib.md5("|".join(open(f, 'rb').read().hex() for f in md_files).encode()).hexdigest()[:12]
 
     last_update = datetime.now().strftime('%Y-%m-%d %H:%M')
+    cover_block = ''
+    if story.get('cover') and os.path.exists(os.path.join(src_dir, story['cover'])):
+        cover_block = f'<img src="{story["slug"]}/{html.escape(story["cover"])}" alt="{html.escape(story["title_ar"])}" style="max-width:280px;width:100%;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.5);margin-bottom:1rem;">'
+    else:
+        cover_block = f'<div style="font-size:3rem;">{story["icon"]}</div>'
     page_html = f"""<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -223,7 +232,7 @@ def build_story(story):
 </head>
 <body>
 <div class="hero">
-    <div style="font-size:3rem;">{story['icon']}</div>
+    {cover_block}
     <h1>{story['title_ar']}</h1>
     <div class="subtitle">{story['subtitle_ar']} — {len(md_files)} فصلاً</div>
     <div class="meta">آخر تحديث: {last_update}</div>
@@ -282,11 +291,14 @@ check();
 def build_index(built):
     cards = []
     for s in built:
+        cover_img = f'<img src="{s["slug"]}/{s["cover"]}" alt="{s["title"]}" loading="lazy">' if s.get('cover') else f'<span style="font-size:4rem">{s["icon"]}</span>'
         cards.append(f"""        <a href="{s['slug']}.html" class="story-card" style="--accent:{s['color']};border-top-color:{s['color']};">
-            <span class="icon">{s['icon']}</span>
-            <h2>{s['title']}</h2>
-            <div class="sub">{s['subtitle']}</div>
-            <div class="info">📖 {s['chapters']} فصلاً — انقر للقراءة</div>
+            <div class="cover-wrap">{cover_img}</div>
+            <div class="body">
+                <h2>{s['title']}</h2>
+                <div class="sub">{s['subtitle']}</div>
+                <div class="info">📖 {s['chapters']} فصلاً — انقر للقراءة</div>
+            </div>
         </a>""")
 
     sig = hashlib.md5("|".join(s["signature"] for s in built).encode()).hexdigest()[:12]

@@ -40,9 +40,11 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 @media(max-width:600px){.hero h1{font-size:1.6rem;}.chapter{padding:1rem;}}
 
 .stories-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;padding:2rem 0;}
-.story-card{background:#111d30;border-radius:12px;padding:2rem;border-top:4px solid var(--accent,#ffd700);transition:transform .2s;text-decoration:none;color:inherit;display:block;}
+.story-card{background:#111d30;border-radius:12px;overflow:hidden;border-top:4px solid var(--accent,#ffd700);transition:transform .2s;text-decoration:none;color:inherit;display:block;}
 .story-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
-.story-card .icon{font-size:3rem;margin-bottom:1rem;display:block;}
+.story-card .cover-wrap{width:100%;aspect-ratio:3/4;overflow:hidden;background:#0a1628;display:flex;align-items:center;justify-content:center;}
+.story-card .cover-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+.story-card .body{padding:1.5rem;}
 .story-card h2{color:#ffd700;font-size:1.4rem;margin-bottom:.5rem;}
 .story-card .sub{color:#9ab;font-size:.95rem;margin-bottom:1rem;}
 .story-card .info{color:#4a9acf;font-size:.85rem;}
@@ -52,21 +54,25 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <div class="hero">
     <h1>📚 مكتبة القصص</h1>
     <div class="subtitle">قصص أكاديمية المصفوفة</div>
-    <div class="meta">آخر تحديث تلقائي: <span id="lastUpdate">2026-04-15 23:00</span> <span class="live-dot" style="display:inline-block;width:8px;height:8px;background:#4a8a4f;border-radius:50%;margin-right:.5rem;animation:pulse 2s infinite;"></span></div>
+    <div class="meta">آخر تحديث تلقائي: <span id="lastUpdate">2026-04-15 23:24</span> <span class="live-dot" style="display:inline-block;width:8px;height:8px;background:#4a8a4f;border-radius:50%;margin-right:.5rem;animation:pulse 2s infinite;"></span></div>
 </div>
 <div class="container">
     <div class="stories-grid">
         <a href="أخوات_موزة.html" class="story-card" style="--accent:#8b5cf6;border-top-color:#8b5cf6;">
-            <span class="icon">📖</span>
-            <h2>قصة أخوات موزة</h2>
-            <div class="sub">رواية كاملة الفصول</div>
-            <div class="info">📖 18 فصلاً — انقر للقراءة</div>
+            <div class="cover-wrap"><span style="font-size:4rem">📖</span></div>
+            <div class="body">
+                <h2>قصة أخوات موزة</h2>
+                <div class="sub">رواية كاملة الفصول</div>
+                <div class="info">📖 18 فصلاً — انقر للقراءة</div>
+            </div>
         </a>
         <a href="غضب_الله_الشديد.html" class="story-card" style="--accent:#ef4444;border-top-color:#ef4444;">
-            <span class="icon">📜</span>
-            <h2>قصة غضب الله الشديد</h2>
-            <div class="sub">حكاية موجعة</div>
-            <div class="info">📖 7 فصلاً — انقر للقراءة</div>
+            <div class="cover-wrap"><span style="font-size:4rem">📜</span></div>
+            <div class="body">
+                <h2>قصة غضب الله الشديد</h2>
+                <div class="sub">حكاية موجعة</div>
+                <div class="info">📖 7 فصلاً — انقر للقراءة</div>
+            </div>
         </a>
     </div>
 </div>
