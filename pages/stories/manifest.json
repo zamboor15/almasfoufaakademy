@@ -1,0 +1,24 @@
+{
+  "signature": "ae4ca96727b2",
+  "last_update": "2026-04-15 23:00",
+  "stories": [
+    {
+      "slug": "أخوات_موزة",
+      "title": "قصة أخوات موزة",
+      "chapters": 18,
+      "signature": "d2b3850a14ce",
+      "color": "#8b5cf6",
+      "icon": "📖",
+      "subtitle": "رواية كاملة الفصول"
+    },
+    {
+      "slug": "غضب_الله_الشديد",
+      "title": "قصة غضب الله الشديد",
+      "chapters": 7,
+      "signature": "681b3cffca4a",
+      "color": "#ef4444",
+      "icon": "📜",
+      "subtitle": "حكاية موجعة"
+    }
+  ]
+}

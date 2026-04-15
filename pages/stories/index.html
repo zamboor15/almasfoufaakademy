@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>القصص — أكاديمية المصفوفة</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8;line-height:2;}
+.hero{text-align:center;padding:3rem 1rem 2rem;background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 100%);border-bottom:3px solid #ffd700;}
+.hero h1{font-size:2.4rem;color:#ffd700;margin-bottom:.5rem;}
+.hero .subtitle{font-size:1.1rem;color:#b8d4e8;margin-bottom:1rem;}
+.hero .meta{color:#9ab;font-size:.9rem;margin-top:.5rem;}
+.controls{position:sticky;top:0;z-index:50;background:#111d30;padding:.8rem;border-bottom:1px solid #1a2a3a;display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;}
+.controls a, .controls button{background:#1a2a3a;color:#b8d4e8;border:2px solid #2a5a8c;padding:.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:.9rem;text-decoration:none;transition:all .2s;}
+.controls a:hover, .controls button:hover{border-color:#ffd700;color:#ffd700;}
+.controls .download-btn{background:#ffd700;color:#0a1628;border-color:#ffd700;font-weight:700;}
+.container{max-width:900px;margin:0 auto;padding:2rem 1.5rem;}
+.toc{background:#111d30;border-radius:12px;padding:1.5rem;margin-bottom:2rem;}
+.toc h2{color:#ffd700;font-size:1.3rem;margin-bottom:1rem;border-bottom:2px solid #2a5a8c;padding-bottom:.5rem;}
+.toc ul{list-style:none;padding:0;}
+.toc li{padding:.4rem 0;border-bottom:1px solid #1a2a3a;}
+.toc li a{color:#4a9acf;text-decoration:none;display:block;}
+.toc li a:hover{color:#ffd700;}
+.chapter{background:#111d30;border-radius:12px;padding:2rem;margin:2rem 0;border-right:4px solid #ffd700;}
+.chapter h1, .chapter h2{color:#ffd700;margin:1rem 0 .8rem;border-bottom:1px solid #2a5a8c;padding-bottom:.5rem;}
+.chapter h3{color:#4a9acf;margin:1rem 0 .5rem;}
+.chapter p{margin:.8rem 0;color:#e0e0e0;text-align:justify;}
+.chapter ul{margin:.8rem 0;padding-right:1.5rem;}
+.chapter li{margin:.3rem 0;}
+.chapter strong{color:#ffd700;}
+.chapter em{color:#a5d6a7;}
+.chapter hr{border:none;border-top:1px solid #2a5a8c;margin:1.5rem 0;}
+.chapter img{max-width:100%;border-radius:8px;margin:1rem 0;border:1px solid #2a5a8c;}
+.update-info{background:#0d1520;border:1px solid #2a5a8c;border-radius:8px;padding:1rem;margin:1rem 0;color:#9ab;font-size:.85rem;text-align:center;}
+.update-info .live-dot{display:inline-block;width:8px;height:8px;background:#4a8a4f;border-radius:50%;margin-left:.5rem;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.footer{text-align:center;padding:2rem;color:#666;font-size:.85rem;border-top:1px solid #1a2a3a;}
+.footer a{color:#4a8abf;}
+@media(max-width:600px){.hero h1{font-size:1.6rem;}.chapter{padding:1rem;}}
+
+.stories-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;padding:2rem 0;}
+.story-card{background:#111d30;border-radius:12px;padding:2rem;border-top:4px solid var(--accent,#ffd700);transition:transform .2s;text-decoration:none;color:inherit;display:block;}
+.story-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
+.story-card .icon{font-size:3rem;margin-bottom:1rem;display:block;}
+.story-card h2{color:#ffd700;font-size:1.4rem;margin-bottom:.5rem;}
+.story-card .sub{color:#9ab;font-size:.95rem;margin-bottom:1rem;}
+.story-card .info{color:#4a9acf;font-size:.85rem;}
+</style>
+</head>
+<body>
+<div class="hero">
+    <h1>📚 مكتبة القصص</h1>
+    <div class="subtitle">قصص أكاديمية المصفوفة</div>
+    <div class="meta">آخر تحديث تلقائي: <span id="lastUpdate">2026-04-15 23:00</span> <span class="live-dot" style="display:inline-block;width:8px;height:8px;background:#4a8a4f;border-radius:50%;margin-right:.5rem;animation:pulse 2s infinite;"></span></div>
+</div>
+<div class="container">
+    <div class="stories-grid">
+        <a href="أخوات_موزة.html" class="story-card" style="--accent:#8b5cf6;border-top-color:#8b5cf6;">
+            <span class="icon">📖</span>
+            <h2>قصة أخوات موزة</h2>
+            <div class="sub">رواية كاملة الفصول</div>
+            <div class="info">📖 18 فصلاً — انقر للقراءة</div>
+        </a>
+        <a href="غضب_الله_الشديد.html" class="story-card" style="--accent:#ef4444;border-top-color:#ef4444;">
+            <span class="icon">📜</span>
+            <h2>قصة غضب الله الشديد</h2>
+            <div class="sub">حكاية موجعة</div>
+            <div class="info">📖 7 فصلاً — انقر للقراءة</div>
+        </a>
+    </div>
+</div>
+<div class="footer">
+    <p><a href="../index.html">← العودة للرئيسية</a></p>
+    <p style="margin-top:.5rem;">© 2026 — أكاديمية المصفوفة للذكاء الاصطناعي</p>
+</div>
+<script>
+// تحقق تلقائي من التحديثات كل دقيقتين
+let lastSig = 'ae4ca96727b2';
+async function checkUpdates() {
+    try {
+        const res = await fetch('stories/manifest.json?t=' + Date.now());
+        const data = await res.json();
+        if (data.signature !== lastSig) {
+            const banner = document.createElement('div');
+            banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#ffd700;color:#0a1628;padding:1rem;text-align:center;z-index:1000;font-weight:700;cursor:pointer;';
+            banner.innerHTML = '🔔 تحديث جديد متوفر — انقر للتحديث';
+            banner.onclick = () => location.reload();
+            document.body.prepend(banner);
+        }
+    } catch(e) {}
+}
+setInterval(checkUpdates, 120000);
+checkUpdates();
+</script>
+</body>
+</html>
