@@ -163,7 +163,7 @@ INDEX_PAGE = """<!DOCTYPE html>
     </div>
 </div>
 <div class="footer">
-    <p><a href="../index.html">← العودة للرئيسية</a></p>
+    <p><a href="../../index.html">← العودة للرئيسية</a></p>
     <p style="margin-top:.5rem;">© 2026 — أكاديمية المصفوفة للذكاء الاصطناعي</p>
 </div>
 <script>
