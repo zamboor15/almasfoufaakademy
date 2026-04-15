@@ -1,6 +1,6 @@
 {
   "signature": "ae4ca96727b2",
-  "last_update": "2026-04-15 23:39",
+  "last_update": "2026-04-15 23:50",
   "stories": [
     {
       "slug": "أخوات_موزة",
@@ -9,7 +9,8 @@
       "signature": "d2b3850a14ce",
       "color": "#8b5cf6",
       "icon": "📖",
-      "subtitle": "رواية كاملة الفصول"
+      "subtitle": "رواية كاملة الفصول",
+      "cover": "cover.png"
     },
     {
       "slug": "غضب_الله_الشديد",
@@ -18,7 +19,8 @@
       "signature": "681b3cffca4a",
       "color": "#ef4444",
       "icon": "📜",
-      "subtitle": "حكاية موجعة"
+      "subtitle": "حكاية موجعة",
+      "cover": "cover.png"
     }
   ]
 }

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """بناء صفحات HTML للقصص من ملفات Markdown — يُشغّل بعد كل مزامنة"""
 import os, re, glob, html, hashlib, json
+from urllib.parse import quote
 from datetime import datetime
 
 SITE = "/mnt/drive_d/اكاديمية المصفوفة"
@@ -241,7 +242,7 @@ def build_story(story):
     last_update = datetime.now().strftime('%Y-%m-%d %H:%M')
     cover_block = ''
     if story.get('cover') and os.path.exists(os.path.join(src_dir, story['cover'])):
-        cover_block = f'<img src="{story["slug"]}/{html.escape(story["cover"])}" alt="{html.escape(story["title_ar"])}" style="max-width:280px;width:100%;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.5);margin-bottom:1rem;">'
+        cover_block = f'<img src="{quote(story["slug"])}/{quote(story["cover"])}" alt="{html.escape(story["title_ar"])}" style="max-width:280px;width:100%;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.5);margin-bottom:1rem;">'
     else:
         cover_block = f'<div style="font-size:3rem;">{story["icon"]}</div>'
     page_html = f"""<!DOCTYPE html>
@@ -338,14 +339,15 @@ check();
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(page_html)
     print(f"  [OK] {story['slug']} — {len(md_files)} chapters → {out_file}")
-    return {"slug": story["slug"], "title": story["title_ar"], "chapters": len(md_files), "signature": sig, "color": story["color"], "icon": story["icon"], "subtitle": story["subtitle_ar"]}
+    cover_exists = story.get('cover') and os.path.exists(os.path.join(src_dir, story['cover']))
+    return {"slug": story["slug"], "title": story["title_ar"], "chapters": len(md_files), "signature": sig, "color": story["color"], "icon": story["icon"], "subtitle": story["subtitle_ar"], "cover": story['cover'] if cover_exists else None}
 
 
 def build_index(built):
     cards = []
     for s in built:
-        cover_img = f'<img src="{s["slug"]}/{s["cover"]}" alt="{s["title"]}" loading="lazy">' if s.get('cover') else f'<span style="font-size:4rem">{s["icon"]}</span>'
-        cards.append(f"""        <a href="{s['slug']}.html" class="story-card" style="--accent:{s['color']};border-top-color:{s['color']};">
+        cover_img = f'<img src="{quote(s["slug"])}/{quote(s["cover"])}" alt="{s["title"]}" loading="lazy">' if s.get('cover') else f'<span style="font-size:4rem">{s["icon"]}</span>'
+        cards.append(f"""        <a href="{quote(s['slug'])}.html" class="story-card" style="--accent:{s['color']};border-top-color:{s['color']};">
             <div class="cover-wrap">{cover_img}</div>
             <div class="body">
                 <h2>{s['title']}</h2>
