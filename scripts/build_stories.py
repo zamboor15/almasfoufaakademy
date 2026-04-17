@@ -7,6 +7,8 @@ from datetime import datetime
 SITE = "/mnt/drive_d/اكاديمية المصفوفة"
 STORIES_DIR = os.path.join(SITE, "pages", "stories")
 
+WATTPAD_PROFILE = "https://www.wattpad.com/user/zamboor15"
+
 STORIES = [
     {
         "slug": "أخوات_موزة",
@@ -14,7 +16,8 @@ STORIES = [
         "subtitle_ar": "رواية كاملة الفصول",
         "color": "#8b5cf6",
         "icon": "📖",
-        "cover": "cover.png"
+        "cover": "cover.png",
+        "wattpad": "https://www.wattpad.com/story/409625308"
     },
     {
         "slug": "غضب_الله_الشديد",
@@ -22,7 +25,8 @@ STORIES = [
         "subtitle_ar": "حكاية موجعة",
         "color": "#ef4444",
         "icon": "📜",
-        "cover": "cover.png"
+        "cover": "cover.png",
+        "wattpad": "https://www.wattpad.com/story/410105347"
     },
 ]
 
@@ -101,6 +105,10 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 .controls a, .controls button{background:#1a2a3a;color:#b8d4e8;border:2px solid #2a5a8c;padding:.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:.9rem;text-decoration:none;transition:all .2s;}
 .controls a:hover, .controls button:hover{border-color:#ffd700;color:#ffd700;}
 .controls .download-btn{background:#ffd700;color:#0a1628;border-color:#ffd700;font-weight:700;}
+.controls .wattpad-btn{background:#ff500a;color:#fff;border-color:#ff500a;font-weight:700;}
+.controls .wattpad-btn:hover{background:#e04600;color:#fff;border-color:#e04600;}
+.story-card .wattpad-link{display:inline-block;margin-top:.8rem;background:#ff500a;color:#fff;padding:.4rem 1rem;border-radius:6px;font-size:.85rem;font-weight:700;text-decoration:none;transition:all .2s;}
+.story-card .wattpad-link:hover{background:#e04600;}
 .container{max-width:900px;margin:0 auto;padding:2rem 1.5rem;}
 .toc{background:#111d30;border-radius:12px;padding:1.5rem;margin-bottom:2rem;}
 .toc h2{color:#ffd700;font-size:1.3rem;margin-bottom:1rem;border-bottom:2px solid #2a5a8c;padding-bottom:.5rem;}
@@ -163,7 +171,7 @@ INDEX_PAGE = """<!DOCTYPE html>
     </div>
 </div>
 <div class="footer">
-    <p><a href="../../index.html">← العودة للرئيسية</a></p>
+    <p><a href="../../index.html">← العودة للرئيسية</a> | <a href="{wattpad_profile}" target="_blank" rel="noopener" style="color:#ff500a;">📖 حسابي على Wattpad</a></p>
     <p style="margin-top:.5rem;">© 2026 — أكاديمية المصفوفة للذكاء الاصطناعي</p>
 </div>
 <script>
@@ -263,7 +271,8 @@ def build_story(story):
 <div class="controls">
     <a href="index.html">← كل القصص</a>
     <a href="../../index.html">الرئيسية</a>
-    <a class="download-btn" href="{story['slug']}/{story['slug']}_كاملة.txt" download>⬇ تحميل القصة كاملة</a>
+    <a class="download-btn" href="{quote(story['slug'])}/{quote(story['slug']+'_كاملة.txt')}" download>⬇ تحميل القصة كاملة</a>
+    {"<a class='wattpad-btn' href='" + story['wattpad'] + "' target='_blank' rel='noopener'>📖 اقرأ على Wattpad</a>" if story.get('wattpad') else ""}
     <button onclick="window.print()">🖨 طباعة</button>
 </div>
 <div class="container">
@@ -340,26 +349,30 @@ check();
         f.write(page_html)
     print(f"  [OK] {story['slug']} — {len(md_files)} chapters → {out_file}")
     cover_exists = story.get('cover') and os.path.exists(os.path.join(src_dir, story['cover']))
-    return {"slug": story["slug"], "title": story["title_ar"], "chapters": len(md_files), "signature": sig, "color": story["color"], "icon": story["icon"], "subtitle": story["subtitle_ar"], "cover": story['cover'] if cover_exists else None}
+    return {"slug": story["slug"], "title": story["title_ar"], "chapters": len(md_files), "signature": sig, "color": story["color"], "icon": story["icon"], "subtitle": story["subtitle_ar"], "cover": story['cover'] if cover_exists else None, "wattpad": story.get("wattpad")}
 
 
 def build_index(built):
     cards = []
     for s in built:
         cover_img = f'<img src="{quote(s["slug"])}/{quote(s["cover"])}" alt="{s["title"]}" loading="lazy">' if s.get('cover') else f'<span style="font-size:4rem">{s["icon"]}</span>'
-        cards.append(f"""        <a href="{quote(s['slug'])}.html" class="story-card" style="--accent:{s['color']};border-top-color:{s['color']};">
+        wattpad_btn = f'<a class="wattpad-link" href="{s["wattpad"]}" target="_blank" rel="noopener" onclick="event.stopPropagation();">📖 Wattpad</a>' if s.get("wattpad") else ""
+        cards.append(f"""        <div class="story-card-wrap">
+        <a href="{quote(s['slug'])}.html" class="story-card" style="--accent:{s['color']};border-top-color:{s['color']};">
             <div class="cover-wrap">{cover_img}</div>
             <div class="body">
                 <h2>{s['title']}</h2>
                 <div class="sub">{s['subtitle']}</div>
                 <div class="info">📖 {s['chapters']} فصلاً — انقر للقراءة</div>
+                {wattpad_btn}
             </div>
-        </a>""")
+        </a>
+        </div>""")
 
     sig = hashlib.md5("|".join(s["signature"] for s in built).encode()).hexdigest()[:12]
     last_update = datetime.now().strftime('%Y-%m-%d %H:%M')
 
-    page = INDEX_PAGE.format(css=CSS, cards="\n".join(cards), last_update=last_update, sig=sig)
+    page = INDEX_PAGE.format(css=CSS, cards="\n".join(cards), last_update=last_update, sig=sig, wattpad_profile=WATTPAD_PROFILE)
     out = os.path.join(STORIES_DIR, "index.html")
     with open(out, 'w', encoding='utf-8') as f:
         f.write(page)
