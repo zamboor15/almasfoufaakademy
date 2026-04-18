@@ -1,27 +1,27 @@
 {
-  "signature": "ae4ca96727b2",
-  "last_update": "2026-04-17 21:00",
+  "signature": "8c8f7e242921",
+  "last_update": "2026-04-19 01:27",
   "stories": [
     {
       "slug": "أخوات_موزة",
       "title": "قصة أخوات موزة",
       "chapters": 18,
-      "signature": "d2b3850a14ce",
+      "signature": "095aa6b58ba4",
       "color": "#8b5cf6",
       "icon": "📖",
       "subtitle": "رواية كاملة الفصول",
-      "cover": "cover.png",
+      "cover": null,
       "wattpad": "https://www.wattpad.com/story/409625308"
     },
     {
       "slug": "غضب_الله_الشديد",
       "title": "قصة غضب الله الشديد",
-      "chapters": 7,
-      "signature": "681b3cffca4a",
+      "chapters": 12,
+      "signature": "ebebdc55b458",
       "color": "#ef4444",
       "icon": "📜",
       "subtitle": "حكاية موجعة",
-      "cover": "cover.png",
+      "cover": null,
       "wattpad": "https://www.wattpad.com/story/410105347"
     }
   ]
