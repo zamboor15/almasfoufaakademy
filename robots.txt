@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /pages/admin.html
+Disallow: /pages/admin-editor.html
+Disallow: /*.md$
+Disallow: /node_modules/
+Disallow: /scripts/
 
 Sitemap: https://zamboor15.github.io/almasfoufaakademy/sitemap.xml
