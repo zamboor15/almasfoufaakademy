@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="icon" type="image/svg+xml" href="../assets/fdl_icon.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
     <style>
         .fdl-hero {
             background: linear-gradient(135deg, #0a1628 0%, #0c2040 50%, #081830 100%);
@@ -340,8 +343,274 @@
         .developer-section .quran-verse { color: #64748b; }
         .specs-section .quran-verse { color: #8899b0; }
         .download-section .quran-verse { color: #64748b; }
+
+        /* ═══ قسم المحرّر التفاعليّ ═══ */
+        .try-fdl-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #0a1628 0%, #0d1f3a 100%);
+            color: #e8ecf4;
+        }
+        .try-fdl-section h2 {
+            text-align: center;
+            color: #e8b868;
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        .try-fdl-section .desc {
+            text-align: center;
+            color: #8899b0;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+        .try-fdl-section .desc kbd {
+            background: rgba(232,184,104,0.15);
+            color: #e8b868;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid rgba(232,184,104,0.25);
+        }
+        .fdl-editor-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        .fdl-editor-grid {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            min-height: 380px;
+        }
+        .fdl-templates-pane {
+            background: #0a1628;
+            border-left: 1px solid #1e293b;
+            padding: 16px 12px;
+            overflow-y: auto;
+            max-height: 480px;
+        }
+        .fdl-templates-pane h4 {
+            color: #e8b868;
+            font-size: 0.95rem;
+            margin: 0 0 12px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #1e293b;
+        }
+        .fdl-template-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            background: transparent;
+            color: #cbd5e1;
+            border: 1px solid transparent;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            text-align: right;
+            margin-bottom: 4px;
+            transition: all 0.15s;
+        }
+        .fdl-template-btn:hover {
+            background: rgba(232,184,104,0.08);
+            border-color: rgba(232,184,104,0.25);
+            color: #e8b868;
+        }
+        .fdl-template-btn .ico {
+            font-size: 1.05rem;
+            width: 22px;
+            text-align: center;
+        }
+        .fdl-editor-pane {
+            position: relative;
+        }
+        .fdl-editor-pane .CodeMirror {
+            height: 100%;
+            min-height: 380px;
+            font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+            font-size: 14.5px;
+            line-height: 1.65;
+        }
+        .fdl-editor-pane .CodeMirror-gutters {
+            background: #0a1628;
+            border-left: 1px solid #1e293b;
+        }
+        .fdl-editor-toolbar {
+            background: #0a1628;
+            border-top: 1px solid #1e293b;
+            padding: 10px 14px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .fdl-btn {
+            background: rgba(232,184,104,0.1);
+            color: #e8b868;
+            border: 1px solid rgba(232,184,104,0.3);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .fdl-btn:hover {
+            background: rgba(232,184,104,0.2);
+            border-color: #e8b868;
+        }
+        .fdl-btn.primary {
+            background: linear-gradient(135deg, #e8b868, #d4a24c);
+            color: #0c2040;
+            border-color: transparent;
+        }
+        .fdl-btn.primary:hover {
+            background: linear-gradient(135deg, #d4a24c, #c49030);
+            box-shadow: 0 4px 14px rgba(232,184,104,0.3);
+        }
+        .fdl-btn.danger { color: #f87171; border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.05); }
+        .fdl-btn.danger:hover { background: rgba(248,113,113,0.15); border-color: #f87171; }
+        .fdl-status {
+            margin-right: auto;
+            color: #8899b0;
+            font-size: 0.85rem;
+        }
+        .fdl-status.ok    { color: #34d399; }
+        .fdl-status.warn  { color: #fbbf24; }
+        .fdl-status.error { color: #f87171; }
+        .fdl-output-wrap {
+            border-top: 1px solid #1e293b;
+            background: #050d1a;
+        }
+        .fdl-output-wrap h4 {
+            margin: 0;
+            padding: 10px 16px;
+            background: #0a1628;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-bottom: 1px solid #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .fdl-output-pane {
+            margin: 0;
+            padding: 14px 18px;
+            color: #cbd5e1;
+            font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            min-height: 80px;
+            max-height: 240px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            direction: ltr;
+            text-align: left;
+        }
+        .fdl-output-pane.has-errors { color: #fca5a5; }
+        .fdl-output-pane.error { color: #f87171; }
+
+        /* ─── إكمال CodeMirror ─── */
+        .CodeMirror-hints {
+            background: #0f172a !important;
+            border: 1px solid #1e293b !important;
+            font-family: 'Cascadia Code', monospace !important;
+            font-size: 13px !important;
+            padding: 4px !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5) !important;
+            max-height: 280px !important;
+            z-index: 10000;
+        }
+        .CodeMirror-hint {
+            color: #cbd5e1 !important;
+            padding: 6px 12px !important;
+            border-radius: 4px !important;
+        }
+        .CodeMirror-hint-active {
+            background: linear-gradient(135deg, #e8b868, #d4a24c) !important;
+            color: #0c2040 !important;
+        }
+        .fdl-hint-main { font-weight: 600; }
+        .fdl-hint-detail {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+        .fdl-hint-keyword .fdl-hint-main   { color: #c4b5fd; }
+        .fdl-hint-condition .fdl-hint-main { color: #fbbf24; }
+        .fdl-hint-weight .fdl-hint-main    { color: #34d399; }
+        .fdl-hint-root .fdl-hint-main      { color: #60a5fa; }
+        .fdl-hint-operator .fdl-hint-main  { color: #f472b6; }
+        .fdl-hint-snippet .fdl-hint-main   { color: #e8b868; }
+        .CodeMirror-hint-active .fdl-hint-main,
+        .CodeMirror-hint-active .fdl-hint-detail { color: #0c2040 !important; }
+
+        @media (max-width: 768px) {
+            .fdl-editor-grid { grid-template-columns: 1fr; }
+            .fdl-templates-pane {
+                border-left: none;
+                border-bottom: 1px solid #1e293b;
+                max-height: 160px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .fdl-template-btn { width: auto; flex: 1 1 auto; }
+        }
     </style>
     <link rel="canonical" href="https://zamboor15.github.io/almasfoufaakademy/pages/fdl.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://zamboor15.github.io/almasfoufaakademy/pages/fdl.html">
+    <meta property="og:title" content="لغة فاضل - أوّل لغة برمجة عربيّة تعمل على المعدن | اكاديمية المصفوفة">
+    <meta property="og:description" content="لغة فاضل - اول لغة برمجة عربية تعمل على المعدن مباشرة - تحميل مجاني + محرّر تفاعليّ بالإكمال التلقائيّ">
+    <meta property="og:site_name" content="اكاديمية المصفوفة للذكاء الاصطناعي">
+    <meta property="og:locale" content="ar_IQ">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="لغة فاضل - أوّل لغة برمجة عربيّة تعمل على المعدن">
+    <meta name="twitter:description" content="لغة برمجة عربيّة تعمل على المعدن مباشرة + محرّر تفاعليّ بالإكمال التلقائيّ في المتصفّح">
+
+    <!-- JSON-LD: ProgrammingLanguage + SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "url": "https://zamboor15.github.io/almasfoufaakademy/pages/fdl.html",
+        "name": "لغة فاضل (FDL)",
+        "alternateName": "Fadhil Language",
+        "description": "أوّل لغة برمجة عربيّة تعمل على المعدن مباشرة، مع بيئة تطوير ومحرّر تفاعليّ بالإكمال التلقائيّ",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web, Linux, Windows, macOS",
+        "inLanguage": "ar",
+        "softwareVersion": "2.0",
+        "author": {
+            "@type": "Person",
+            "name": "م. فاضل عباس الجعيفري",
+            "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "IQ"
+            }
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -493,6 +762,49 @@
         </div>
     </section>
 
+    <!-- محرّر تفاعليّ مدمج -->
+    <section class="try-fdl-section" id="try-fdl">
+        <div class="container">
+            <h2><i class="fas fa-code"></i> جرّب لغة فاضل الآن</h2>
+            <p class="quran-verse">اقرأ باسم ربك الذي خلق<span class="surah">العلق : 1</span></p>
+            <p class="desc">
+                محرّر تفاعليّ بإكمال تلقائيّ — اضغط <kbd>Ctrl</kbd>+<kbd>Space</kbd> لاقتراح الأوامر، و<kbd>Ctrl</kbd>+<kbd>Enter</kbd> للتشغيل
+            </p>
+            <div class="fdl-editor-wrap">
+                <div class="fdl-editor-grid">
+                    <aside class="fdl-templates-pane">
+                        <h4><i class="fas fa-folder-open"></i> القوالب</h4>
+                        <div id="fdl-templates"></div>
+                    </aside>
+                    <div class="fdl-editor-pane">
+                        <textarea id="fdl-editor"></textarea>
+                    </div>
+                </div>
+                <div class="fdl-editor-toolbar">
+                    <button class="fdl-btn primary" id="fdl-run">
+                        <i class="fas fa-play"></i> تشغيل
+                    </button>
+                    <button class="fdl-btn" id="fdl-copy">
+                        <i class="fas fa-copy"></i> نسخ
+                    </button>
+                    <button class="fdl-btn" id="fdl-download">
+                        <i class="fas fa-download"></i> تحميل .fdl
+                    </button>
+                    <button class="fdl-btn danger" id="fdl-clear">
+                        <i class="fas fa-trash"></i> مسح
+                    </button>
+                    <span class="fdl-status" id="fdl-status"></span>
+                </div>
+                <div class="fdl-output-wrap">
+                    <h4><i class="fas fa-terminal"></i> الإخراج</h4>
+                    <pre class="fdl-output-pane" id="fdl-output"></pre>
+                    <div id="app-render" class="fdl-app-root"></div>
+                    <span id="app-widget-count" style="display:none"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- IDE Preview -->
     <section class="ide-section">
         <div class="container">
@@ -561,5 +873,16 @@
     </footer>
 
     <script src="../js/script.js"></script>
+<script src="../js/edit-button.js"></script>
+
+    <!-- ── المحرّر التفاعليّ للغة فاضل ── -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+    <script src="../js/fadhil-runtime.js"></script>
+    <script src="../js/fdl-mode.js"></script>
+    <script src="../js/fdl-completions.js"></script>
+    <script src="../js/fdl-editor-init.js"></script>
 </body>
 </html>

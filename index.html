@@ -22,7 +22,56 @@
     
     <!-- Canonical -->
     <link rel="canonical" href="https://zamboor15.github.io/almasfoufaakademy/">
-    
+
+    <!-- JSON-LD: Organization + WebSite -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": "https://zamboor15.github.io/almasfoufaakademy/#organization",
+                "name": "اكاديمية المصفوفة للذكاء الاصطناعي",
+                "alternateName": "Matrix Academy for AI",
+                "url": "https://zamboor15.github.io/almasfoufaakademy/",
+                "description": "منصة متخصصة لاستقطاب المستثمرين في قطاع الذكاء الاصطناعي والتقنية والتحوّل الرقميّ",
+                "founder": {
+                    "@type": "Person",
+                    "name": "م. فاضل عباس الجعيفري",
+                    "email": "fadhilabbas51@gmail.com",
+                    "telephone": "+9647808923210"
+                },
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": "IQ",
+                    "addressRegion": "واسط"
+                },
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "telephone": "+9647808923210",
+                    "contactType": "customer service",
+                    "email": "fadhilabbas51@gmail.com",
+                    "availableLanguage": ["ar", "en"]
+                },
+                "sameAs": [
+                    "https://huggingface.co/zamboor15"
+                ]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://zamboor15.github.io/almasfoufaakademy/#website",
+                "url": "https://zamboor15.github.io/almasfoufaakademy/",
+                "name": "اكاديمية المصفوفة للذكاء الاصطناعي",
+                "description": "منصة استقطاب المستثمرين الذكيّين في الذكاء الاصطناعي والتقنية",
+                "inLanguage": "ar",
+                "publisher": {
+                    "@id": "https://zamboor15.github.io/almasfoufaakademy/#organization"
+                }
+            }
+        ]
+    }
+    </script>
+
     <!-- Mobile App Meta -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,36 +87,6 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Structured Data for Google -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "اكاديمية المصفوفة للذكاء الاصطناعي",
-        "alternateName": "Matrix Academy for AI",
-        "url": "https://zamboor15.github.io/almasfoufaakademy/",
-        "description": "منصة متخصصة لاستقطاب المستثمرين في قطاع الذكاء الاصطناعي والتقنية والحوسبة السحابية والتحول الرقمي",
-        "founder": {
-            "@type": "Person",
-            "name": "المهندس فاضل عباس الجعيفري",
-            "jobTitle": "الرئيس التنفيذي والمؤسس"
-        },
-        "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "IQ"
-        },
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+964-78-08923210",
-            "email": "fadhilabbas51@gmail.com",
-            "contactType": "customer service",
-            "availableLanguage": ["Arabic", "English"]
-        },
-        "sameAs": [
-            "https://huggingface.co/zamboor15"
-        ]
-    }
-    </script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -312,5 +331,6 @@
     </footer>
 
     <script src="js/script.js"></script>
+<script src="js/edit-button.js"></script>
 </body>
 </html>

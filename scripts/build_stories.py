@@ -193,6 +193,7 @@ async function checkUpdates() {{
 setInterval(checkUpdates, 120000);
 checkUpdates();
 </script>
+<script src="../../js/edit-button.js"></script>
 </body>
 </html>
 """
@@ -203,7 +204,12 @@ def build_story(story):
         print(f"  [SKIP] {story['slug']} — directory missing")
         return None
 
-    md_files = sorted(glob.glob(os.path.join(src_dir, "*.md")), key=chapter_order)
+    # استبعاد ملفات غير الفصول (مثل wattpad_content, README, إلخ)
+    EXCLUDE = {"wattpad_content.md", "readme.md", "README.md", "notes.md", "ملاحظات.md"}
+    md_files = sorted(
+        [f for f in glob.glob(os.path.join(src_dir, "*.md")) if os.path.basename(f) not in EXCLUDE],
+        key=chapter_order
+    )
     if not md_files:
         print(f"  [SKIP] {story['slug']} — no chapters")
         return None
@@ -341,6 +347,7 @@ async function check() {{
 setInterval(check, 120000);
 check();
 </script>
+<script src="../../js/edit-button.js"></script>
 </body>
 </html>"""
 

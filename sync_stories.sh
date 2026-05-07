@@ -34,8 +34,8 @@ python3 "$SITE/scripts/build_stories.py" >> "$LOG" 2>&1
 echo "$current_hash" > "$HASH_FILE"
 
 # Auto-commit and push if there are git changes
-if [ -n "$(git status --porcelain pages/stories/ pages/قصص.html 2>/dev/null)" ]; then
-    git add pages/stories/ pages/قصص.html
+if [ -n "$(git status --porcelain pages/stories/ 2>/dev/null)" ]; then
+    git add pages/stories/
     git commit -m "تحديث تلقائي للقصص — $(date '+%Y-%m-%d %H:%M')" 2>&1 | head -3 >> "$LOG"
     git push 2>&1 | tail -3 >> "$LOG"
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Pushed updates to GitHub" >> "$LOG"
