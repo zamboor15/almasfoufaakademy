@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="المِجَسّ — تطبيق أندرويد ميداني صادق للاستكشاف الجيولوجي والترددي. سبع وحدات استشعار، مع صدقٍ صريح عن حدود فيزياء الجوال. تحميل مجاني.">
+    <meta name="keywords" content="المجس, استكشاف, كاشف معادن, مغناطيسية, واي فاي, RTL-SDR, أندرويد, فاضل الجعيفري">
+    <meta name="author" content="اكاديمية المصفوفة للذكاء الاصطناعي">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="المِجَسّ — أداة ميدانية صادقة للاستكشاف">
+    <meta property="og:description" content="الجوال دماغٌ يقرأ ويحلّل، والحاسّة الحقيقية للكشف العميق عتادٌ خارجي. سبع وحدات استشعار بصدقٍ صريح.">
+    <meta property="og:url" content="https://zamboor15.github.io/almasfoufaakademy/pages/almijas.html">
+    <link rel="canonical" href="https://zamboor15.github.io/almasfoufaakademy/pages/almijas.html">
+    <title>المِجَسّ — أداة ميدانية صادقة للاستكشاف | اكاديمية المصفوفة</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .mj-section { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .mj-dl-card {
+            background: linear-gradient(135deg, #0c2040, #0a1628);
+            border: 1px solid rgba(232,184,104,0.35);
+            border-radius: 20px; padding: 32px; text-align: center;
+            margin: -60px auto 40px; max-width: 720px; position: relative; z-index: 5;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .mj-btn {
+            display: inline-flex; align-items: center; gap: 12px;
+            background: linear-gradient(135deg, #e8b868, #c9922f);
+            color: #0a1628; font-weight: 800; font-size: 1.25rem;
+            padding: 16px 40px; border-radius: 14px; text-decoration: none;
+            box-shadow: 0 8px 24px rgba(232,184,104,0.35); transition: transform .15s;
+        }
+        .mj-btn:hover { transform: translateY(-2px); }
+        .mj-meta { color: #8899b0; margin-top: 16px; font-size: .95rem; }
+        .mj-meta span { color: #e8b868; font-weight: 700; }
+        .mj-honor {
+            background: rgba(232,184,104,0.08); border: 1px solid rgba(232,184,104,0.4);
+            border-radius: 16px; padding: 24px; margin: 30px 0;
+        }
+        .mj-honor h3 { color: #e8b868; margin: 0 0 12px; display: flex; align-items: center; gap: 10px; }
+        .mj-honor p { color: #cdd8e6; line-height: 1.9; margin: 0; }
+        .mj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 18px; margin: 24px 0; }
+        .mj-mod {
+            background: #0c1c34; border: 1px solid rgba(136,153,176,0.2);
+            border-radius: 14px; padding: 20px;
+        }
+        .mj-mod .mj-ico { font-size: 1.6rem; color: #e8b868; margin-bottom: 10px; }
+        .mj-mod h4 { color: #eaf0f8; margin: 0 0 6px; }
+        .mj-mod .mj-what { color: #9fb0c4; font-size: .9rem; line-height: 1.7; margin: 0 0 10px; }
+        .mj-mod .mj-limit { color: #e0a86a; font-size: .82rem; line-height: 1.7; margin: 0;
+            border-right: 3px solid rgba(232,184,104,0.4); padding-right: 10px; }
+        .mj-tier { display:inline-block; font-size:.72rem; padding:3px 10px; border-radius:20px; margin-bottom:10px; font-weight:700; }
+        .mj-t-in { background: rgba(61,220,151,0.15); color: #3ddc97; }
+        .mj-t-radio { background: rgba(232,184,104,0.15); color: #e8b868; }
+        .mj-t-ext { background: rgba(100,181,246,0.15); color: #64b5f6; }
+        .mj-no { background: rgba(239,83,80,0.07); border:1px solid rgba(239,83,80,0.3); border-radius:14px; padding:20px; margin:24px 0; }
+        .mj-no h3 { color:#ef5350; margin:0 0 12px; }
+        .mj-no ul { color:#cdd8e6; line-height:2; margin:0; padding-right:22px; }
+        .mj-steps { counter-reset: s; list-style:none; padding:0; }
+        .mj-steps li { color:#cdd8e6; line-height:1.8; margin-bottom:12px; padding-right:44px; position:relative; }
+        .mj-steps li::before { counter-increment:s; content:counter(s); position:absolute; right:0; top:0;
+            width:30px; height:30px; border-radius:50%; background:#e8b868; color:#0a1628;
+            font-weight:800; display:flex; align-items:center; justify-content:center; }
+        .mj-h2 { color:#e8b868; text-align:center; margin:44px 0 8px; font-size:1.7rem; }
+        .mj-sub { color:#8899b0; text-align:center; margin:0 0 24px; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>اكاديمية المصفوفة للذكاء الاصطناعي</h1>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="../index.html">الرئيسية</a>
+                <a href="about.html">عن الشركة</a>
+                <a href="services.html">الخدمات</a>
+                <a href="fdl.html">لغة فاضل</a>
+                <a href="almijas.html" class="active">المِجَسّ</a>
+                <a href="opportunities.html">فرص الاستثمار</a>
+                <a href="https://huggingface.co/zamboor15" target="_blank">نماذجنا</a>
+                <a href="contact.html">اتصل بنا</a>
+                <a href="admin.html" class="nav-admin" title="لوحة الادارة"><i class="fas fa-bell"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- البسملة -->
+    <div style="background:linear-gradient(135deg,#0a1628,#0c2040);padding:35px 0 15px;text-align:center">
+        <p style="font-size:2rem;color:#e8b868;font-family:'Traditional Arabic','Amiri',serif;text-shadow:0 0 20px rgba(232,184,104,0.3);margin:0 0 8px">بسم الله الرحمن الرحيم</p>
+        <p style="font-size:1.1rem;color:#8899b0;font-family:'Traditional Arabic','Amiri',serif;margin:0">اللهم صلِّ على محمد وآله الطاهرين</p>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" style="min-height: 42vh;">
+        <div class="hero-content">
+            <h2><i class="fas fa-satellite-dish" style="color:#e8b868"></i> المِجَسّ</h2>
+            <p>أداة ميدانية صادقة للاستكشاف الجيولوجي والترددي — الجوال دماغٌ يقرأ ويحلّل، والحاسّة الحقيقية للكشف العميق عتادٌ خارجي.</p>
+        </div>
+    </section>
+
+    <!-- بطاقة التنزيل -->
+    <div class="mj-dl-card">
+        <a class="mj-btn" href="../downloads/almijas-v1.0.0.apk" download>
+            <i class="fas fa-download"></i> حمِّل التطبيق (APK)
+        </a>
+        <div class="mj-meta">
+            الإصدار <span>1.0.0</span> &nbsp;·&nbsp; الحجم <span>≈ 50 ميغابايت</span> &nbsp;·&nbsp;
+            <span>أندرويد 7.0</span> فأحدث &nbsp;·&nbsp; مجّانيّ
+        </div>
+        <p class="mj-meta" style="margin-top:10px;font-size:.85rem">
+            تثبيتٌ خارج المتجر (sideload): فعّل «تثبيت من مصادر غير معروفة» عند الطلب.
+        </p>
+    </div>
+
+    <div class="mj-section">
+        <!-- قاعدة الشرف -->
+        <div class="mj-honor">
+            <h3><i class="fas fa-balance-scale"></i> قاعدة الشرف</h3>
+            <p>
+                لا يدّعي هذا التطبيق كشف الذهب أو الفضة أو النحاس أو الأحجار الكريمة عبر أيّ راديو في
+                الجوال (واي فاي / بلوتوث / خلوي / GPS) — فهذه المعادن ليست مغناطيسية، وشرائح راديو
+                الجوال مقفلة على بروتوكولاتها ولا تسلّم موجةً خام قابلة للتحليل. كل قراءة تُعرض بوصفها
+                <b style="color:#e8b868">مؤشِّراً</b> لا <b>كشفاً</b>، بوحدتها الفيزيائية وحدود دقّتها.
+                إن غاب مستشعرٌ أو عتاد، تُعطَّل الوحدة بوضوح ويُذكر السبب — لا يُملأ الفراغ بقراءةٍ مزيَّفة.
+                الكشف العميق الحقيقي للمعادن والترددات يعيش في <b>وحدة الحاسّة الخارجية</b> (ملف حثّي / RTL-SDR)،
+                لا في راديو الجوال. الصدق المرّ خيرٌ من الوهم الحلو.
+            </p>
+        </div>
+
+        <h2 class="mj-h2">الوحدات السبع</h2>
+        <p class="mj-sub">كلٌّ وحدة مستقلّة تفشل بأمان إن غاب مستشعرها، وتعرض صدقها الصريح.</p>
+
+        <div class="mj-grid">
+            <div class="mj-mod">
+                <div class="mj-ico"><i class="fas fa-compass"></i></div>
+                <span class="mj-tier mj-t-in">مستشعر داخلي</span>
+                <h4>1 · الملاحة وتسجيل النقاط</h4>
+                <p class="mj-what">موقع GPS لحظي، مسار، وتأشير نقاط الغربلة على خريطة، وتصدير جغرافي.</p>
+                <p class="mj-limit">دقّة GPS المدنية ± عدّة أمتار، تُعرض كما يبلّغ بها الجهاز.</p>
+            </div>
+            <div class="mj-mod">
+                <div class="mj-ico"><i class="fas fa-magnet"></i></div>
+                <span class="mj-tier mj-t-in">مستشعر داخلي</span>
+                <h4>2 · خريطة الشذوذ المغناطيسي <small style="color:#3ddc97">(الأهمّ)</small></h4>
+                <p class="mj-what">شدّة المجال المغناطيسي وقفزاته فوق مسار GPS، بكاشف شذوذٍ تكيّفي (3σ).</p>
+                <p class="mj-limit">يكشف الحديديّات فقط من سنتيمترات قريبة. الذهب يُستدلّ عليه غير مباشرة عبر رفقته للرمل الأسود، لا مباشرة.</p>
+            </div>
+            <div class="mj-mod">
+                <div class="mj-ico"><i class="fas fa-wifi"></i></div>
+                <span class="mj-tier mj-t-radio">راديو الجوال (محدود)</span>
+                <h4>3 · ماسح الأجهزة الباعثة</h4>
+                <p class="mj-what">شبكات واي فاي وأجهزة بلوتوث القريبة مرتّبة بقوّة الإشارة (RSSI).</p>
+                <p class="mj-limit">واي فاي/بلوتوث فقط. لا يكشف الخلوي ولا التنصّت التناظري ولا أيّ تردّد آخر — ذلك يحتاج RTL-SDR.</p>
+            </div>
+            <div class="mj-mod">
+                <div class="mj-ico"><i class="fas fa-camera"></i></div>
+                <span class="mj-tier mj-t-in">مستشعر داخلي</span>
+                <h4>4 · كاشف العدسات المخفية</h4>
+                <p class="mj-what">فلاش الكاميرا وبثّها لالتقاط وميض انعكاس عدسات الكاميرات المخفية.</p>
+                <p class="mj-limit">أداة مساعِدة بصرية لا قاطعة: تعطي دلائل لا يقيناً.</p>
+            </div>
+            <div class="mj-mod">
+                <div class="mj-ico"><i class="fas fa-wave-square"></i></div>
+                <span class="mj-tier mj-t-in">مستشعر داخلي</span>
+                <h4>5 · السونار الصوتي</h4>
+                <p class="mj-what">نبضة تردّدٍ عالٍ (18→20kHz) وصداها لتقدير مسافة/حضور على الأسطح، بالارتباط المتبادل.</p>
+                <p class="mj-limit">في الهواء فقط. لا يخترق الأرض، ولا يميّز المعادن، ولا يكشف الذهب. التقدير تقريبيّ.</p>
+            </div>
+            <div class="mj-mod">
+                <div class="mj-ico"><i class="fas fa-broadcast-tower"></i></div>
+                <span class="mj-tier mj-t-radio">راديو الجوال (محدود)</span>
+                <h4>6 · استشعار الحركة عبر CSI</h4>
+                <p class="mj-what">استشعار حركة الأجسام الكبيرة (بشر) عبر انعكاس موجات الواي فاي — حيثما تسمح الشريحة.</p>
+                <p class="mj-limit">مُعطَّلة صدقاً: أغلب هواتف أندرويد لا تفتح CSI، فلا تُحاكى ولا تُزيَّف. تُفعَّل على جهازٍ يدعمها.</p>
+            </div>
+            <div class="mj-mod">
+                <div class="mj-ico"><i class="fas fa-usb"></i></div>
+                <span class="mj-tier mj-t-ext">حاسّة خارجية (الكشف الحقيقي)</span>
+                <h4>7 · الحاسّة الخارجية</h4>
+                <p class="mj-what">جسر USB-OTG لملفٍّ حثّي (VLF/PI) يكشف المعادن مع تمييز الطور، ولـRTL-SDR كمحلّل طيفٍ راديوي حقيقي.</p>
+                <p class="mj-limit">هنا الفيزياء الصحيحة. بلا عتادٍ موصول لا كشفَ عميقاً — والتطبيق جاهزٌ لاستقبالهما دون تحديث.</p>
+            </div>
+        </div>
+
+        <!-- ما لا يفعله -->
+        <div class="mj-no">
+            <h3><i class="fas fa-ban"></i> ما لا يفعله المِجَسّ (بصراحة)</h3>
+            <ul>
+                <li>لا يكشف الذهب أو المعادن الثمينة عبر راديو الجوال — إطلاقاً.</li>
+                <li>لا «يخترق» الواي فاي الأرضَ للعمق؛ التردّد العالي يُمتصّ في سنتيمترات من التربة.</li>
+                <li>لا يحوّل قراءةً إلى «كنزٍ على عمق كذا متراً» — لا فيزياء تسند ذلك في جوالٍ عارٍ.</li>
+                <li>لا يملأ الفراغ عند غياب مستشعر؛ يقول «غير متوفّرة» ويشرح السبب.</li>
+            </ul>
+        </div>
+
+        <h2 class="mj-h2">خطوات التثبيت</h2>
+        <ol class="mj-steps" style="max-width:640px;margin:0 auto 40px">
+            <li>اضغط زرّ التنزيل أعلاه لحفظ ملفّ <code>almijas-v1.0.0.apk</code>.</li>
+            <li>افتح الملفّ؛ إن ظهر تحذير، فعّل «السماح بالتثبيت من هذا المصدر» للمتصفّح/المدير.</li>
+            <li>أكمل التثبيت، ثمّ امنح الأذونات (الموقع، الكاميرا، المايك، البلوتوث) عند طلب كلّ وحدة سببها.</li>
+            <li>للكشف العميق الحقيقي: صِل الملف الحثّي أو RTL-SDR عبر USB-OTG لتعمل الوحدة السابعة.</li>
+        </ol>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>المِجَسّ</h4>
+                    <p>أداة ميدانية صادقة للاستكشاف الجيولوجي والترددي، من اكاديمية المصفوفة للذكاء الاصطناعي.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>الروابط السريعة</h4>
+                    <ul>
+                        <li><a href="../index.html">الرئيسية</a></li>
+                        <li><a href="fdl.html">لغة فاضل</a></li>
+                        <li><a href="../downloads/almijas-v1.0.0.apk" download>تحميل APK</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>اتصل بنا</h4>
+                    <p>البريد الإلكتروني: fadhilabbas51@gmail.com</p>
+                    <p>الهاتف: +964-78-08923210</p>
+                    <p>الموقع: العراق — واسط</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 اكاديمية المصفوفة للذكاء الاصطناعي. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
