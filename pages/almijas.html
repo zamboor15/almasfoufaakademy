@@ -34,6 +34,10 @@
         .mj-btn:hover { transform: translateY(-2px); }
         .mj-meta { color: #8899b0; margin-top: 16px; font-size: .95rem; }
         .mj-meta span { color: #e8b868; font-weight: 700; }
+        .mj-count { margin-top: 14px; color: #3ddc97; font-weight: 700; font-size: 1.05rem;
+            display: inline-flex; align-items: center; gap: 8px; }
+        .mj-count #dlCount { color: #eafff5; font-size: 1.2rem; }
+        .mj-count.err { color: #8899b0; }
         .mj-honor {
             background: rgba(232,184,104,0.08); border: 1px solid rgba(232,184,104,0.4);
             border-radius: 16px; padding: 24px; margin: 30px 0;
@@ -106,15 +110,20 @@
 
     <!-- بطاقة التنزيل -->
     <div class="mj-dl-card">
-        <a class="mj-btn" href="../downloads/almijas-v1.0.0.apk" download>
+        <a class="mj-btn" id="dlBtn" href="../downloads/almijas-v1.0.0.apk" download>
             <i class="fas fa-download"></i> حمِّل التطبيق (APK)
         </a>
+        <div class="mj-count" title="يعدّ مرّات الضغط على زرّ التحميل عبر كل الأجهزة">
+            <i class="fas fa-arrow-down-long"></i>
+            <span id="dlCount">…</span> مرّة تنزيل
+        </div>
         <div class="mj-meta">
-            الإصدار <span>1.0.0</span> &nbsp;·&nbsp; الحجم <span>≈ 50 ميغابايت</span> &nbsp;·&nbsp;
-            <span>أندرويد 7.0</span> فأحدث &nbsp;·&nbsp; مجّانيّ
+            الإصدار <span id="verLabel">1.0.0</span> &nbsp;·&nbsp; الحجم <span>≈ 50 ميغابايت</span> &nbsp;·&nbsp;
+            <span>أندرويد 7.0</span> فأحدث &nbsp;·&nbsp; آخر تحديث <span id="relLabel">2026-07-03</span>
         </div>
         <p class="mj-meta" style="margin-top:10px;font-size:.85rem">
             تثبيتٌ خارج المتجر (sideload): فعّل «تثبيت من مصادر غير معروفة» عند الطلب.
+            التطبيق يستشعر التحديثات ذاتيّاً ويُنبّهك حين يتوفّر إصدارٌ أحدث.
         </p>
     </div>
 
@@ -239,5 +248,42 @@
     </footer>
 
     <script src="../js/script.js"></script>
+    <script>
+    // ── عدّاد التنزيلات: حقيقيّ عبر الأجهزة عبر خدمة Abacus (مجّانيّة، بلا تسجيل) ──
+    // قاعدة الشرف: عند تعذّر الخدمة نعرض «—» ولا نختلق رقماً.
+    (function () {
+        var NS = 'almasfoufaakademy-almijas', KEY = 'downloads';
+        var GET = 'https://abacus.jasoncameron.dev/get/' + NS + '/' + KEY;
+        var HIT = 'https://abacus.jasoncameron.dev/hit/' + NS + '/' + KEY;
+        var el = document.getElementById('dlCount');
+        var box = el ? el.parentElement : null;
+        function show(n) { if (el) el.textContent = Number(n).toLocaleString('ar-EG'); if (box) box.classList.remove('err'); }
+        function dash() { if (el) el.textContent = '—'; if (box) box.classList.add('err'); }
+
+        // العرض المبدئيّ: القيمة الحالية دون زيادة (404 = لم يُنزَّل بعد = صفر).
+        fetch(GET).then(function (r) {
+            if (r.ok) return r.json().then(function (d) { show(d.value); });
+            if (r.status === 404) { show(0); return; }
+            dash();
+        }).catch(dash);
+
+        // عند الضغط على التحميل: زِد العدّاد (لا نمنع التنزيل).
+        var btn = document.getElementById('dlBtn');
+        if (btn) btn.addEventListener('click', function () {
+            fetch(HIT).then(function (r) { return r.ok ? r.json() : null; })
+                      .then(function (d) { if (d) show(d.value); }).catch(function () {});
+        });
+
+        // ── مستشعر الإصدار على الصفحة: يقرأ المانيفست نفسه الذي يقرأه التطبيق ──
+        fetch('../downloads/almijas_version.json?t=' + Date.now()).then(function (r) {
+            return r.ok ? r.json() : null;
+        }).then(function (m) {
+            if (!m) return;
+            var v = document.getElementById('verLabel'), rel = document.getElementById('relLabel');
+            if (v && m.latestVersion) v.textContent = m.latestVersion;
+            if (rel && m.releasedAt) rel.textContent = m.releasedAt;
+        }).catch(function () {});
+    })();
+    </script>
 </body>
 </html>
