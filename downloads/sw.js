@@ -1,4 +1,4 @@
-const CACHE = 'matrix-academy-v5.0';
+const CACHE = 'matrix-academy-v5.0.1';
 const ASSETS = [
     './',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
