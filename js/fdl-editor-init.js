@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    const DEFAULT_CODE = EXAMPLES.hello;
+    const DEFAULT_CODE = EXAMPLES.m1;
 
     let cm = null;
     const elEditor = document.getElementById('fdl-editor');
@@ -54,23 +54,12 @@
 
     // ─── بناء قائمة القوالب من EXAMPLES ───
     const TEMPLATE_LABELS = {
-        hello:      { ar: 'مرحبا بالعالم',   icon: '👋' },
-        vars:       { ar: 'متغيّرات',          icon: '📦' },
-        consts:     { ar: 'ثوابت',             icon: '🔒' },
-        conditions: { ar: 'الشروط الثمانية', icon: '❓' },
-        loops:      { ar: 'حلقات',             icon: '🔁' },
-        functions:  { ar: 'دوال',              icon: 'ƒ' },
-        lists:      { ar: 'قوائم',             icon: '📋' },
-        dicts:      { ar: 'قواميس',           icon: '🗂' },
-        classes:    { ar: 'أصناف',             icon: '🏛' },
-        patterns:   { ar: 'أنماط',              icon: '🎨' },
-        simulation: { ar: 'محاكاة',            icon: '🎮' },
-        grades:     { ar: 'درجات الطلّاب',    icon: '🎓' },
-        full:       { ar: 'برنامج كامل',      icon: '🚀' },
-        batch:      { ar: 'تصريح جماعيّ',     icon: '📚' },
-        gui:        { ar: 'واجهة رسوميّة',   icon: '🖼' },
-        io:         { ar: 'إدخال/إخراج',     icon: '📡' },
-        hr:         { ar: 'الموارد البشريّة', icon: '👥' }
+        m1: { ar: 'النثر — الفكرة سطر (⟸ 5)',        icon: '﹏' },
+        m2: { ar: 'الحساب الموضعيّ (⟸ 8)',           icon: '🧮' },
+        m3: { ar: 'حلقة كلما:3 (⟸ 3 2 1)',           icon: '🔁' },
+        m4: { ar: 'دال:14 وناد:1 (⟸ 42)',            icon: 'ƒ' },
+        m5: { ar: 'شرط اذا:2 — من الاثني عشر (⟸ 7)', icon: '❓' },
+        m6: { ar: 'شجرة العمر — العنوان هويّة (⟸ 36)', icon: '🌳' }
     };
 
     if (elTemplates) {
@@ -142,7 +131,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'برنامج.fdl';
+        a.download = 'برنامج.فضل';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
