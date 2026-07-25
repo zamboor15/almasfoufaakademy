@@ -1,6 +1,12 @@
 {
-    "version": "2.0.0",
-    "date": "2026-03-07",
-    "notes": "شريط قوائم جديد + 13 مثال من المنهاج + تعشيش شجري + قطع",
-    "url": "https://zamboor15.github.io/almasfoufaakademy/downloads/%D9%81%D8%A7%D8%B6%D9%84_IDE.html"
+    "version": "5.0.0",
+    "date": "2026-07-25",
+    "notes": "المحرك الحقيقي: المترجم الشجري الخامس (استضافة ذاتية 3 اجيال متطابقة + 642/642 صفر انحدار) متاح للتنزيل للينكس — والمحاكي يفهم صياغة الخامس القوسية والنثر والعنونة الشجرية + 3 امثلة كانونية مقيسة",
+    "url": "https://zamboor15.github.io/almasfoufaakademy/downloads/%D9%81%D8%A7%D8%B6%D9%84_IDE.html",
+    "engine": {
+        "name": "مترجم_شجري_الخامس",
+        "source_sha256_12": "7aeb6613dc08",
+        "image_sha256_12": "3e9c1bbd8d86",
+        "package": "https://zamboor15.github.io/almasfoufaakademy/downloads/%D9%81%D8%A7%D8%B6%D9%84_v5_%D9%84%D9%8A%D9%86%D9%83%D8%B3.tar.gz"
+    }
 }

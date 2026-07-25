@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بيئة تطوير فاضل v2.0</title>
+<title>بيئة تطوير فاضل v5.0</title>
 <link rel="icon" type="image/svg+xml" href="fdl_icon.svg">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="فاضلفاضل v2.0">
-<meta name="application-name" content="فاضلفاضل v2.0">
+<meta name="apple-mobile-web-app-title" content="فاضلفاضل v5.0">
+<meta name="application-name" content="فاضلفاضل v5.0">
 <meta name="theme-color" content="#0d1117">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -1122,7 +1122,7 @@ body {
             <rect x="4" y="4" width="504" height="504" rx="80" fill="url(#tg-bg)"/>
             <text x="256" y="340" text-anchor="middle" font-family="'Tajawal','Noto Sans Arabic','Tahoma','Arial',sans-serif" font-weight="800" font-size="200" fill="url(#tg)" direction="rtl">فاضل</text>
         </svg>
-        بيئة تطوير فاضل <span>v2.0</span>
+        بيئة تطوير فاضل <span>v5.0</span>
     </div>
 </div>
 
@@ -1158,6 +1158,9 @@ body {
                 <option value="gui">15. واجهة رسومية FTF-5</option>
                 <option value="io">16. نظام متكامل — كل الطبقات</option>
                 <option value="hr">17. شعبة الموارد البشرية — HRMS</option>
+                <option value="v5_prose">18. نثر الخامس v5 — الصياغة القوسيّة</option>
+                <option value="v5_tree">19. شجرة الخامس v5 — عنونة وشرط وحلقة</option>
+                <option value="v5_func">20. دوالّ الخامس v5 — دال وناد</option>
             </select>
         </div>
     </div>
@@ -1247,7 +1250,7 @@ body {
         <div class="menu-dropdown">
             <div class="menu-dropdown-item" onclick="showHelp()">دليل سريع</div>
             <div class="menu-dropdown-item" onclick="checkForUpdate()">فحص التحديثات</div>
-            <div class="menu-dropdown-item" onclick="alert('فاضلv2.0\nم. فاضل عباس الجعيفري\nCODEC COSMIC OS')">حول فاضل</div>
+            <div class="menu-dropdown-item" onclick="alert('فاضل v5.0 — على نسق المترجم الشجريّ الخامس\nم. فاضل عباس الجعيفري\nCODEC COSMIC OS\n\nهذه بيئة تعلّم في المتصفح (محاكاة تعليميّة).\nالمحرّك الحقيقيّ fdl v5 — المترجم الخامس يستضيف نفسه\nGEN1==GEN2==GEN3 و642 برنامجاً مُبرهَناً — يُحمَّل من صفحة اللغة في موقع الأكاديميّة.')">حول فاضل</div>
         </div>
     </div>
 </div>
@@ -1523,7 +1526,7 @@ body {
     </div>
     <div class="statusbar-item" id="cursor-pos">سطر 1، عمود 1</div>
     <div class="statusbar-right">
-        <div class="statusbar-item" style="color:var(--accent-gold);opacity:0.7">فاضلv2.0</div>
+        <div class="statusbar-item" style="color:var(--accent-gold);opacity:0.7">فاضلv5.0</div>
         <div class="statusbar-item">UTF-8</div>
     </div>
 </div>
@@ -1531,7 +1534,7 @@ body {
 <!-- HELP MODAL -->
 <div class="modal-overlay" id="help-modal">
     <div class="modal">
-        <div class="modal-title">فاضلبيئة تطوير فاضل v2.0</div>
+        <div class="modal-title">فاضلبيئة تطوير فاضل v5.0</div>
         <div class="modal-body">
             <p style="margin-bottom:12px">بيئة تطوير متكاملة للغة فاضل — م. فاضل عباس الجعيفري — Codec Cosmic OS</p>
             <p style="margin-bottom:12px;color:var(--text-secondary)">
@@ -2445,6 +2448,42 @@ const _FDL_HR_COLS = ['الهوية_الكونية','الاسم','الجنس','�
 
 // === الأمثلة (تعشيش شجري) ===
 const EXAMPLES = {
+    v5_prose: `-- صياغة المترجم الخامس v5 — النثر: الفكرة الواحدة سطر واحد
+-- الأمثلة أدناه تعمل هنا وعلى المحرّك الحقيقيّ fdl v5 حرفيّاً
+-- (على المحرّك الحقيقيّ: احذف أسطر التعليق -- قاعدة التعليق للذيل)
+
+حسب:5(س, 5) طبع:5(س)
+
+حسب:5(أ, 5) حسب:5(ب, 3) حسب:1(أ, +, ب) طبع:5(أ)`,
+
+    v5_tree: `-- شجرة الخامس v5 — العنوان هو الهويّة، طول العنوان عمقه
+-- 9001 أب — 90010 ابنه (رقم أطول بخانة)
+
+9000 حسب:5(سنة, 2026)
+9001 حسب:5(مولد, 1990)
+9002 حسب:5(عمر, سنة)
+9003 حسب:1(عمر, -, مولد)
+9004 طبع:5(عمر)
+
+9010 حسب:5(س, 0)
+9011 كلما:3(س, <, 5)
+90110 حسب:1(س, +, 1)
+9012 طبع:5(س)
+
+9020 حسب:5(ص, 7)
+9021 اذا:2(ص, >, 5)
+90210 طبع:5(ص)`,
+
+    v5_func: `-- دوالّ الخامس v5 — دال:14 حاوية، ناد:1 نداء، رجوع قناة الرجوع
+
+1590 دال:14 ضعف(عدد)
+15900 حسب:5(رجوع, عدد)
+15901 حسب:1(رجوع, +, عدد)
+
+9000 حسب:5(رجوع, 0)
+9001 ناد:1(ضعف, 21)
+9002 طبع:5(رجوع)`,
+
     hello: `-- ═══════════════════════════════
 -- مرحبا بالعالم — أول برنامج
 -- ═══════════════════════════════
@@ -3580,12 +3619,55 @@ class FDLInterpreter {
         return code;
     }
 
+    // ═══ ترجمة صياغة المترجم الخامس v5 (القوسيّة) إلى لهجة المحاكي ═══
+    // النثر: أوامر متجاورة في سطر واحد تُفصَل — حسب:5(س,5) طبع:5(س)
+    // حسب:5/6(اسم, قيمة) تعريف/تعديل · حسب:1(اسم, عمليّة, معامل) حساب موضعيّ
+    // طبع:5(س) طباعة · اذا:2(أ,>,ب) شرط · كلما:3(أ,<,ب) حلقة
+    // دال:14 اسم(وسيط) دالّة · ناد:1(دالّة, وسائط) نداء
+    // العناوين الشجريّة (9000، 90010...) تبقى — طول العنوان عمقٌ عند المعشّش
+    translateCanonical(code) {
+        const translateStmt = (s) => {
+            let r;
+            if ((r = s.match(/^حسب:([56])\s*\(\s*([^,()=]+?)\s*,\s*([^()]+?)\s*\)$/)))
+                return 'حسب:' + r[1] + ' ' + r[2] + ' = ' + r[3];
+            if ((r = s.match(/^حسب:1\s*\(\s*([^,()]+?)\s*,\s*([+\-*/%])\s*,\s*([^()]+?)\s*\)$/)))
+                return 'حسب:6 ' + r[1] + ' = ' + r[1] + ' ' + r[2] + ' ' + r[3];
+            if ((r = s.match(/^طبع:5\s*\((.*)\)$/)))
+                return 'طبع:1(' + r[1] + ')';
+            if ((r = s.match(/^اذا:2\s*\(\s*([^,()]+?)\s*,\s*([^,()\s]+)\s*,\s*([^()]+?)\s*\)$/)))
+                return 'اذا (' + r[1] + ' ' + r[2] + ' ' + r[3] + ')';
+            if ((r = s.match(/^كلما:3\s*\(\s*([^,()]+?)\s*,\s*([^,()\s]+)\s*,\s*([^()]+?)\s*\)$/)))
+                return 'كلما (' + r[1] + ' ' + r[2] + ' ' + r[3] + ')';
+            if ((r = s.match(/^دال:14\s+(\S+?)\s*\((.*)\)$/)))
+                return 'حسب:7 ' + r[1] + '(' + r[2] + ')';
+            if ((r = s.match(/^ناد:1\s*\(\s*([^,()]+?)\s*(?:,\s*(.*?))?\s*\)$/)))
+                return r[1] + ':1(' + (r[2] || '') + ')';
+            return s;
+        };
+        return code.split('\n').map(line => {
+            const t = line.trim();
+            if (!t || t.startsWith(';') || t.startsWith('--')) return line;
+            const am = t.match(/^(\d+)\s+(.*)$/);
+            const addr = am ? am[1] + ' ' : '';
+            const body = am ? am[2].trim() : t;
+            // فصل النثر: أوامر قوسيّة متجاورة في سطر واحد
+            const groups = body.match(/\S+:\d+\s*\([^()]*\)/g);
+            if (groups && groups.length > 1 &&
+                groups.join('').replace(/\s+/g, '') === body.replace(/\s+/g, '')) {
+                return groups.map(g => addr + translateStmt(g.trim())).join('\n');
+            }
+            return addr + translateStmt(body);
+        }).join('\n');
+    }
+
     run(code) {
         this.reset();
         this.running = true;
         try {
             // تنظيف حروف اتجاهية مخفية (نسخ من PDF)
             code = this.cleanBidiMarkers(code);
+            // ترجمة صياغة المترجم الخامس القوسيّة (v5)
+            code = this.translateCanonical(code);
             // معالجة مسبقة: تحويل التعشيش الشجري
             code = this.preprocessTreeNesting(code);
             const lines = code.split('\n');
@@ -6615,7 +6697,7 @@ if (extListEl) {
 // ═══════════════════════════════════════════════════════════
 //  التحديث التلقائي
 // ═══════════════════════════════════════════════════════════
-const FDL_VERSION = '2.0.0';
+const FDL_VERSION = '5.0.0';
 
 function checkForUpdates() {
     try {
@@ -6681,7 +6763,7 @@ updateEditor();
 updateSavedFilesList();
 checkForUpdates();
 
-addConsoleLine('فاضلبيئة تطوير فاضل v2.0 — جاهزة', 'system');
+addConsoleLine('فاضلبيئة تطوير فاضل v5.0 — جاهزة', 'system');
 addConsoleLine('م. فاضل عباس الجعيفري — Codec Cosmic OS', 'system');
 addConsoleLine('12 وزن | 8 أدوات شرط | أصناف | قوائم | قواميس | ثوابت | عدادات', 'system');
 addConsoleLine('اختر مثالاً من القائمة أو اكتب كود فاضل واضغط تشغيل', 'info');
@@ -6988,7 +7070,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 // === نظام التحديث ===
-const FDL_CURRENT_VERSION = '2.0.0';
+const FDL_CURRENT_VERSION = '5.0.0';
 const FDL_UPDATE_URL = 'https://zamboor15.github.io/almasfoufaakademy/downloads/version.json';
 
 function versionToNum(v) {

@@ -81,10 +81,12 @@
         .download-grid {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 30px;
-            max-width: 600px;
+            max-width: 1100px;
             margin: 0 auto;
         }
+        .download-grid .download-card { max-width: 520px; flex: 1 1 380px; }
         .download-card {
             background: white;
             border-radius: 16px;
@@ -649,7 +651,7 @@
     <section class="fdl-hero">
         <div class="container" style="position:relative;z-index:1">
             <img src="../assets/fdl_icon.svg" alt="لغة فاضل" class="fdl-icon-large">
-            <div class="fdl-version">v2.0 — Codec Cosmic OS</div>
+            <div class="fdl-version">v5.0 — المترجم الشجريّ الخامس — Codec Cosmic OS</div>
             <div class="hero-flag-row">
                 <div class="iraq-flag">
                     <span class="stripe red"></span>
@@ -675,17 +677,31 @@
             <div class="download-grid">
                 <div class="download-card">
                     <div class="os-icons">
+                        <i class="fab fa-linux"></i>
+                    </div>
+                    <h3>محرّك لغة فاضل v5 — المترجم الخامس</h3>
+                    <p>المترجم الشجريّ الخامس <strong>الحقيقيّ</strong> — مكتوب بفاضل الخالصة، يستضيف نفسه (3 اجيال متطابقة بايتاً)، برنامجك يترجَم ويعمل <strong>على المعدن الافتراضيّ مباشرة</strong> والناتج يُقلع بذاته على حديد حقيقي — مع 6 امثلة مقيسة</p>
+                    <a href="../downloads/فاضل_v5_لينكس.tar.gz" download class="btn-download all-btn">
+                        <i class="fas fa-download"></i> تحميل فاضل_v5_لينكس.tar.gz
+                    </a>
+                    <div class="file-info">70 KB — Linux x86_64 — يتطلّب qemu (sudo apt install qemu-system-x86)</div>
+                    <div class="file-info" style="margin-top:8px;color:#64748b">
+                        فكّ الضغط ← ./تثبيت.sh ← fdl --فحص ← ويندوز وماك قيد البناء
+                    </div>
+                </div>
+                <div class="download-card">
+                    <div class="os-icons">
                         <i class="fab fa-windows"></i>
                         <i class="fab fa-linux"></i>
                         <i class="fab fa-apple"></i>
                         <i class="fab fa-android"></i>
                     </div>
-                    <h3>بيئة تطوير فاضل</h3>
-                    <p>بيئة تعلّم وتطوير تعمل داخل <strong>اي متصفح</strong> على جميع الانظمة — مفسّر + تلوين نحوي + ذكاء اصطناعي محلي + نظام امتدادات + فاحص FDL + 13 مثال تعليمي</p>
+                    <h3>بيئة تطوير فاضل v5</h3>
+                    <p>بيئة تعلّم وتطوير تعمل داخل <strong>اي متصفح</strong> على جميع الانظمة — محاكاة تعليمية تفهم صياغة الخامس القوسيّة والنثر + تلوين نحوي + ذكاء اصطناعي محلي + نظام امتدادات + فاحص FDL + 20 مثالاً تعليمياً</p>
                     <a href="../downloads/فاضل_IDE.html" download class="btn-download all-btn">
                         <i class="fas fa-download"></i> تحميل فاضل_IDE.html
                     </a>
-                    <div class="file-info">ملف HTML واحد — 216 KB — يحتاج متصفح فقط (Chrome, Firefox, Safari...)</div>
+                    <div class="file-info">ملف HTML واحد — 505 KB — يحتاج متصفح فقط (Chrome, Firefox, Safari...)</div>
                     <div class="file-info" style="margin-top:8px;color:#64748b">
                         حمّل الملف ← افتحه في المتصفح ← ابدأ البرمجة
                     </div>
@@ -701,12 +717,16 @@
             <p class="quran-verse">ولينصرنَّ الله من ينصره ان الله لقوي عزيز<span class="surah">الحج : 40</span></p>
             <div class="fdl-features-grid">
                 <div class="fdl-feat">
-                    <h4><span>12</span> وزناً صرفياً</h4>
-                    <p>كل امر = جذر (ماذا) + وزن (كيف). :1 تنفيذ، :3 حلقة، :5 انشاء، :6 تعديل، :7 تعريف، :8 ارجاع، :9 معامل، :10 قاموس، :12 ثابت، :15 قائمة</p>
+                    <h4><span>16</span> وزناً + حل السياديّ</h4>
+                    <p>كل امر = جذر (ماذا) + وزن (كيف)، مع حركات تميّز الصيغ (حِل/حَل/حُل). و«حل» أمرٌ سياديٌّ يسود على كل الأوامر: :0 تدمير مؤقّت، :6 تزامن، :1 تنفيذ، :3 حلقة، :5 انشاء، :14 حاوية، :16 قائمة</p>
                 </div>
                 <div class="fdl-feat">
-                    <h4><span>8</span> ادوات شرط</h4>
-                    <p>انْ، اذا، لو، كلما، متى، مَنْ، ما، اينما — كل اداة بمعنى مختلف، لا else ابداً</p>
+                    <h4><span>12</span> اداة شرط</h4>
+                    <p>انْ، اذا، كلما، لو، لولا، أمّا، مَنْ، ما، مهما، متى، أينما، حيثما — اثنتا عشرة بدائيّة استدلال، كل اداة بمعنى مختلف، لا else ابداً</p>
+                </div>
+                <div class="fdl-feat">
+                    <h4>كتابة <span>النثر</span></h4>
+                    <p>الفكرة الواحدة سطرٌ واحد: أوامر تتّصل بروابط عربيّة (و، ف، ثمّ) وتتشابك بالإحلال الموضعيّ — بلا ذاكرة مؤقّتة، البذور تتقاطع في المعاملات</p>
                 </div>
                 <div class="fdl-feat">
                     <h4>تعمل على <span>المعدن</span></h4>
@@ -730,7 +750,7 @@
                 </div>
                 <div class="fdl-feat">
                     <h4>بيئة تطوير <span>متكاملة</span></h4>
-                    <p>IDE ويب بشريط نشاط VS Code — تشفير + ذكاء اصطناعي محلي + 3 امتدادات + فاحص FDL + 13 مثال تعليمي</p>
+                    <p>IDE ويب بشريط نشاط VS Code — تشفير + ذكاء اصطناعي محلي + 3 امتدادات + فاحص FDL + 20 مثالاً تعليمياً</p>
                 </div>
             </div>
         </div>
@@ -743,20 +763,20 @@
             <p class="quran-verse">وعلّم آدم الاسماء كلها<span class="surah">البقرة : 31</span></p>
             <div class="specs-grid">
                 <div class="spec-item">
-                    <span class="number">203,570</span>
-                    <span class="label">بايت — حجم المترجم</span>
+                    <span class="number">294,599</span>
+                    <span class="label">بايت — مصدر المترجم الخامس (7,365 سطراً بفاضل)</span>
                 </div>
                 <div class="spec-item">
-                    <span class="number">7,400+</span>
-                    <span class="label">سطر — كود المترجم</span>
+                    <span class="number">159,142</span>
+                    <span class="label">بايت — صورة المترجم المُقلِعة (صفر تبعيات)</span>
                 </div>
                 <div class="spec-item">
-                    <span class="number">512</span>
-                    <span class="label">بايت — محمّل الاقلاع</span>
+                    <span class="number">642/642</span>
+                    <span class="label">برنامجاً حقيقياً مُبرهَناً — صفر انحدار (مقيس 25 تموز 2026)</span>
                 </div>
                 <div class="spec-item">
-                    <span class="number">38</span>
-                    <span class="label">انجازاً تقنياً مُوثّقاً</span>
+                    <span class="number">3</span>
+                    <span class="label">اجيال استضافة ذاتية متطابقة بايتاً GEN1==GEN2==GEN3</span>
                 </div>
             </div>
         </div>
@@ -810,7 +830,7 @@
         <div class="container">
             <h2>بيئة التطوير المتكاملة</h2>
             <p class="quran-verse">ان الله يدافع عن الذين آمنوا<span class="surah">الحج : 38</span></p>
-            <p class="desc">محرر كود متكامل يعمل في المتصفح — تلوين نحوي + تنفيذ فوري + ذكاء اصطناعي محلي + نظام امتدادات + فاحص FDL + 13 مثال تعليمي</p>
+            <p class="desc">محرر كود متكامل يعمل في المتصفح — تلوين نحوي + تنفيذ فوري + ذكاء اصطناعي محلي + نظام امتدادات + فاحص FDL + 20 مثالاً تعليمياً</p>
             <div class="ide-screenshot">
                 <iframe src="../downloads/فاضل_IDE.html" title="بيئة تطوير فاضل" loading="lazy"></iframe>
             </div>
