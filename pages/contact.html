@@ -8,15 +8,6 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-    </script>
     <link rel="canonical" href="https://zamboor15.github.io/almasfoufaakademy/pages/contact.html">
 
     <!-- Open Graph -->
@@ -65,7 +56,6 @@
                 <a href="opportunities.html">فرص الاستثمار</a>
                 <a href="https://huggingface.co/zamboor15" target="_blank">نماذجنا</a>
                 <a href="contact.html" class="active">اتصل بنا</a>
-                <a href="admin.html" class="nav-admin" title="لوحة الادارة"><i class="fas fa-bell"></i></a>
             </div>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -182,7 +172,7 @@
                 <!-- Contact Form -->
                 <div class="contact-form-wrapper">
                     <h2>أرسل لنا رسالة</h2>
-                    <form id="contactForm" name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/success.html" class="contact-form">
+                    <form id="contactForm" name="contact" method="POST" class="contact-form">
                         <input type="hidden" name="bot-field" />
                         <input type="hidden" name="form-name" value="contact" />
                         <div class="form-group">
@@ -712,30 +702,32 @@
                 btn.textContent = 'جاري الإرسال...';
                 btn.disabled = true;
 
-                fetch('/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams(formData).toString()
-                })
-                .then(res => {
-                    if (res.ok) {
-                        const msg = document.getElementById('formMessage');
-                        msg.className = 'form-message success';
-                        msg.innerHTML = '<i class="fas fa-check-circle"></i> تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.';
-                        contactForm.reset();
-                    } else {
-                        throw new Error('failed');
-                    }
-                })
-                .catch(() => {
-                    const msg = document.getElementById('formMessage');
-                    msg.className = 'form-message error';
-                    msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> حدث خطأ. يرجى المحاولة مرة أخرى.';
-                })
-                .finally(() => {
-                    btn.textContent = origText;
-                    btn.disabled = false;
-                });
+                // ارسال بلا خادم: يُركَّب نصُّ الرسالة ويُفتَح واتساب،
+                // والبريد بديلا. يعمل على GitHub Pages ⛔ بلا خدمة وسيطة.
+                const نوع = document.querySelector('#type option:checked').textContent;
+                const فرصة = document.getElementById('opportunity').value
+                    ? document.querySelector('#opportunity option:checked').textContent : '';
+                const سطر = String.fromCharCode(10);
+                const متن =
+                    'الاسم: ' + formData.name + سطر +
+                    'البريد: ' + formData.email + سطر +
+                    'الهاتف: ' + formData.phone + سطر +
+                    'النوع: ' + نوع + سطر +
+                    (فرصة ? 'الفرصة: ' + فرصة + سطر : '') +
+                    سطر + 'الرسالة:' + سطر + formData.message;
+
+                window.open('https://wa.me/9647808923210?text=' + encodeURIComponent(متن), '_blank');
+
+                const msg = document.getElementById('formMessage');
+                msg.className = 'form-message success';
+                msg.innerHTML = '<i class="fas fa-check-circle"></i> فُتِحَت نافذةُ واتساب برسالتك جاهزةً — ' +
+                    'اضغطْ ارسال هناك. او ارسلها بريدا الى ' +
+                    '<a href="mailto:fadhilabbas51@gmail.com?subject=' +
+                    encodeURIComponent('رسالة من الموقع — ' + نوع) + '&body=' +
+                    encodeURIComponent(متن) + '">fadhilabbas51@gmail.com</a>';
+                contactForm.reset();
+                btn.textContent = origText;
+                btn.disabled = false;
             });
         }
         
@@ -790,6 +782,5 @@
             opportunitySelect.value = opportunityParam;
         }
     </script>
-<script src="../js/edit-button.js"></script>
 </body>
 </html>
