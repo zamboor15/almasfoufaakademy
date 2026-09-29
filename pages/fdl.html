@@ -175,14 +175,14 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://zamboor15.github.io/almasfoufaakademy/pages/fdl.html">
     <meta property="og:title" content="تعلم لغة فاضل">
-    <meta property="og:description" content="تعلم لغة فاضل: قالبها واوامرها وتصرفاتها واوزان الشرط والربط والتكديس والنثر — لغة برمجة عربية تعمل على المعدن مباشرة">
+    <meta property="og:description" content="تعلم لغة فاضل: القالب والاوامر والتصرفات وسلّم الاصناف واوزان الشرط والربط والتكديس والنثر والعلامات — لغة برمجة عربية تعمل على المعدن مباشرة">
     <meta property="og:site_name" content="اكاديمية المصفوفة للذكاء الاصطناعي">
     <meta property="og:locale" content="ar_IQ">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="تعلم لغة فاضل">
-    <meta name="twitter:description" content="تعلم لغة فاضل: قالبها واوامرها وتصرفاتها واوزان الشرط والربط والتكديس والنثر — لغة برمجة عربية تعمل على المعدن مباشرة">
+    <meta name="twitter:description" content="تعلم لغة فاضل: القالب والاوامر والتصرفات وسلّم الاصناف واوزان الشرط والربط والتكديس والنثر والعلامات — لغة برمجة عربية تعمل على المعدن مباشرة">
 
     <!-- JSON-LD -->
     <script type="application/ld+json">
@@ -250,8 +250,8 @@
                 <br>لا كلمات مفتاحية اجنبية، ولا ارقام تكتبها بيدك، ولا طبقة تفسير بينك وبين المعالج.
             </p>
             <p class="fdl-owner">
-                هذه الصفحة تعلمك كتابة اللغة: قالبها واوامرها وتصرفاتها وشروطها وروابطها،
-                <br>وطريقة التكديس والنثر والتعشيش. وفي اخرها بيئة العمل لتجرب بنفسك.
+                هذه الصفحة تعلمك كتابة اللغة: قالبها واوامرها وتصرفاتها، وكيف تبني هيكلا بسلّم الاصناف،
+                <br>واوزان الشرط والربط، والتكديس والنثر والتعشيش والعلامات. وفي اخرها بيئة العمل لتجرب بنفسك.
             </p>
         </div>
     </section>
@@ -289,6 +289,7 @@
                             <tr><td><code>02 طبع:1(س)</code></td><td>اطبع مباشرة ما بين القوسين</td></tr>
                             <tr><td><code>03 شرط:1(30 &gt; 16)</code></td><td>إنْ كان 30 اكبر من 16</td></tr>
                             <tr><td><code>04 صنف:14(بيت = فرع)</code></td><td>اجعل «بيت» مكانه، وفيه «فرع»</td></tr>
+                            <tr><td><code>05 خزن:1(س = -6)</code></td><td>والعدد السالب يُكتب بعلامته كما هو</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -376,10 +377,66 @@
         </div>
     </section>
 
+    <!-- سلّم الاصناف -->
+    <section class="gate-section">
+        <div class="container">
+            <h2>رابعا: كيف تبني هيكلا — سلّم الاصناف</h2>
+            <p class="guard-note">
+                الهيكل يقوم على ثلاثة مصنّفات: <strong>14</strong> و<strong>2</strong> و<strong>1</strong>.
+                بها تبني اي شيء له اجزاء: متجرا او بيتا او مصنعا او مختبرا.
+            </p>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>الطبقة</th><th>تُكتب بـ</th><th>ما هي</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>الجذع</strong></td><td><code>صنف:14</code></td><td>الحاوية الكبرى — متجر · محل · مكتب · مخزن · منحل · معمل · مصنع · مختبر</td></tr>
+                        <tr><td><strong>الفروع الكبيرة</strong></td><td><code>صنف:2</code></td><td>كل فرد منتج له ذرية</td></tr>
+                        <tr><td><strong>الفروع الصغيرة</strong></td><td><code>صنف:1</code></td><td>ما لا ينقسم بعده</td></tr>
+                        <tr><td><strong>الاوراق</strong></td><td>الاوامر</td><td>البرامج والمعالجات التي تعمل على الهيكل</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top:26px">صيغة الجذع</h3>
+            <p class="guard-note">
+                اسم المصنّف، ثم «=»، ثم ابناؤه الكبار مفصولين بـ«+»:
+                <code style="font-size:1.1rem;background:#0f172a;color:#fbbf24;padding:5px 12px;border-radius:6px;display:inline-block;margin:6px 0">صنف:14(المصنّف = ابن0 + ابن1 + …)</code>
+                <br>والابناء الكبار كلهم بين قوسي <code>صنف:14</code> — من ابن0 الى ابن9.
+            </p>
+
+            <h3 style="margin-top:22px">مثال يُقرأ سطرا سطرا</h3>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>السطر</th><th>ماذا يفعل</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>01 صنف:14(بيت = بناء+عائلة+مصاريف)</code></td><td>الجذع: بيت، وفيه ثلاثة ابناء كبار</td></tr>
+                        <tr><td><code>02 صنف:2(بناء = مساحة+طابقين)</code></td><td>فرع كبير: بناء، وله ذرية</td></tr>
+                        <tr><td><code>020 صنف:1(مساحة = 200)</code></td><td>فرع صغير لا ينقسم بعده</td></tr>
+                        <tr><td><code>021 طبع:1(مساحة)</code></td><td>ورقة: امر يعمل على الهيكل</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="guard-note" style="margin-top:14px">
+                <strong>ولاحظ العنوان:</strong> <code>01</code> جذع · <code>02</code> اخوه ·
+                <code>020</code> ابن <code>02</code> · <code>021</code> اخو <code>020</code>.
+                فالعنوان وحده يقول من ابن من.
+            </p>
+
+            <h3 style="margin-top:22px">والحارس يتأكد من اربعة قبل ان يمضي</h3>
+            <div class="guard-grid">
+                <div class="guard-card"><h4>①</h4><p>ان يكون الاصل <code>صنف:14</code>.</p></div>
+                <div class="guard-card"><h4>②</h4><p>وان تكون للحاوية ابناء كبار.</p></div>
+                <div class="guard-card"><h4>③</h4><p>وان يُكتب كل ابن كبير بـ<code>صنف:2</code> وبترتيب الجذع نفسه.</p></div>
+                <div class="guard-card"><h4>④</h4><p>وان تولد الورقة بـ<code>صنف:1</code> قبل ان تسكن او تُقرأ.</p></div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- ④ الشروط -->
     <section class="gate-section">
         <div class="container">
-            <h2>رابعا: اوزان الشرط — اثنا عشر</h2>
+            <h2>خامسا: اوزان الشرط — اثنا عشر</h2>
             <p class="guard-note">
                 اوزان الشرط ليست تصرفات، ولا تُقاس على القانون التاسع. فالتصرف يتغير معناه بالجذر،
                 ووزن الشرط ثابت المعنى والفعل.
@@ -414,7 +471,7 @@
     <!-- ⑤ الروابط -->
     <section class="source-section">
         <div class="container">
-            <h2>خامسا: ادوات الربط والقطع — خمس عشرة</h2>
+            <h2>سادسا: ادوات الربط والقطع — خمس عشرة</h2>
             <p class="unit-note">
                 الروابط اوامر لا حروف: تُكتب <code>ربط:تصرف</code> لا «و» ولا «ف» مفردة — توحيدا للقالب.
                 ومعاملاتها ليست خالية ابدا: هي تختار ما يعبر من معاملات الامر السابق الى التالي.
@@ -451,7 +508,7 @@
     <!-- ⑥ التكديس والنثر -->
     <section class="guard-section" style="background:#f1f5f9">
         <div class="container">
-            <h2>سادسا: التكديس والنثر — اول صفات اللغة</h2>
+            <h2>سابعا: التكديس والنثر — اول صفات اللغة</h2>
 
             <h3>التكديس — اربع صور</h3>
             <p class="guard-note">
@@ -492,7 +549,7 @@
     <!-- ⑦ التعشيش والعلامات -->
     <section class="state-section">
         <div class="container">
-            <h2>سابعا: التعشيش والعنونة</h2>
+            <h2>ثامنا: التعشيش والعنونة</h2>
             <div class="state-cols">
                 <div class="state-col">
                     <h3>العنوان يقول النسب</h3>
@@ -554,7 +611,7 @@
     <!-- ⑧ المحرمات -->
     <section class="law-section">
         <div class="container">
-            <h2>ثامنا: ما يميّز اللغة — حدود مقصودة</h2>
+            <h2>تاسعا: ما يميّز اللغة — حدود مقصودة</h2>
             <div class="law-grid">
                 <div class="law-card"><h3>البادئة بدل المؤشر</h3><p>العنوان نفسه يقول الموضع، فلا حاجة الى مؤشر يُتتبَّع.</p></div>
                 <div class="law-card"><h3>مسار عودة</h3><p>النداء مسار عودة مباشر، فلا مكدس قيم يُبنى ويُفكَّك.</p></div>
