@@ -130,7 +130,6 @@
         /* ═══ الحارس ═══ */
         .guard-section { padding:55px 0; background:#fff; }
         .guard-section h2 { text-align:center; font-size:1.9rem; margin-bottom:10px; color:#1e293b; }
-        .guard-status { display:inline-flex; align-items:center; gap:9px; background:#fef3c7; border:1px solid #fbbf24; color:#92400e; padding:9px 20px; border-radius:22px; font-weight:600; font-size:0.95rem; margin-bottom:24px; }
         .guard-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; max-width:1050px; width:100%; margin-bottom:26px; }
         .guard-card { background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:20px; text-align:right; transition:all .25s; }
         .guard-card:hover { border-color:#e8b868; background:#fffbf0; }
@@ -140,7 +139,6 @@
         .guard-card code { background:#0c2040; color:#e8b868; padding:2px 6px; border-radius:4px; font-family:Consolas,monospace; font-size:0.85rem; }
         .guard-note { max-width:1050px; width:100%; background:#f1f5f9; border-right:4px solid #e8b868; border-radius:8px; padding:20px 22px; text-align:right; color:#475569; line-height:1.9; }
         .guard-note strong { color:#0c2040; }
-        .remain-title { margin:34px 0 0; font-size:1.15rem; color:#b45309; text-align:center; }
         table.measured td.wait { color:#b45309; font-weight:600; white-space:nowrap; }
 
         /* ═══ حال البناء ═══ */
@@ -157,8 +155,6 @@
         .state-col ul { margin:0; padding-right:20px; }
         .state-col li { color:#475569; line-height:1.95; margin-bottom:5px; font-size:0.95rem; }
         .state-col code { background:rgba(0,0,0,0.06); padding:1px 6px; border-radius:4px; font-family:Consolas,monospace; font-size:0.87rem; color:#0c2040; }
-        .debt-note { max-width:1100px; width:100%; margin-top:20px; background:#0c2040; color:#cbd5e1; border-radius:12px; padding:20px 24px; text-align:right; line-height:1.9; }
-        .debt-note strong { color:#e8b868; }
 
         .developer-section { padding:40px 0; background:#fff; text-align:center; }
         .developer-section p { color:#64748b; font-size:1rem; }
@@ -282,7 +278,7 @@
             <div class="law-note" style="margin-top:26px">
                 <h3 style="margin-bottom:10px">امثلة تُقرأ كما تُنطق</h3>
                 <div class="table-wrap">
-                    <table>
+                    <table class="measured">
                         <thead><tr><th>السطر</th><th>كيف يُقرأ</th></tr></thead>
                         <tbody>
                             <tr><td><code>01 خزن:1(س = 7)</code></td><td>اخزن مرة واحدة مباشرة: المسكن «س» ساكنه 7</td></tr>
@@ -312,7 +308,7 @@
                 المورد هو الجذر ومعناه. وكل امر في اللغة يبدأ من واحد منها، ثم يقول التصرف كيف يُفعل.
             </p>
             <div class="table-wrap">
-                <table>
+                <table class="measured">
                     <thead><tr><th>الجذر</th><th>مورده</th><th>الجذر</th><th>مورده</th></tr></thead>
                     <tbody>
                         <tr><td><strong>خزن</strong></td><td>المسكن</td><td><strong>صنف</strong></td><td>النوع</td></tr>
@@ -339,7 +335,7 @@
                 التصرف نية وفعل، ويختلف معناه باختلاف الجذر — وهذا نص القانون التاسع كما خُتم.
             </p>
             <div class="table-wrap">
-                <table>
+                <table class="measured">
                     <thead><tr><th>#</th><th>معناه</th><th>#</th><th>معناه</th></tr></thead>
                     <tbody>
                         <tr><td><strong>1</strong></td><td>افعله مرة كما هو</td><td><strong>9</strong></td><td>ساد على حال سابق</td></tr>
@@ -360,7 +356,7 @@
                 وهي في الصرف العربي: فاعل ومَفْعَل ومِفْعال. فالحديد يدخل اللغة من باب الصرف ولا باب ثان له.
             </p>
             <div class="table-wrap">
-                <table>
+                <table class="measured">
                     <thead><tr><th>الامر</th><th>الفاعل 11</th><th>المسكن 14</th><th>الآلة 15</th></tr></thead>
                     <tbody>
                         <tr><td>خزن</td><td>القائم بالخزن</td><td>المخزن</td><td>ما لا ينفع الا للخزن</td></tr>
@@ -386,7 +382,7 @@
                 بها تبني اي شيء له اجزاء: متجرا او بيتا او مصنعا او مختبرا.
             </p>
             <div class="table-wrap">
-                <table>
+                <table class="measured">
                     <thead><tr><th>الطبقة</th><th>تُكتب بـ</th><th>ما هي</th></tr></thead>
                     <tbody>
                         <tr><td><strong>الجذع</strong></td><td><code>صنف:14</code></td><td>الحاوية الكبرى — متجر · محل · مكتب · مخزن · منحل · معمل · مصنع · مختبر</td></tr>
@@ -406,7 +402,7 @@
 
             <h3 style="margin-top:22px">مثال يُقرأ سطرا سطرا</h3>
             <div class="table-wrap">
-                <table>
+                <table class="measured">
                     <thead><tr><th>السطر</th><th>ماذا يفعل</th></tr></thead>
                     <tbody>
                         <tr><td><code>01 صنف:14(بيت = بناء+عائلة+مصاريف)</code></td><td>الجذع: بيت، وفيه ثلاثة ابناء كبار</td></tr>
@@ -442,7 +438,7 @@
                 ووزن الشرط ثابت المعنى والفعل.
             </p>
             <div class="table-wrap">
-                <table>
+                <table class="measured">
                     <thead><tr><th>#</th><th>الاداة</th><th>دلالتها</th></tr></thead>
                     <tbody>
                         <tr><td>1</td><td><strong>انْ</strong></td><td>شرطٌ غيرُ متحقّقٍ · افتراضىٌّ مجهولُ النتيجةِ</td></tr>
@@ -477,7 +473,7 @@
                 ومعاملاتها ليست خالية ابدا: هي تختار ما يعبر من معاملات الامر السابق الى التالي.
             </p>
             <div class="table-wrap">
-                <table>
+                <table class="measured">
                     <thead><tr><th>#</th><th>الاداة</th><th>دلالتها</th></tr></thead>
                     <tbody>
                         <tr><td>1</td><td><strong>و</strong></td><td>عمل يعطف على عمل: لولا الاول لما اقتضت الحاجة الى الثاني</td></tr>
@@ -516,7 +512,7 @@
                 تفصل مجموعة معاملات عن اختها — ولا تُستعمل للتتابع ابدا.
             </p>
             <div class="table-wrap">
-                <table>
+                <table class="measured">
                     <thead><tr><th>الصورة</th><th>المعنى</th></tr></thead>
                     <tbody>
                         <tr><td><code>امر:ت(),(),()</code></td><td><strong>تكديس معاملات</strong> — امر وتصرف واحد، ومجموعات معاملات متعددة</td></tr>
@@ -574,7 +570,7 @@
                         ويختلفان شكلا، والعلامة هي التي تفصل بينهما.
                     </p>
                     <div class="table-wrap">
-                        <table>
+                        <table class="measured">
                             <tbody>
                                 <tr><td>31 فتحة</td><td>32 كسرة</td><td>33 ضمة</td><td>34 سكون</td></tr>
                                 <tr><td>35 الف مقصورة</td><td>36 تنوين فتح</td><td>37 تنوين كسر</td><td>38 تنوين ضم</td></tr>
@@ -589,7 +585,7 @@
                         <br>وتُدرج العلامة بعد مقعد حرفها في ترتيب القراءة، فتسبقه في الرصف من الآحاد.
                     </p>
                     <div class="table-wrap">
-                        <table>
+                        <table class="measured">
                             <thead><tr><th>الكلمة</th><th>حروفها بمقاعدها</th><th>كما تُرصف</th></tr></thead>
                             <tbody>
                                 <tr><td><strong>خانة</strong></td><td>خ24 ا01 ن14 ت22 ة44</td><td><code>04422140124</code></td></tr>
