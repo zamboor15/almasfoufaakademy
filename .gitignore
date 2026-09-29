@@ -1,29 +1,101 @@
-# Node modules
+# .gitignore عام لمشاريع فاضل — git يحفظ المصدر لا الثقيل
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
 node_modules/
-npm-debug.log
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Build files
+.pytest_cache/
+.mypy_cache/
 dist/
 build/
-*.min.js
-*.min.css
-
-# Environment
+*.egg-info/
 .env
-.env.local
-
-# OS files
+.env.*
+!.env.example
+*.secret
+*.key
+*.pem
+credentials*
+secrets*
+*.bak
+*.bak_*
+*.full_backup
+*.before_*
+*.قبل_*
+*(Copy)*
+*~
+*.swp
+*.tmp
+*.img
+*.iso
+*.qcow2
+*.qcow
+*.vmdk
+*.vdi
+*.raw
+*.vhd
+*.vhdx
+*.بن
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.gguf
+*.h5
+*.pkl
+*.model
+*.data-00000-of-00001
+*.index
+*.tfrecord
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+*.gz
+*.xz
+*.bz2
+*.whl
+*.exe
+*.msi
+*.apk
+*.incomplete
+*.crdownload
+*.part
+*.mp3
+*.wav
+*.flac
+*.ogg
+*.m4a
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.webm
+*.jsonl
 Thumbs.db
+desktop.ini
 .DS_Store
+# ═══ محجوبٌ عن النشرِ — امرُ فاضل 29 ايلول 2026 ═══
+# «يبقى المفسّرُ مخفيّا ومحميّا كى لا تُسرَقَ اللغة»
+_محجوب_عن_النشر/
+downloads/السادس/
 
-# Local Netlify folder
-.netlify
-node_modules
+# ═══ الثقيلُ يُرفَعُ فى GitHub Release ⛔ ولا يدخلُ التاريخَ — 29 ايلول 2026 ═══
+# العلّةُ مقيسة : كلُّ نشرةٍ للبيئةِ تُضيفُ 5.5 م.ب الى .git للابد ، وbase64 لا يُضغَطُ تفاضليّا
+# ⟹ و«version.json» يشيرُ الى رابطِ الاصدارِ ⟹ فالتحديثُ الآلىُّ يعملُ كما هو
+_حرز_البيئة/
+_حرز_20260822_1617/
+_ملغى_المترجم_الخامس_2026_08_21/
+_متقاعد_29_ايلول/

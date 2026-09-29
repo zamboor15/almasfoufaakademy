@@ -3,29 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="لغة فاضل - اول لغة برمجة عربية تعمل على المعدن مباشرة - تحميل مجاني">
-    <title>لغة فاضل - اكاديمية المصفوفة للذكاء الاصطناعي</title>
+    <meta name="description" content="لغة فاضل — المترجم الشجري الشبكي السادس وحارسه — بيئة عمل م. فاضل عباس الجعيفري">
+    <title>لغة فاضل — المترجم الشجري الشبكي السادس | اكاديمية المصفوفة</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="icon" type="image/svg+xml" href="../assets/fdl_icon.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
     <style>
         .fdl-hero {
             background: linear-gradient(135deg, #0a1628 0%, #0c2040 50%, #081830 100%);
-            padding: 80px 0 60px;
+            padding: 70px 0 55px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
         .fdl-hero .container,
         .basmala-banner .container,
-        .download-section .container,
-        .features-fdl .container,
-        .specs-section .container,
-        .ide-section .container,
+        .law-section .container,
+        .source-section .container,
+        .gate-section .container,
+        .guard-section .container,
+        .state-section .container,
         .developer-section .container {
             display: flex;
             flex-direction: column;
@@ -38,536 +36,137 @@
             top: 0; left: 0; right: 0; bottom: 0;
             background: radial-gradient(ellipse at 50% 30%, rgba(232,184,104,0.08) 0%, transparent 60%);
         }
-        .fdl-hero h2 {
-            color: #e8b868;
-            font-size: 2.8rem;
-            margin-bottom: 12px;
-            text-shadow: 0 0 30px rgba(232,184,104,0.3);
-        }
-        .fdl-hero .subtitle {
-            color: #8899b0;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-        .fdl-icon-large {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 30px;
-            display: block;
-            filter: drop-shadow(0 0 20px rgba(232,184,104,0.3));
-        }
+        .fdl-hero h2 { color: #e8b868; font-size: 2.6rem; margin-bottom: 12px; text-shadow: 0 0 30px rgba(232,184,104,0.3); }
+        .fdl-hero .subtitle { color: #8899b0; font-size: 1.15rem; margin-bottom: 18px; max-width: 720px; }
+        .fdl-icon-large { width: 160px; height: 160px; margin: 0 auto 26px; display: block; filter: drop-shadow(0 0 20px rgba(232,184,104,0.3)); }
         .fdl-version {
-            display: inline-block;
-            background: rgba(232,184,104,0.15);
-            color: #e8b868;
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
+            display: inline-block; background: rgba(232,184,104,0.15); color: #e8b868;
+            padding: 6px 18px; border-radius: 20px; font-size: 0.9rem; margin-bottom: 20px;
             border: 1px solid rgba(232,184,104,0.25);
-            text-align: center;
         }
+        .fdl-owner { color: #64748b; font-size: 0.92rem; margin-top: 10px; }
 
-        .download-section {
-            padding: 60px 0;
-            background: #f8fafc;
-        }
-        .download-section h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2rem;
-            color: #1e293b;
-        }
-        .download-grid {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .download-grid .download-card { max-width: 520px; flex: 1 1 380px; }
-        .download-card {
-            background: white;
-            border-radius: 16px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #e2e8f0;
-        }
-        .download-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-        }
-        .download-card .os-icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
-        }
-        .download-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: #1e293b;
-        }
-        .download-card p {
-            color: #64748b;
-            margin-bottom: 20px;
-            line-height: 1.7;
-        }
-        .download-card .btn-download {
-            display: inline-block;
-            padding: 12px 32px;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        .download-card .btn-download.all-btn {
-            background: linear-gradient(135deg, #e8b868, #d4a24c);
-            color: #0c2040;
-            font-size: 1.1rem;
-            padding: 14px 40px;
-        }
-        .download-card .btn-download.all-btn:hover {
-            background: linear-gradient(135deg, #d4a24c, #c49030);
-            box-shadow: 0 6px 20px rgba(232,184,104,0.4);
-        }
-        .download-card .os-icons {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            font-size: 2.2rem;
-            margin-bottom: 16px;
-            color: #64748b;
-        }
-        .download-card .file-info {
-            margin-top: 12px;
-            font-size: 0.85rem;
-            color: #94a3b8;
-        }
-
-        .features-fdl {
-            padding: 60px 0;
-            background: white;
-        }
-        .features-fdl h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2rem;
-        }
-        .fdl-features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-            max-width: 1100px;
-            width: 100%;
-            margin: 0 auto;
-        }
-        .fdl-feat {
-            padding: 24px;
-            border-radius: 12px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s;
-        }
-        .fdl-feat:hover { border-color: #e8b868; background: #fffbf0; }
-        .fdl-feat h4 {
-            color: #0c2040;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-        .fdl-feat h4 span { color: #e8b868; }
-        .fdl-feat p { color: #64748b; font-size: 0.95rem; line-height: 1.6; }
-
-        .specs-section {
-            padding: 60px 0;
-            background: #0a1628;
-            color: #e8ecf4;
-        }
-        .specs-section h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #e8b868;
-        }
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            width: 100%;
-            margin: 0 auto;
-        }
-        .spec-item {
-            text-align: center;
-            padding: 24px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(60,80,120,0.2);
-        }
-        .spec-item .number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #e8b868;
-            display: block;
-        }
-        .spec-item .label {
-            color: #8899b0;
-            font-size: 0.95rem;
-            margin-top: 4px;
-        }
-
-        .ide-section {
-            padding: 60px 0;
-            background: #f8fafc;
-        }
-        .ide-section h2 {
-            text-align: center;
-            margin-bottom: 16px;
-        }
-        .ide-section .desc {
-            text-align: center;
-            color: #64748b;
-            margin-bottom: 30px;
-            font-size: 1.05rem;
-        }
-        .ide-screenshot {
-            max-width: 900px;
-            width: 100%;
-            margin: 0 auto;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            border: 1px solid #e2e8f0;
-        }
-        .ide-screenshot iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-        }
-
-        .developer-section {
-            padding: 40px 0;
-            background: white;
-            text-align: center;
-        }
-        .developer-section p {
-            color: #64748b;
-            font-size: 1rem;
-        }
-        .developer-section strong {
-            color: #0c2040;
-        }
-
-        .iraq-flag {
-            display: inline-block;
-            width: 60px;
-            height: 36px;
-            position: relative;
-            margin: 0 12px;
-            vertical-align: middle;
-            animation: flagWave 2s ease-in-out infinite;
-            transform-origin: left center;
-        }
+        .iraq-flag { display:inline-block; width:60px; height:36px; position:relative; margin:0 12px; vertical-align:middle; animation:flagWave 2s ease-in-out infinite; transform-origin:left center; }
         @keyframes flagWave {
-            0%, 100% { transform: perspective(300px) rotateY(0deg) skewY(0deg); }
+            0%,100% { transform: perspective(300px) rotateY(0deg) skewY(0deg); }
             25% { transform: perspective(300px) rotateY(5deg) skewY(-2deg); }
             50% { transform: perspective(300px) rotateY(0deg) skewY(0deg); }
             75% { transform: perspective(300px) rotateY(-3deg) skewY(1.5deg); }
         }
-        .iraq-flag .stripe {
-            width: 100%;
-            height: 33.33%;
-            display: block;
-        }
-        .iraq-flag .stripe.red { background: #CE1126; border-radius: 3px 3px 0 0; }
-        .iraq-flag .stripe.white {
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8px;
-            color: #007A3D;
-            font-weight: bold;
-            font-family: 'Traditional Arabic', serif;
-            letter-spacing: 1px;
-        }
-        .iraq-flag .stripe.black { background: #000; border-radius: 0 0 3px 3px; }
+        .iraq-flag .stripe { width:100%; height:33.33%; display:block; }
+        .iraq-flag .stripe.red { background:#CE1126; border-radius:3px 3px 0 0; }
+        .iraq-flag .stripe.white { background:#fff; display:flex; align-items:center; justify-content:center; font-size:8px; color:#007A3D; font-weight:bold; font-family:'Traditional Arabic',serif; letter-spacing:1px; }
+        .iraq-flag .stripe.black { background:#000; border-radius:0 0 3px 3px; }
+        .hero-flag-row { display:flex; align-items:center; justify-content:center; margin-bottom:16px; gap:8px; }
 
-        .hero-flag-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            gap: 8px;
-        }
+        .basmala-banner { background: linear-gradient(135deg,#0a1628 0%,#0c2040 100%); padding: 40px 0 20px; text-align:center; }
+        .basmala-banner .basmala { font-size:2rem; color:#e8b868; font-family:'Traditional Arabic','Amiri',serif; text-shadow:0 0 20px rgba(232,184,104,0.3); margin-bottom:8px; }
+        .basmala-banner .salawat { font-size:1.1rem; color:#8899b0; font-family:'Traditional Arabic','Amiri',serif; }
 
-        .basmala-banner {
-            background: linear-gradient(135deg, #0a1628 0%, #0c2040 100%);
-            padding: 40px 0 20px;
-            text-align: center;
-        }
-        .basmala-banner .basmala {
-            font-size: 2rem;
-            color: #e8b868;
-            font-family: 'Traditional Arabic', 'Amiri', serif;
-            text-shadow: 0 0 20px rgba(232,184,104,0.3);
-            margin-bottom: 8px;
-        }
-        .basmala-banner .salawat {
-            font-size: 1.1rem;
-            color: #8899b0;
-            font-family: 'Traditional Arabic', 'Amiri', serif;
-        }
+        .quran-verse { text-align:center; padding:12px 20px; font-family:'Traditional Arabic','Amiri',serif; font-size:1.15rem; color:#64748b; font-style:italic; margin-bottom:24px; }
+        .quran-verse::before { content:'\275D'; margin-left:8px; color:#e8b868; font-size:1.3rem; }
+        .quran-verse::after  { content:'\275E'; margin-right:8px; color:#e8b868; font-size:1.3rem; }
+        .quran-verse .surah { display:block; font-size:0.8rem; color:#64748b; margin-top:4px; font-style:normal; }
+        .specs-dark .quran-verse, .gate-section .quran-verse { color:#8899b0; }
 
-        .quran-verse {
-            text-align: center;
-            padding: 12px 20px;
-            font-family: 'Traditional Arabic', 'Amiri', serif;
-            font-size: 1.15rem;
-            color: #8899b0;
-            font-style: italic;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .quran-verse::before { content: '\275D'; margin-left: 8px; color: #e8b868; font-size: 1.3rem; }
-        .quran-verse::after { content: '\275E'; margin-right: 8px; color: #e8b868; font-size: 1.3rem; }
-        .quran-verse .surah {
-            display: block;
-            font-size: 0.8rem;
-            color: #64748b;
-            margin-top: 4px;
-            font-style: normal;
-        }
+        /* ═══ القانون السياديّ ═══ */
+        .law-section { padding: 55px 0; background:#0a1628; color:#e8ecf4; }
+        .law-section h2 { color:#e8b868; font-size:1.9rem; margin-bottom:10px; text-align:center; }
+        .law-section .stamp { color:#64748b; font-size:0.88rem; margin-bottom:26px; }
+        .law-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; max-width:1000px; width:100%; }
+        .law-card { background:rgba(255,255,255,0.04); border:1px solid rgba(232,184,104,0.22); border-radius:12px; padding:22px 20px; text-align:right; }
+        .law-card .num { color:#e8b868; font-size:1.6rem; font-weight:800; display:block; margin-bottom:8px; }
+        .law-card p { color:#cbd5e1; line-height:1.85; font-size:1rem; margin:0; }
+        .law-note { max-width:1000px; width:100%; margin-top:22px; background:rgba(248,113,113,0.07); border:1px solid rgba(248,113,113,0.3); border-radius:12px; padding:20px 22px; text-align:right; }
+        .law-note h4 { color:#fca5a5; margin:0 0 10px; font-size:1.05rem; }
+        .law-note p { color:#cbd5e1; line-height:1.9; margin:0 0 10px; }
+        .law-note p:last-child { margin-bottom:0; }
+        .law-note code { background:rgba(0,0,0,0.35); color:#e8b868; padding:2px 7px; border-radius:4px; font-family:Consolas,monospace; }
 
-        .features-fdl .quran-verse,
-        .ide-section .quran-verse,
-        .developer-section .quran-verse { color: #64748b; }
-        .specs-section .quran-verse { color: #8899b0; }
-        .download-section .quran-verse { color: #64748b; }
+        /* ═══ المصدر الحيّ ═══ */
+        .source-section { padding:55px 0; background:#f8fafc; }
+        .source-section h2 { text-align:center; font-size:1.9rem; margin-bottom:10px; color:#1e293b; }
+        .source-section .desc { color:#64748b; margin-bottom:26px; text-align:center; max-width:760px; line-height:1.8; }
+        .table-wrap { max-width:1100px; width:100%; overflow-x:auto; border-radius:12px; border:1px solid #e2e8f0; background:#fff; box-shadow:0 4px 20px rgba(0,0,0,0.06); }
+        table.measured { width:100%; border-collapse:collapse; font-size:0.95rem; min-width:720px; }
+        table.measured thead th { background:#0c2040; color:#e8b868; padding:13px 14px; text-align:right; font-weight:600; white-space:nowrap; }
+        table.measured tbody td { padding:12px 14px; border-top:1px solid #e2e8f0; color:#334155; text-align:right; vertical-align:top; }
+        table.measured tbody tr:hover { background:#fffbf0; }
+        table.measured .num { font-family:Consolas,monospace; white-space:nowrap; color:#0c2040; font-weight:600; }
+        table.measured .hash { font-family:Consolas,monospace; font-size:0.82rem; color:#94a3b8; direction:ltr; display:inline-block; }
+        table.measured .sub { font-size:0.78rem; color:#94a3b8; font-weight:400; }
+        table.measured thead .sub { color:#a8b4c8; }
+        table.measured .warn { font-size:0.78rem; color:#b45309; display:inline-block; margin-top:3px; }
+        table.measured a { color:#b8860b; font-weight:600; text-decoration:none; }
+        table.measured a:hover { text-decoration:underline; }
+        .total-row { max-width:1100px; width:100%; margin-top:14px; color:#64748b; font-size:0.92rem; text-align:left; }
+        .unit-note { max-width:1100px; width:100%; margin-top:26px; background:#fff; border:1px solid #e2e8f0; border-right:4px solid #e8b868; border-radius:12px; padding:24px 26px; text-align:right; }
+        .unit-note h4 { color:#0c2040; margin:0 0 14px; font-size:1.1rem; }
+        .unit-note h4 i { color:#e8b868; }
+        .unit-note p { color:#475569; line-height:1.95; margin:0 0 12px; font-size:0.96rem; }
+        .unit-note strong { color:#0c2040; }
+        .unit-note code { background:#0c2040; color:#e8b868; padding:2px 7px; border-radius:4px; font-family:Consolas,monospace; font-size:0.85rem; direction:ltr; display:inline-block; }
+        .unit-note .q { color:#64748b; font-style:italic; }
 
-        /* ═══ قسم المحرّر التفاعليّ ═══ */
-        .try-fdl-section {
-            padding: 60px 0;
-            background: linear-gradient(135deg, #0a1628 0%, #0d1f3a 100%);
-            color: #e8ecf4;
-        }
-        .try-fdl-section h2 {
-            text-align: center;
-            color: #e8b868;
-            font-size: 2rem;
-            margin-bottom: 12px;
-        }
-        .try-fdl-section .desc {
-            text-align: center;
-            color: #8899b0;
-            margin-bottom: 30px;
-            font-size: 1rem;
-        }
-        .try-fdl-section .desc kbd {
-            background: rgba(232,184,104,0.15);
-            color: #e8b868;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 0.9em;
-            border: 1px solid rgba(232,184,104,0.25);
-        }
-        .fdl-editor-wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: #0f172a;
-            border: 1px solid #1e293b;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-        }
-        .fdl-editor-grid {
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            min-height: 380px;
-        }
-        .fdl-templates-pane {
-            background: #0a1628;
-            border-left: 1px solid #1e293b;
-            padding: 16px 12px;
-            overflow-y: auto;
-            max-height: 480px;
-        }
-        .fdl-templates-pane h4 {
-            color: #e8b868;
-            font-size: 0.95rem;
-            margin: 0 0 12px 0;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #1e293b;
-        }
-        .fdl-template-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            width: 100%;
-            background: transparent;
-            color: #cbd5e1;
-            border: 1px solid transparent;
-            padding: 8px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.9rem;
-            text-align: right;
-            margin-bottom: 4px;
-            transition: all 0.15s;
-        }
-        .fdl-template-btn:hover {
-            background: rgba(232,184,104,0.08);
-            border-color: rgba(232,184,104,0.25);
-            color: #e8b868;
-        }
-        .fdl-template-btn .ico {
-            font-size: 1.05rem;
-            width: 22px;
-            text-align: center;
-        }
-        .fdl-editor-pane {
-            position: relative;
-        }
-        .fdl-editor-pane .CodeMirror {
-            height: 100%;
-            min-height: 380px;
-            font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
-            font-size: 14.5px;
-            line-height: 1.65;
-        }
-        .fdl-editor-pane .CodeMirror-gutters {
-            background: #0a1628;
-            border-left: 1px solid #1e293b;
-        }
-        .fdl-editor-toolbar {
-            background: #0a1628;
-            border-top: 1px solid #1e293b;
-            padding: 10px 14px;
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .fdl-btn {
-            background: rgba(232,184,104,0.1);
-            color: #e8b868;
-            border: 1px solid rgba(232,184,104,0.3);
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .fdl-btn:hover {
-            background: rgba(232,184,104,0.2);
-            border-color: #e8b868;
-        }
-        .fdl-btn.primary {
-            background: linear-gradient(135deg, #e8b868, #d4a24c);
-            color: #0c2040;
-            border-color: transparent;
-        }
-        .fdl-btn.primary:hover {
-            background: linear-gradient(135deg, #d4a24c, #c49030);
-            box-shadow: 0 4px 14px rgba(232,184,104,0.3);
-        }
-        .fdl-btn.danger { color: #f87171; border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.05); }
-        .fdl-btn.danger:hover { background: rgba(248,113,113,0.15); border-color: #f87171; }
-        .fdl-status {
-            margin-right: auto;
-            color: #8899b0;
-            font-size: 0.85rem;
-        }
-        .fdl-status.ok    { color: #34d399; }
-        .fdl-status.warn  { color: #fbbf24; }
-        .fdl-status.error { color: #f87171; }
-        .fdl-output-wrap {
-            border-top: 1px solid #1e293b;
-            background: #050d1a;
-        }
-        .fdl-output-wrap h4 {
-            margin: 0;
-            padding: 10px 16px;
-            background: #0a1628;
-            color: #94a3b8;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border-bottom: 1px solid #1e293b;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .fdl-output-pane {
-            margin: 0;
-            padding: 14px 18px;
-            color: #cbd5e1;
-            font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
-            font-size: 14px;
-            line-height: 1.7;
-            min-height: 80px;
-            max-height: 240px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            direction: ltr;
-            text-align: left;
-        }
-        .fdl-output-pane.has-errors { color: #fca5a5; }
-        .fdl-output-pane.error { color: #f87171; }
+        /* ═══ البوّابة الدائمة ═══ */
+        .gate-section { padding:55px 0; background:#0a1628; color:#e8ecf4; }
+        .gate-section h2 { text-align:center; color:#e8b868; font-size:1.9rem; margin-bottom:10px; }
+        .gate-section .desc { color:#8899b0; margin-bottom:26px; text-align:center; max-width:760px; line-height:1.8; }
+        .gate-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; max-width:1050px; width:100%; }
+        .gate-item { background:rgba(255,255,255,0.04); border:1px solid rgba(52,211,153,0.25); border-radius:10px; padding:16px 18px; text-align:right; }
+        .gate-item .idx { color:#34d399; font-weight:800; font-size:0.85rem; display:block; margin-bottom:6px; }
+        .gate-item .what { color:#e8ecf4; font-weight:600; display:block; margin-bottom:6px; }
+        .gate-item .proof { color:#8899b0; font-size:0.88rem; line-height:1.7; font-family:Consolas,monospace; direction:ltr; text-align:left; }
+        .gate-item .proof.rtl { direction:rtl; text-align:right; font-family:inherit; }
+        .gate-item.wide { grid-column:1/-1; border-color:rgba(232,184,104,0.4); background:rgba(232,184,104,0.05); }
+        .gate-item .io { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; margin-top:12px; }
+        .gate-item .io-cell { background:rgba(0,0,0,0.25); border:1px solid rgba(60,80,120,0.35); border-radius:8px; padding:12px 14px; }
+        .gate-item .io-cell.out { border-color:rgba(52,211,153,0.4); }
+        .gate-item .io-lbl { display:block; color:#64748b; font-size:0.78rem; margin-bottom:6px; }
+        .gate-item .io-cell.out .io-lbl { color:#34d399; }
+        .gate-item .io-val { display:block; color:#e8ecf4; font-size:0.9rem; line-height:1.75; font-family:Consolas,monospace; direction:ltr; text-align:left; }
+        .gate-item .io-val.rtl { direction:rtl; text-align:right; font-family:inherit; }
 
-        /* ─── إكمال CodeMirror ─── */
-        .CodeMirror-hints {
-            background: #0f172a !important;
-            border: 1px solid #1e293b !important;
-            font-family: 'Cascadia Code', monospace !important;
-            font-size: 13px !important;
-            padding: 4px !important;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5) !important;
-            max-height: 280px !important;
-            z-index: 10000;
-        }
-        .CodeMirror-hint {
-            color: #cbd5e1 !important;
-            padding: 6px 12px !important;
-            border-radius: 4px !important;
-        }
-        .CodeMirror-hint-active {
-            background: linear-gradient(135deg, #e8b868, #d4a24c) !important;
-            color: #0c2040 !important;
-        }
-        .fdl-hint-main { font-weight: 600; }
-        .fdl-hint-detail {
-            font-size: 11px;
-            opacity: 0.7;
-            margin-top: 2px;
-        }
-        .fdl-hint-keyword .fdl-hint-main   { color: #c4b5fd; }
-        .fdl-hint-condition .fdl-hint-main { color: #fbbf24; }
-        .fdl-hint-weight .fdl-hint-main    { color: #34d399; }
-        .fdl-hint-root .fdl-hint-main      { color: #60a5fa; }
-        .fdl-hint-operator .fdl-hint-main  { color: #f472b6; }
-        .fdl-hint-snippet .fdl-hint-main   { color: #e8b868; }
-        .CodeMirror-hint-active .fdl-hint-main,
-        .CodeMirror-hint-active .fdl-hint-detail { color: #0c2040 !important; }
+        /* ═══ الحارس ═══ */
+        .guard-section { padding:55px 0; background:#fff; }
+        .guard-section h2 { text-align:center; font-size:1.9rem; margin-bottom:10px; color:#1e293b; }
+        .guard-status { display:inline-flex; align-items:center; gap:9px; background:#fef3c7; border:1px solid #fbbf24; color:#92400e; padding:9px 20px; border-radius:22px; font-weight:600; font-size:0.95rem; margin-bottom:24px; }
+        .guard-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; max-width:1050px; width:100%; margin-bottom:26px; }
+        .guard-card { background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:20px; text-align:right; transition:all .25s; }
+        .guard-card:hover { border-color:#e8b868; background:#fffbf0; }
+        .guard-card h4 { color:#0c2040; margin:0 0 10px; font-size:1.05rem; }
+        .guard-card h4 span { color:#e8b868; }
+        .guard-card p { color:#64748b; font-size:0.92rem; line-height:1.75; margin:0; }
+        .guard-card code { background:#0c2040; color:#e8b868; padding:2px 6px; border-radius:4px; font-family:Consolas,monospace; font-size:0.85rem; }
+        .guard-note { max-width:1050px; width:100%; background:#f1f5f9; border-right:4px solid #e8b868; border-radius:8px; padding:20px 22px; text-align:right; color:#475569; line-height:1.9; }
+        .guard-note strong { color:#0c2040; }
+        .remain-title { margin:34px 0 0; font-size:1.15rem; color:#b45309; text-align:center; }
+        table.measured td.wait { color:#b45309; font-weight:600; white-space:nowrap; }
 
-        @media (max-width: 768px) {
-            .fdl-editor-grid { grid-template-columns: 1fr; }
-            .fdl-templates-pane {
-                border-left: none;
-                border-bottom: 1px solid #1e293b;
-                max-height: 160px;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 6px;
-            }
-            .fdl-template-btn { width: auto; flex: 1 1 auto; }
+        /* ═══ حال البناء ═══ */
+        .state-section { padding:55px 0; background:#f8fafc; }
+        .state-section h2 { text-align:center; font-size:1.9rem; margin-bottom:10px; color:#1e293b; }
+        .state-section .desc { color:#64748b; margin-bottom:26px; text-align:center; max-width:760px; line-height:1.8; }
+        .state-cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; max-width:1100px; width:100%; }
+        .state-col { border-radius:12px; padding:22px; text-align:right; }
+        .state-col.done { background:#ecfdf5; border:1px solid #a7f3d0; }
+        .state-col.todo { background:#fef2f2; border:1px solid #fecaca; }
+        .state-col h3 { margin:0 0 14px; font-size:1.15rem; }
+        .state-col.done h3 { color:#047857; }
+        .state-col.todo h3 { color:#b91c1c; }
+        .state-col ul { margin:0; padding-right:20px; }
+        .state-col li { color:#475569; line-height:1.95; margin-bottom:5px; font-size:0.95rem; }
+        .state-col code { background:rgba(0,0,0,0.06); padding:1px 6px; border-radius:4px; font-family:Consolas,monospace; font-size:0.87rem; color:#0c2040; }
+        .debt-note { max-width:1100px; width:100%; margin-top:20px; background:#0c2040; color:#cbd5e1; border-radius:12px; padding:20px 24px; text-align:right; line-height:1.9; }
+        .debt-note strong { color:#e8b868; }
+
+        .developer-section { padding:40px 0; background:#fff; text-align:center; }
+        .developer-section p { color:#64748b; font-size:1rem; }
+        .developer-section strong { color:#0c2040; }
+
+        @media (max-width:768px) {
+            .fdl-hero h2 { font-size:2rem; }
+            .law-section h2, .source-section h2, .gate-section h2, .guard-section h2, .state-section h2 { font-size:1.5rem; }
         }
     </style>
     <link rel="canonical" href="https://zamboor15.github.io/almasfoufaakademy/pages/fdl.html">
@@ -575,41 +174,31 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://zamboor15.github.io/almasfoufaakademy/pages/fdl.html">
-    <meta property="og:title" content="لغة فاضل - أوّل لغة برمجة عربيّة تعمل على المعدن | اكاديمية المصفوفة">
-    <meta property="og:description" content="لغة فاضل - اول لغة برمجة عربية تعمل على المعدن مباشرة - تحميل مجاني + محرّر تفاعليّ بالإكمال التلقائيّ">
+    <meta property="og:title" content="لغة فاضل — المترجم الشجري الشبكي السادس | اكاديمية المصفوفة">
+    <meta property="og:description" content="المصدر الحي للمترجم الشجري الشبكي السادس وحارس القوالب — بلغة فاضل وحدها، وكل رقم مقيس">
     <meta property="og:site_name" content="اكاديمية المصفوفة للذكاء الاصطناعي">
     <meta property="og:locale" content="ar_IQ">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="لغة فاضل - أوّل لغة برمجة عربيّة تعمل على المعدن">
-    <meta name="twitter:description" content="لغة برمجة عربيّة تعمل على المعدن مباشرة + محرّر تفاعليّ بالإكمال التلقائيّ في المتصفّح">
+    <meta name="twitter:title" content="لغة فاضل — المترجم الشجري الشبكي السادس">
+    <meta name="twitter:description" content="المصدر الحي والحديد وحارس القوالب — بلغة فاضل وحدها">
 
-    <!-- JSON-LD: ProgrammingLanguage + SoftwareApplication -->
+    <!-- JSON-LD -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
+        "@type": "SoftwareSourceCode",
         "url": "https://zamboor15.github.io/almasfoufaakademy/pages/fdl.html",
-        "name": "لغة فاضل (FDL)",
+        "name": "المترجم الشجري الشبكي السادس — لغة فاضل",
         "alternateName": "Fadhil Language",
-        "description": "أوّل لغة برمجة عربيّة تعمل على المعدن مباشرة، مع بيئة تطوير ومحرّر تفاعليّ بالإكمال التلقائيّ",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Web, Linux, Windows, macOS",
+        "description": "المترجم الشجري الشبكي السادس وحارس القوالب، مكتوبان بلغة فاضل وحدها",
+        "programmingLanguage": "لغة فاضل",
         "inLanguage": "ar",
-        "softwareVersion": "2.0",
         "author": {
             "@type": "Person",
             "name": "م. فاضل عباس الجعيفري",
-            "address": {
-                "@type": "PostalAddress",
-                "addressCountry": "IQ"
-            }
-        },
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
+            "address": { "@type": "PostalAddress", "addressCountry": "IQ" }
         }
     }
     </script>
@@ -632,9 +221,7 @@
                 <a href="admin.html" class="nav-admin" title="لوحة الادارة"><i class="fas fa-bell"></i></a>
             </div>
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
@@ -651,209 +238,529 @@
     <section class="fdl-hero">
         <div class="container" style="position:relative;z-index:1">
             <img src="../assets/fdl_icon.svg" alt="لغة فاضل" class="fdl-icon-large">
-            <div class="fdl-version">v5.0 — المترجم الشجريّ الخامس — Codec Cosmic OS</div>
+            <div class="fdl-version">المترجم الشجري الشبكي السادس — ختم 21 آب 2026</div>
             <div class="hero-flag-row">
                 <div class="iraq-flag">
-                    <span class="stripe red"></span>
-                    <span class="stripe white">الله اكبر</span>
-                    <span class="stripe black"></span>
+                    <span class="stripe red"></span><span class="stripe white">الله اكبر</span><span class="stripe black"></span>
                 </div>
                 <h2 style="margin:0">لغة فاضل</h2>
                 <div class="iraq-flag">
-                    <span class="stripe red"></span>
-                    <span class="stripe white">الله اكبر</span>
-                    <span class="stripe black"></span>
+                    <span class="stripe red"></span><span class="stripe white">الله اكبر</span><span class="stripe black"></span>
                 </div>
             </div>
-            <p class="subtitle">اول لغة برمجة عربية تعمل على المعدن مباشرة — بدون نظام تشغيل، بدون تبعيات</p>
+            <p class="subtitle">
+                لغة برمجة عربية من الجذر والتصرف والحقل — تعمل على المعدن مباشرة.
+                وهذه الصفحة بيئة عمل المترجم الشجري الشبكي السادس وحارسه، وكل رقم فيها مقيس.
+            </p>
+            <p class="fdl-owner">
+                المصدر الحاكم الوحيد: مجلد <strong style="color:#8899b0">لغة فاضل محدث</strong>
+                — والنقل الى هنا نقل بايتات مبصوم لا نسخة ثانية
+            </p>
         </div>
     </section>
 
-    <!-- Download -->
-    <section class="download-section">
+    <!-- القانون السياديّ -->
+    <section class="law-section">
         <div class="container">
-            <h2>تحميل لغة فاضل</h2>
-            <p class="quran-verse">اليس الله بكافٍ عبده<span class="surah">الزمر : 36</span></p>
-            <div class="download-grid">
-                <div class="download-card">
-                    <div class="os-icons">
-                        <i class="fab fa-linux"></i>
-                    </div>
-                    <h3>محرّك لغة فاضل v5 — المترجم الخامس</h3>
-                    <p>المترجم الشجريّ الخامس <strong>الحقيقيّ</strong> — مكتوب بفاضل الخالصة، يستضيف نفسه (3 اجيال متطابقة بايتاً)، برنامجك يترجَم ويعمل <strong>على المعدن الافتراضيّ مباشرة</strong> والناتج يُقلع بذاته على حديد حقيقي — مع 6 أمثلة مقيسة تجتاز فاحص التعشيش (٠ خرق)</p>
-                    <a href="../downloads/فاضل_v5_لينكس.tar.gz" download class="btn-download all-btn">
-                        <i class="fas fa-download"></i> تحميل فاضل_v5_لينكس.tar.gz
-                    </a>
-                    <div class="file-info">70 KB — Linux x86_64 — يتطلّب qemu (sudo apt install qemu-system-x86)</div>
-                    <div class="file-info" style="margin-top:8px;color:#64748b">
-                        فكّ الضغط ← ./تثبيت.sh ← fdl --فحص ← ويندوز وماك قيد البناء
-                    </div>
+            <h2><i class="fas fa-scale-balanced"></i> القانون السيادي</h2>
+            <p class="stamp">ثلاثة بنود تسبق كل شيء — ختم م. فاضل عباس الجعيفري، 20 آب 2026</p>
+            <div class="law-grid">
+                <div class="law-card">
+                    <span class="num">1</span>
+                    <p>⛔ ممنوع اقتراح او كتابة لغة غيرنا بديلا — لا C ولا بايثون ولا اسمبلي.</p>
                 </div>
-                <div class="download-card">
-                    <div class="os-icons">
-                        <i class="fab fa-windows"></i>
-                        <i class="fab fa-linux"></i>
-                        <i class="fab fa-apple"></i>
-                        <i class="fab fa-android"></i>
-                    </div>
-                    <h3>بيئة تطوير فاضل v5</h3>
-                    <p>بيئة تعلّم وتطوير تعمل داخل <strong>اي متصفح</strong> على جميع الانظمة — محاكاة تعليمية تفهم صياغة الخامس القوسيّة والنثر والتعشيش الشجريّ + تلوين نحوي + 6 أمثلة كلّها مقيسة على المحرّك الحقيقيّ (لا مثال إلا بأمر مؤكَّد)</p>
-                    <a href="../downloads/فاضل_IDE.html" download class="btn-download all-btn">
-                        <i class="fas fa-download"></i> تحميل فاضل_IDE.html
-                    </a>
-                    <div class="file-info">ملف HTML واحد — 468 KB — يحتاج متصفح فقط (Chrome, Firefox, Safari...)</div>
-                    <div class="file-info" style="margin-top:8px;color:#64748b">
-                        حمّل الملف ← افتحه في المتصفح ← ابدأ البرمجة
-                    </div>
+                <div class="law-card">
+                    <span class="num">2</span>
+                    <p>والراصد وكل اداة تشخيص تكتب فاضليا ⛔ لا بلغة غيرنا.</p>
+                </div>
+                <div class="law-card">
+                    <span class="num">3</span>
+                    <p>وان عجزت فاكتب توصية وقف ⛔ ولا تكمل بلغة اخرى.</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Features -->
-    <section class="features-fdl">
-        <div class="container">
-            <h2>ماذا يميز لغة فاضل؟</h2>
-            <p class="quran-verse">ولينصرنَّ الله من ينصره ان الله لقوي عزيز<span class="surah">الحج : 40</span></p>
-            <div class="fdl-features-grid">
-                <div class="fdl-feat">
-                    <h4><span>16</span> وزناً + حل السياديّ</h4>
-                    <p>كل امر = جذر (ماذا) + وزن (كيف)، مع حركات تميّز الصيغ (حِل/حَل/حُل). و«حل» أمرٌ سياديٌّ يسود على كل الأوامر: :0 تدمير مؤقّت، :6 تزامن، :1 تنفيذ، :3 حلقة، :5 انشاء، :14 حاوية، :16 قائمة</p>
-                </div>
-                <div class="fdl-feat">
-                    <h4><span>12</span> اداة شرط</h4>
-                    <p>انْ، اذا، كلما، لو، لولا، أمّا، مَنْ، ما، مهما، متى، أينما، حيثما — اثنتا عشرة بدائيّة استدلال، كل اداة بمعنى مختلف، لا else ابداً</p>
-                </div>
-                <div class="fdl-feat">
-                    <h4>كتابة <span>النثر</span></h4>
-                    <p>الفكرة الواحدة سطرٌ واحد: أوامر تتّصل بروابط عربيّة (و، ف، ثمّ) وتتشابك بالإحلال الموضعيّ — بلا ذاكرة مؤقّتة، البذور تتقاطع في المعاملات</p>
-                </div>
-                <div class="fdl-feat">
-                    <h4>تعمل على <span>المعدن</span></h4>
-                    <p>البرنامج المترجم يعمل مباشرة على المعالج x86-64 بدون نظام تشغيل — 300 بايت مقابل 28 ميغابايت</p>
-                </div>
-                <div class="fdl-feat">
-                    <h4><span>صفر</span> تبعيات</h4>
-                    <p>لا لينكس، لا ELF، لا يونيكود، لا NASM، لا بايثون — كل شيء مبني من الصفر بلغة فاضل نفسها</p>
-                </div>
-                <div class="fdl-feat">
-                    <h4>ترميز <span>J5</span></h4>
-                    <p>5 بت لكل حرف — ترميز عربي اصلي بدل يونيكود. نظام الطوابق FTF-5 للعرض متعدد اللغات</p>
-                </div>
-                <div class="fdl-feat">
-                    <h4>استضافة <span>ذاتية</span></h4>
-                    <p>المترجم يترجم نفسه — 3 اجيال متطابقة بنفس MD5. مكتوب بالكامل بلغة فاضل</p>
-                </div>
-                <div class="fdl-feat">
-                    <h4><span>اصناف</span> وقواميس</h4>
-                    <p>صنف:7 مع حقول ودوال — قوائم :15 وقواميس :10 — تصريح جماعي — عدادات استدعاء تلقائية</p>
-                </div>
-                <div class="fdl-feat">
-                    <h4>بيئة تطوير <span>متكاملة</span></h4>
-                    <p>IDE ويب بشريط نشاط VS Code — يفهم صياغة الخامس والتعشيش الشجريّ + 6 أمثلة مقيسة على المحرّك الحقيقيّ</p>
-                </div>
+            <div class="law-note">
+                <h4><i class="fas fa-ban"></i> هذه الصفحة لا تشغّل شيئا — والبيئة تحاكي ولا تحكم</h4>
+                <p>
+                    كانت هذه الصفحة تحمل محررا يشغّل الشفرة بمفسر مكتوب بجافاسكربت
+                    (<code>fadhil-runtime.js</code>). <strong style="color:#fca5a5">وقطع وصله في 21 آب 2026</strong> —
+                    لا لان المترجم الخامس الغي وحده، بل لان المفسر <strong style="color:#fca5a5">حاكم ثان</strong>
+                    يطبع خرجا لم تنطق به الصورة، فيصير الخرج دعوى لا شهادة.
+                    <strong>فالصفحة تعرض وتنقل وتقيس ⛔ ولا تفسر حرفا.</strong>
+                </p>
+                <p>
+                    <strong style="color:#e8b868">اما بيئة العمل <code>فاضل_IDE.html</code> فحكمها غير ذلك — بامر فاضل 21 آب 2026:</strong>
+                    <strong style="color:#fca5a5">يبقى مفسرها موسوما «محاكاة لا حَكَم»</strong>.
+                    فهو يعرض ما يظنه ⛔ لا ما نطقت به الصورة، والوسم ظاهر في كل تشغيل وفي شريط ثابت اسفل البيئة.
+                    <strong>⚠ وهذا مخالف للقسم العاشر، ويقيَّد دينا معلنا ⛔ ولا يخفى.</strong>
+                </p>
+                <p style="margin-bottom:0">
+                    <strong style="color:#e8b868">✅ والمسموح قائم:</strong>
+                    «ويسمح بقلم يكتب بايتا امليته ولا يعرف ما يكتب».
+                    والحَكَم في الحالين واحد: <strong>الحديد</strong> —
+                    «⛔ وما لم ير على الشاشة لا يدعى»، وام البوابات تنزع كل اداة من القرص
+                    وتشغل الصورة وحدها فتنطق بنفسها.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Specs -->
-    <section class="specs-section">
+    <!-- المصدر الحيّ -->
+    <section class="source-section">
         <div class="container">
-            <h2>المواصفات التقنية</h2>
-            <p class="quran-verse">وعلّم آدم الاسماء كلها<span class="surah">البقرة : 31</span></p>
-            <div class="specs-grid">
-                <div class="spec-item">
-                    <span class="number">294,599</span>
-                    <span class="label">بايت — مصدر المترجم الخامس (7,365 سطراً بفاضل)</span>
-                </div>
-                <div class="spec-item">
-                    <span class="number">159,142</span>
-                    <span class="label">بايت — صورة المترجم المُقلِعة (صفر تبعيات)</span>
-                </div>
-                <div class="spec-item">
-                    <span class="number">642/642</span>
-                    <span class="label">برنامجاً حقيقياً مُبرهَناً — صفر انحدار (مقيس 25 تموز 2026)</span>
-                </div>
-                <div class="spec-item">
-                    <span class="number">3</span>
-                    <span class="label">اجيال استضافة ذاتية متطابقة بايتاً GEN1==GEN2==GEN3</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- محرّر تفاعليّ مدمج -->
-    <section class="try-fdl-section" id="try-fdl">
-        <div class="container">
-            <h2><i class="fas fa-code"></i> جرّب لغة فاضل الآن</h2>
-            <p class="quran-verse">اقرأ باسم ربك الذي خلق<span class="surah">العلق : 1</span></p>
+            <h2><i class="fas fa-file-code"></i> المصدر الحي وحديده</h2>
+            <p class="quran-verse">وقل رب زدني علماً<span class="surah">طه : 114</span></p>
             <p class="desc">
-                محرّر تفاعليّ بإكمال تلقائيّ — اضغط <kbd>Ctrl</kbd>+<kbd>Space</kbd> لاقتراح الأوامر، و<kbd>Ctrl</kbd>+<kbd>Enter</kbd> للتشغيل
+                منقولة بالقلم من مجلد <strong>لغة فاضل محدث</strong> ببصمة SHA256 مطابقة على الطرفين.
+                والاعادة بامر واحد: <code style="background:#0c2040;color:#e8b868;padding:2px 8px;border-radius:4px">_زامن_السادس.ps1</code>
             </p>
-            <div class="fdl-editor-wrap">
-                <div class="fdl-editor-grid">
-                    <aside class="fdl-templates-pane">
-                        <h4><i class="fas fa-folder-open"></i> القوالب</h4>
-                        <div id="fdl-templates"></div>
-                    </aside>
-                    <div class="fdl-editor-pane">
-                        <textarea id="fdl-editor"></textarea>
+            <div class="table-wrap">
+                <table class="measured">
+                    <thead>
+                        <tr>
+                            <th>الملف</th>
+                            <th>صفته</th>
+                            <th>بايتات المحرّر<br><span class="sub">UTF-8 — صورة بشريّة</span></th>
+                            <th>القياس الفاضليّ<br><span class="sub">ذرّات للنصّ · قطاعات للحديد</span></th>
+                            <th>بصمة SHA256 (16 محرفا)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- جدول:بدء -->
+                        <tr>
+                            <td><span class="mono">المترجم_الشجري_الشبكي_السادس.فضل</span></td>
+                            <td>المصدرُ الحيُّ للمترجم</td>
+                            <td class="num">87,090</td>
+                            <td><span class="num">54,276</span> ذرّة<br><span class="sub">536 سطراً</span></td>
+                            <td><span class="hash">A5337036877B78E3</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="mono">شق_جديد.حديد</span></td>
+                            <td>الصورةُ الجديدة — البناءُ من الصفرِ 28 أيلول</td>
+                            <td class="num">32,768</td>
+                            <td><span class="num">64</span> قطاعاً</td>
+                            <td><span class="hash">2F7BCE69CE4F0851</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="mono">حارس_القوالب.فضل</span></td>
+                            <td>حارسُ القوالبِ بلغةِ فاضل</td>
+                            <td class="num">7,422</td>
+                            <td><span class="num">4,514</span> ذرّة<br><span class="sub">102 سطراً</span></td>
+                            <td><span class="hash">9027D1AEACA2E8BD</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="mono">برنامجي.فضل</span></td>
+                            <td>السندانُ — يُشغَّلُ فيكشفُ الأعطاب</td>
+                            <td class="num">5,214</td>
+                            <td><span class="num">3,408</span> ذرّة<br><span class="sub">74 سطراً</span></td>
+                            <td><span class="hash">9EF2041E1C295DF8</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="mono">حارس.فضل</span></td>
+                            <td>الحارسُ بلغةِ فاضل</td>
+                            <td class="num">2,084</td>
+                            <td><span class="num">1,872</span> ذرّة<br><span class="sub">43 سطراً</span></td>
+                            <td><span class="hash">24B837A2EE84D552</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="mono">راصد.فضل</span></td>
+                            <td>الراصدُ بلغةِ فاضل</td>
+                            <td class="num">4,697</td>
+                            <td><span class="num">2,501</span> ذرّة<br><span class="sub">56 سطراً</span></td>
+                            <td><span class="hash">7EAF5F6190711614</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="mono">بيانات_متجر.ج5</span></td>
+                            <td>بياناتٌ بصيغةِ ج5</td>
+                            <td class="num">5,058</td>
+                            <td><span class="num">2,973</span> ذرّة<br><span class="sub">70 سطراً</span></td>
+                            <td><span class="hash">C7E8BE716D965AC2</span></td>
+                        </tr>
+                        <!-- جدول:ختام -->
+                    </tbody>
+                </table>
+            </div>
+            <p class="total-row">
+                <!-- حصيلة:بدء -->
+                نصٌّ: <strong>111,565</strong> بايتاً من المحرِّر · <strong>69,544</strong> ذرّة &nbsp;·&nbsp;
+                حديدٌ: <strong>32,768</strong> بايتاً = <strong>64</strong> قطاعاً &nbsp;·&nbsp;
+                الكلّ <strong>144,333</strong> بايتاً · قِيسَ 29 أيلول 2026 · خروقُ النقل: <strong>0</strong>
+                <!-- حصيلة:ختام -->
+            </p>
+            <p class="total-row" style="margin-top:10px;color:#b8860b">
+                🔒 <strong>المصدرُ والصورةُ محجوبانِ عن التنزيل</strong> — ختمُ فاضل 29 أيلول 2026.
+                الأرقامُ والبصماتُ أعلاه توثيقٌ يُقاسُ عليه ⛔ ولا يُنزَّلُ المفسِّرُ ولا اللغة.
+            </p>
+            <p class="total-row" style="margin-top:6px">
+                والبيان الكامل في <span class="mono">بيان_السادس.json</span>
+                وورقة البصمات في <span class="mono">بصمات_السادس.txt</span>
+            </p>
+
+            <div class="unit-note">
+                <h4><i class="fas fa-ruler"></i> وحدة القياس — ويونكود فاضل هو FTF-5</h4>
+                <p>
+                    <strong>FTF-5 = صيغة تحويل فاضل، بخمسة بتات للذرة الواحدة.</strong>
+                    هوية الحرف جُمَّله، وتمثيله الآلي مقعده في أبجد هوز من 1 الى 28 — لأنه أصغر كتابة
+                    للهوية ذاتها داخل خمسة بتات، بينما الجُمَّل يحتاج عشرة. والمستوى 1–28 محجوز للعربية
+                    حصرا والى الأبد، وكل أبجدية أجنبية تدخل خلف <strong>طابق</strong>.
+                </p>
+                <p>
+                    <strong>وعمود «بايتات المحرّر» ليس قياسا فاضليا</strong> — هو بايتات الصورة البشريّة
+                    UTF-8 كما يكتبها المحرّر وينقلها القلم. وهو المدخل الذي يستقبله المترجم بنصّه:
+                    «<span class="q">المدخل — بايتات المحرر، لا FTF-5</span>» (ورقة الطور الأول §②)،
+                    و«<span class="q">المصدر: بايتات المحرر UTF-8 كما يكتبها — لا ترميز مخترع</span>» (مولّد الشق).
+                </p>
+                <p>
+                    <strong>⛔ ولا ملف من الثمانية مكتوب بترميز FTF-5.</strong> والرأس الإلزامي
+                    <code>FF 05 03 8E 01</code> غائب عن كلها — قِيست رؤوسها بالفتح. فالسادس يُملى بالمحرّر،
+                    <strong>وFTF-5 ترميز الداخل</strong>. ⛔ ولا استدلال سلبي يخمّن الترميز من اسم الملف،
+                    فاللاحقة <code>.ج5</code> اسم ⛔ لا شهادة ترميز.
+                </p>
+                <p style="margin-bottom:0">
+                    <strong>وعمود القياس الفاضلي:</strong> للنصّ <strong>ذرّاته</strong> — وهي ما يُرمَّز
+                    كل واحدة منها بخمسة بتات. وللحديد <strong>قطاعاته</strong> من 512 بايتا، وهي وحدة
+                    باب <code>after_write</code> نفسه: «القلم يقرا … بايتا = قطاعا»، ويصرخ ان لم تكن مضاعف 512.
+                    ⛔ ولا يُعرَض هنا طول FTF-5 بالبايت: وحدتها بتّ لا بايت، وجدول علامات الترقيم
+                    ناقص بإقرار مرجعها، والمجموعة 5 محجوزة بلا تعريف ⟹ فالرقم لو كُتب لكذب.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- بيئة العمل -->
+    <section class="guard-section" style="background:#f1f5f9">
+        <div class="container">
+            <h2><i class="fas fa-laptop-code"></i> بيئة العمل — وكيف تبقى محدَّثة</h2>
+            <p class="quran-verse">وعلّم آدم الاسماء كلها<span class="surah">البقرة : 31</span></p>
+            <div class="guard-status" style="background:#dbeafe;border-color:#60a5fa;color:#1e40af">
+                <i class="fas fa-code-branch"></i>
+                فاضل_IDE.html — الاصدار 6.6.0 · 584,833 بايتا · بصمة 0185C41B6C77037A
+            </div>
+            <p class="desc" style="max-width:840px;text-align:center;color:#475569;line-height:1.9;margin-bottom:26px">
+                الموضع الحاكم واحد: <code style="background:#0c2040;color:#e8b868;padding:2px 7px;border-radius:4px">لغة فاضل محدث\بيئة\فاضل_IDE.html</code>
+                — واربع نسخ تزامَن منه ⛔ ولا تحرَّر نسخة.
+            </p>
+
+            <div class="guard-grid">
+                <div class="guard-card">
+                    <h4><span>1</span> التعريفات لا تُكتب بيد</h4>
+                    <p>كانت تصرفات اللغة وشروطها وجذورها مكتوبة داخل الملف، فتكذب كلما تحركت اللغة.
+                       والآن يستخرجها <code>_ولّد_التعريفات.ps1</code> من المصدر الحي نفسه.</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>2</span> مصدران حاكمان لا اكثر</h4>
+                    <p>الجذور والاوزان من <code>المترجم_الشجري_الشبكي_السادس.فضل</code>،
+                       والتصرفات الست عشرة من القانون 9 في <code>03</code>. ⛔ ولا ثالث.</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>3</span> تُجلب عند كل فتح</h4>
+                    <p>البيئة تجلب <code>تعريفات_السادس.json</code> وتقارن بصمته بالمضمَّنة.
+                       فان اختلفت احلّت المجلوب وقالت ذلك ⛔ ولا تصمت.</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>4</span> حاكم واحد للتحديث</h4>
+                    <p>كان فيها مساران: <code>FDL_VERSION</code> يقرأ الخزن المحلي، و<code>checkForUpdate</code> يتصل.
+                       اسقط الاول وفُرّغ جسمه — «لا حاكمان لشيء واحد».</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>5</span> الوسم ظاهر لا مخفي</h4>
+                    <p>شريط ثابت اسفل البيئة، وسطر في الكونسول عند كل تشغيل:
+                       <strong>محاكاة لا حَكَم</strong> — والحَكَم الحديد.</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>6</span> ⛔ ألغي دور الخامس</h4>
+                    <p>قائمة «فتح مثال» وثلاثة عشر مثالا في لوحة الاوامر سقطت كلها، و<strong>عشرة الجذور
+                       المختومة</strong> حلت محلها. واختيار جذر يفتح قالبه <code>01 &lt;جذر&gt;:1()</code>.</p>
+                </div>
+                <div class="guard-card" style="border-color:#60a5fa;background:#eff6ff">
+                    <h4><span style="color:#1d4ed8">8</span> بوشرت مصالحة المفسر</h4>
+                    <p>اربعة مواضع كانت ترصف الجذور والاوزان <strong>باليد</strong> صارت تقرأ من التعريفات.
+                       فكان <code>[1..12,15]</code> ثلاثة عشر ولا فيها 14، و<code>(حسب|طبع|شرط|صنف)</code> اربعة.</p>
+                </div>
+                <div class="guard-card" style="border-color:#60a5fa;background:#eff6ff">
+                    <h4><span style="color:#1d4ed8">9</span> العنونة والمؤشر</h4>
+                    <p>المؤشر من اليمين دوما، والمحرر يفتح بالعنوان <code>01</code>،
+                       وكل انتر يولد <strong>الاخ</strong> الذي يليه. والعمق يضيفه المبرمج بخانة زائدة
+                       ⛔ ولا تفرض عليه.</p>
+                </div>
+                <div class="guard-card" style="border-color:#34d399;background:#ecfdf5">
+                    <h4><span style="color:#059669">7</span> والحارس يعمل هنا</h4>
+                    <p>البيئة تملأ المساكن العشرة لكل سطر وتطبق الحراسات <strong>مقروءة من
+                       <code>حارس_القوالب.فضل</code></strong> ⛔ ولا تخترع حكما. وزر «حارس القوالب»
+                       في شريط البيئة يفتح لوحه، ويعمل مع كل تبديل في المحرر.</p>
+                </div>
+            </div>
+
+            <h3 class="remain-title" style="color:#047857">وقياس الحارس بالتشغيل — خمسة من خمسة</h3>
+            <div class="table-wrap" style="margin-top:14px">
+                <table class="measured">
+                    <thead><tr><th>المُدخَل</th><th>المنتظَر</th><th>المقيس</th></tr></thead>
+                    <tbody>
+                        <tr><td>اسواق_كاظم.فضل</td><td>صمت</td><td style="color:#047857;font-weight:600">✅ صفر صرخة</td></tr>
+                        <tr><td>برنامج_ماسح.فضل</td><td>صمت</td><td style="color:#047857;font-weight:600">✅ صفر صرخة</td></tr>
+                        <tr><td>بيانات_متجر.ج5</td><td>صمت</td><td style="color:#047857;font-weight:600">✅ صفر صرخة</td></tr>
+                        <tr><td>حقن المكرَّر</td><td>صرخة «مكرر»</td><td style="color:#047857;font-weight:600">✅ صرخ</td></tr>
+                        <tr><td>حقن اليتيم</td><td>صرخة «نسب مقطوع»</td><td style="color:#047857;font-weight:600">✅ صرخ</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="total-row" style="text-align:right;margin-top:12px">
+                ⛔ وهذا قياس <strong>الحارس المقروء في البيئة</strong> لا الحارس الفاضلي في المترجم —
+                فالدين السادس في السيرة قائم ⛔ ولا يغلق.
+                <br>⟸ وعطبان أمسكهما القياس في محرك البيئة لا في الحارس: طبقت حراستا «شرط» و«ربط»
+                على كل سطر وهما مقيدتان بجذريهما، وصفّر <code>تصرف</code> لاسطر الشرط فصرخ «بلا تصرف».
+                <strong>فاصلح الاثنان من المصدر.</strong>
+            </p>
+
+            <p class="total-row" style="text-align:center;margin:22px 0 0">
+                <a href="../downloads/فاضل_IDE.html" download
+                   style="display:inline-block;background:linear-gradient(135deg,#e8b868,#d4a24c);color:#0c2040;font-weight:700;padding:13px 34px;border-radius:10px;text-decoration:none;font-size:1.05rem">
+                   <i class="fas fa-download"></i> تنزيل بيئة العمل 6.6.0
+                </a>
+                <br><span style="color:#94a3b8;font-size:0.85rem;display:inline-block;margin-top:10px">
+                    ملف HTML واحد · يحتاج متصفحا فقط · والتعريفات تُجلب عند كل فتح
+                </span>
+            </p>
+
+            <div class="guard-note" style="margin-top:24px">
+                <p style="margin:0 0 12px">
+                    <strong>وما تغيّر في التعريفات بالقياس:</strong>
+                    التصرفات كانت 13 باسماء مخالفة ومعها عمود اسقاط برمجي — وصارت
+                    <strong>16 بنص فاضل في القانون 9</strong> بلا عمود اسقاط (§8) ·
+                    والموارد كانت 4 وصارت <strong>10</strong> ·
+                    والعلامات كانت 11 وصارت <strong>3 مبنية</strong> (ق4) ·
+                    والشروط كانت 11 وفيها تكرار وصارت <strong>12</strong> (ق10) ·
+                    واضيفت <strong>5 روابط</strong> و<strong>28 حرفا</strong> بمقاعدها وجُمَّلها — والاشتقاق بصيغة FTF-5 يطابق المقروء في 28 من 28. <strong style="color:#1d4ed8">وقياس المصالحة: <code>صنف:14</code> و<code>صنف:16</code> كانا يصرخان «وزن غير معروف» فصارا يصمتان، و<code>صنف:17</code> و<code>صنف:0</code> يصرخان وهما خارج المدى.</strong>
+                </p>
+                <p style="margin:0">
+                    <strong style="color:#047857">✅ وتعارضان سقطا في 22 آب:</strong>
+                    عمود «المواءمة البرمجية» حُذف من جدول ق9 في <code>03</code> فصار ثلاثة اعمدة عملا بـ§8 —
+                    والقلم يقبل الحالين. واتجاه النقاط ليس عطبا بنص فاضل:
+                    «الكتابة العربية تصالح الحديد، والاتجاه ما مختوم في السادس».
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- البوّابة الدائمة -->
+    <section class="gate-section">
+        <div class="container">
+            <h2><i class="fas fa-shield-halved"></i> البوابة الدائمة — ثمانية شواهد</h2>
+            <p class="quran-verse">اليس الله بكافٍ عبده<span class="surah">الزمر : 36</span></p>
+            <p class="desc">
+                تشغل بعد كل بناء بصفر نكوص. والشواهد منقولة من
+                <strong style="color:#e8b868">سيرة المترجم الشجري الشبكي السادس §⑮-أ</strong> — الحكم على الخرج لا على البصمة.
+            </p>
+            <div class="gate-grid">
+                <div class="gate-item wide">
+                    <span class="idx">الشاهد 1</span>
+                    <span class="what">ام البوابات</span>
+                    <span class="proof rtl">
+                        تنزع كل اداة من القرص، وتشغَّل الصورة وحدها فتنطق بنفسها.
+                    </span>
+                    <div class="io">
+                        <div class="io-cell">
+                            <span class="io-lbl">المُدخَل — ملفّ</span>
+                            <span class="io-val rtl">برنامج_الاقلاع.فضل<br>87 بايتا من المحرّر · 68 ذرّة · 4 اسطر</span>
+                        </div>
+                        <div class="io-cell out">
+                            <span class="io-lbl">الخرج المقيس — وهو الحَكَم</span>
+                            <span class="io-val">التسلسليّ 66 بايتا · 5 اسطر خرج · [7] · الشاشة 4,581 نقطة</span>
+                        </div>
                     </div>
+                    <span class="proof rtl" style="color:#fbbf24;margin-top:8px;display:block">
+                        ⛔ والستّة والستّون خرج تسلسليّ لا حجم ملفّ — «المطابقة البايتيّة شاهد ثبات لا شاهد صحّة، والخرج هو الحكم».
+                    </span>
                 </div>
-                <div class="fdl-editor-toolbar">
-                    <button class="fdl-btn primary" id="fdl-run">
-                        <i class="fas fa-play"></i> تشغيل
-                    </button>
-                    <button class="fdl-btn" id="fdl-copy">
-                        <i class="fas fa-copy"></i> نسخ
-                    </button>
-                    <button class="fdl-btn" id="fdl-download">
-                        <i class="fas fa-download"></i> تحميل .fdl
-                    </button>
-                    <button class="fdl-btn danger" id="fdl-clear">
-                        <i class="fas fa-trash"></i> مسح
-                    </button>
-                    <span class="fdl-status" id="fdl-status"></span>
+                <div class="gate-item">
+                    <span class="idx">الشاهد 2</span>
+                    <span class="what">جذر مجهول</span>
+                    <span class="proof rtl">«ابج» يصرخ 42 ويقف ⟸ ق42-د</span>
                 </div>
-                <div class="fdl-output-wrap">
-                    <h4><i class="fas fa-terminal"></i> الإخراج</h4>
-                    <pre class="fdl-output-pane" id="fdl-output"></pre>
-                    <div id="app-render" class="fdl-app-root"></div>
-                    <span id="app-widget-count" style="display:none"></span>
+                <div class="gate-item">
+                    <span class="idx">الشاهد 3</span>
+                    <span class="what">خرج:1 يمر</span>
+                    <span class="proof rtl">ختام البرنامج يعبر بلا صراخ</span>
+                </div>
+                <div class="gate-item">
+                    <span class="idx">الشاهد 4</span>
+                    <span class="what">صنف:1 يمر</span>
+                    <span class="proof rtl">مسكن لا عمل — والعنوان هو الحجز</span>
+                </div>
+                <div class="gate-item">
+                    <span class="idx">الشاهد 5</span>
+                    <span class="what">شرط بقطبيه</span>
+                    <span class="proof">31&gt;30 ⟹ 31 · 30&gt;31 ⟹ صمت</span>
+                </div>
+                <div class="gate-item">
+                    <span class="idx">الشاهد 6</span>
+                    <span class="what">شرط بجوابه</span>
+                    <span class="proof rtl">الخارجي شرط والداخلي طبع</span>
+                </div>
+                <div class="gate-item">
+                    <span class="idx">الشاهد 7</span>
+                    <span class="what">العمق الثالث</span>
+                    <span class="proof rtl">يصرخ 3 ويقف ⛔ ولا يسكن شيئا</span>
+                </div>
+                <div class="gate-item">
+                    <span class="idx">الشاهد 8</span>
+                    <span class="what">فارزة العلامات</span>
+                    <span class="proof rtl">معناها واحد في اللغة كلها: التكديس</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- IDE Preview -->
-    <section class="ide-section">
+    <!-- الحارس -->
+    <section class="guard-section">
         <div class="container">
-            <h2>بيئة التطوير المتكاملة</h2>
+            <h2><i class="fas fa-user-shield"></i> حارس القوالب — بلغة فاضل</h2>
             <p class="quran-verse">ان الله يدافع عن الذين آمنوا<span class="surah">الحج : 38</span></p>
-            <p class="desc">محرر كود متكامل يعمل في المتصفح — تلوين نحوي + تنفيذ فوري + ذكاء اصطناعي محلي + نظام امتدادات + فاحص FDL + 6 أمثلة مقيسة على المحرّك الحقيقيّ</p>
-            <div class="ide-screenshot">
-                <iframe src="../downloads/فاضل_IDE.html" title="بيئة تطوير فاضل" loading="lazy"></iframe>
+            <div class="guard-status">
+                <i class="fas fa-hourglass-half"></i>
+                قيد التطوير — 95٪ بختم فاضل، 21 آب 2026
             </div>
-            <p style="text-align:center;margin-top:16px">
-                <a href="../downloads/فاضل_IDE.html" target="_blank" style="color:#e8b868;font-weight:600;font-size:1.1rem;text-decoration:none">
-                    <i class="fas fa-external-link-alt"></i> فتح البيئة في نافذة كاملة
-                </a>
+            <p class="desc" style="max-width:820px;text-align:center;color:#64748b;line-height:1.9;margin-bottom:26px">
+                مكتوب بلغة فاضل في الورشة: <strong>4,517 ذرّة · 82 سطرا</strong> —
+                ثمانية محروسين، واثنا عشر سطر فحص منفَّذ.
+                وموضعه الورشة حتى ينفَّذ ويعبر (ق49)، فلا يدخل الدستور أمر لم ينفَّذ.
             </p>
+            <div class="guard-grid">
+                <div class="guard-card">
+                    <h4><span>1</span> نسب</h4>
+                    <p>العلاقة العائلية — البوابة الاولى: <code>آباء = 0</code> نسب مقطوع، و<code>نظائر &gt; 1</code> مكرر.</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>2</span> قالب</h4>
+                    <p>اكتمال القالب: <code>جذر = 0</code> بلا جذر، و<code>تصرف = 0</code> بلا تصرف.</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>3</span> حديد</h4>
+                    <p>⛔ منزوع 20 آب ويقيد دينا — يحتاج صورة الشرطين معا، ولم تبن (ق47).</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>4</span> تصرف</h4>
+                    <p>والتصرفات ست عشرة بق9 ⛔ ولا سبع عشرة: <code>تصرف &gt; 16</code> فوق المدى.</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>5</span> وزن</h4>
+                    <p>والاوزان ليست تصرفات (ق10): الشرط 12 والربط 5، وما فوقهما فوق المدى.</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>6</span> شرط</h4>
+                    <p>الاطراف تعد بما تفصله العلامة (ق25) — والمحرم الواحد وحده: زوج ناقص نصفه.</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>7</span> ربط</h4>
+                    <p>«معاملات الربط ليست خالية ابدا» — و<code>معاملات = 0</code> يصرخ.</p>
+                </div>
+                <div class="guard-card">
+                    <h4><span>8</span> عمق</h4>
+                    <p>خانة لكل جيل من 0 الى 9، والحد 17 خانة (ق40) — و<code>خانات &gt; 17</code> فوق الحد.</p>
+                </div>
+            </div>
+            <div class="guard-note">
+                <p style="margin:0 0 12px">
+                    <strong>وثلاثة اسس بني عليها، مختومة 20 آب:</strong>
+                    ① المعامل زوج: مسكن ثم علامة ثم ساكن (ق25) ⛔ ولا اسم عار ·
+                    ② والعلامات ثلاث: <code style="background:#0c2040;color:#e8b868;padding:1px 6px;border-radius:3px">&gt; &lt; =</code> (ق4) ⛔ ولا رابعة ·
+                    ③ والتكديس يستثمر: <code style="background:#0c2040;color:#e8b868;padding:1px 6px;border-radius:3px">طبع:1(),()</code> (ق1-أ).
+                </p>
+                <p style="margin:0 0 12px">
+                    <strong>⛔ ولا نفي في اللغة</strong> — والمسالة ليست قائمة فيها اصلا:
+                    «ليس ساكنا» ⟹ «الآباء الموجودة = 0»، و«مكرر» ⟹ «النظائر &gt; 1».
+                    ⟸ فالصفر يقول النفي ⛔ ولا علامة تزاد.
+                </p>
+                <p style="margin:0">
+                    <strong>وحكمه:</strong> يشغل على المواطن الثلاثة فيصمت على الثلاثة،
+                    ويصرخ على الحقنتين اللتين يصرخ عليهما حارس النسب الحديدي.
+                    وحين يعبر يدمج في المترجم فيصير بوابة كل سطر يدخل، واول ما يحرسه الدستور نفسه.
+                </p>
+            </div>
+
+            <h3 class="remain-title">وما بقي من الخمسة بالمئة — خمسة شواهد تنتظر التشغيل</h3>
+            <div class="table-wrap" style="margin-top:14px">
+                <table class="measured">
+                    <thead>
+                        <tr><th>المُدخَل</th><th>الخرج المنتظَر</th><th>الحال</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>اسواق_كاظم.فضل — 20 سطرا</td><td>صمت</td><td class="wait">⛔ ينتظر العمق 2</td></tr>
+                        <tr><td>برنامج_ماسح.فضل — 3 اسطر</td><td>صمت</td><td class="wait">⛔ ينتظر</td></tr>
+                        <tr><td>بيانات_متجر.ج5 — 17 سطرا</td><td>صمت</td><td class="wait">⛔ ينتظر</td></tr>
+                        <tr><td>حقن المكرَّر</td><td>صرخة واحدة</td><td class="wait">⛔ ينتظر</td></tr>
+                        <tr><td>حقن اليتيم</td><td>صرخة واحدة</td><td class="wait">⛔ ينتظر</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="total-row" style="text-align:right;margin-top:12px">
+                ⟹ فان صمت على الثلاثة وصرخ على الحقنتين، قامت اول اداة بلغة فاضل وسقطت اداتهم من موضعها.
+                <br>⛔ وحراسة الحديد الثالثة منزوعة عمدا وتقيَّد دينا: تحتاج صورة الشرطين معا (ق47) ولم تبنَ،
+                «⛔ فذاك نقل حكم من اللغة الى الشفرة».
+            </p>
+        </div>
+    </section>
+
+    <!-- حال البناء -->
+    <section class="state-section">
+        <div class="container">
+            <h2><i class="fas fa-list-check"></i> حال البناء — مقيس بالتشغيل لا بالدعوى</h2>
+            <p class="desc">
+                منقول بنصه من <strong>CLAUDE.md §9</strong> و<strong>السيرة §⑮</strong>.
+                ⛔ ولا يعرض هنا رقم لم يقس.
+            </p>
+            <div class="state-cols">
+                <div class="state-col done">
+                    <h3><i class="fas fa-circle-check"></i> ✅ ما ينفذ اليوم</h3>
+                    <ul>
+                        <li><code>خزن:1</code> · <code>طبع:1</code> · <code>حسب:1</code> · <code>حسب:2</code></li>
+                        <li><code>شرط:1</code> بقطبيه وبجوابه</li>
+                        <li>العمق الثاني — امر داخل امر</li>
+                        <li>والثالث يصرخ 3 ويقف</li>
+                        <li>وجهل المورد يصرخ 42 ويقف (ق42-د)</li>
+                        <li>والعشرة الجذور مزروعة في 27 بيتا</li>
+                        <li>والجمّل محسوب والجدول محي — 56 بايتا، والاشتقاق ينتج عينها 28 من 28</li>
+                        <li>والتكديس — صورته الثانية: عشرة تصرفات بجلبة واحدة</li>
+                        <li>والمكعب الرباعي: العمق · الاخ · المجموعة · المعامل</li>
+                    </ul>
+                </div>
+                <div class="state-col todo">
+                    <h3><i class="fas fa-circle-xmark"></i> ⛔ وما لم يبن</h3>
+                    <ul>
+                        <li>الحارس مدمجا في المترجم — قيد التطوير 95٪، مكتوب في الورشة ولم يشغَّل (ق49)</li>
+                        <li>محور الاخ (النثر) — والمكعب يحمله ولم يشغل</li>
+                        <li>ثلاث صور من التكديس الاربع</li>
+                        <li>قراءة الدستور بالقلم</li>
+                        <li>ترميز النفي</li>
+                        <li>نطق العشرة</li>
+                        <li>بيت الحروف — رسم واحد من 100</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="debt-note">
+                <p style="margin:0 0 10px">
+                    <strong>⚠ والديون الثمانية مقيدة في السيرة §⑮-ز ⛔ ولا تحسب نجاحا.</strong>
+                </p>
+                <p style="margin:0">
+                    والدين الثامن كان: «جدول اوزان بيئة العمل v5.0 هو العمود الرابع الساقط».
+                    <strong>⟹ واغلق في 21 آب لا بتحديث الجدول بل بسقوطه:</strong>
+                    لا اوزان تعرض في البيئة اليوم الا ما نطق به الحديد،
+                    والمترجم الخامس وكل ما وصل به منقول الى
+                    <code style="background:rgba(255,255,255,0.1);padding:2px 7px;border-radius:4px">_ملغى_المترجم_الخامس_2026_08_21/</code>
+                    تاريخا ⛔ لا مرجعا.
+                </p>
+            </div>
         </div>
     </section>
 
     <!-- Developer -->
     <section class="developer-section">
         <div class="container">
-            <p class="quran-verse">وقل رب زدني علماً<span class="surah">طه : 114</span></p>
+            <p class="quran-verse">وعلّم آدم الاسماء كلها<span class="surah">البقرة : 31</span></p>
             <div class="iraq-flag" style="margin:0 auto 12px">
-                <span class="stripe red"></span>
-                <span class="stripe white">الله اكبر</span>
-                <span class="stripe black"></span>
+                <span class="stripe red"></span><span class="stripe white">الله اكبر</span><span class="stripe black"></span>
             </div>
-            <p>
-                <strong>م. فاضل عباس الجعيفري</strong> — مديرية اتصالات واسط — العراق
-            </p>
+            <p><strong>م. فاضل عباس الجعيفري</strong> — مديرية اتصالات واسط — العراق</p>
             <p style="margin-top:8px">CODEC COSMIC OS — RUBIK COSMIC MATRIX</p>
             <p style="margin-top:16px">
                 <a href="https://wa.me/9647808923210" style="color:var(--primary-color);font-weight:600"><i class="fab fa-whatsapp"></i> +964 780 892 3210</a>
@@ -893,16 +800,6 @@
     </footer>
 
     <script src="../js/script.js"></script>
-<script src="../js/edit-button.js"></script>
-
-    <!-- ── المحرّر التفاعليّ للغة فاضل ── -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
-    <script src="../js/fadhil-runtime.js"></script>
-    <script src="../js/fdl-mode.js"></script>
-    <script src="../js/fdl-completions.js"></script>
-    <script src="../js/fdl-editor-init.js"></script>
+    <script src="../js/edit-button.js"></script>
 </body>
 </html>

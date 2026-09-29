@@ -209,7 +209,7 @@ if (localStorage.getItem('darkMode') === 'true') {
     }
 
     // GitHub Pages does not run Netlify functions — skip the fetch (avoids 404 noise)
-    const isNetlify = /\.netlify\.app$/.test(location.hostname);
+    const isNetlify = false;  /* اُلغىَ netlify — امرُ فاضل 29 ايلول 2026 */
     if (!isNetlify) { useLocalCounter(); return; }
 
     const method = alreadyCounted ? 'GET' : 'POST';
