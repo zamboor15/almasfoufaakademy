@@ -1141,7 +1141,7 @@ body {
                 فتح مثال ▸
             </div>
             <select class="toolbar-select" id="examples-select" onchange="loadExample(this.value)" style="width:100%;padding:4px 16px;border-radius:0;margin:0;">
-                <option value="">-- اختر جذرا مختوما — العشرة من المصدر الحي --</option>
+                <option value="">-- اختر جذرا --</option>
                   <option value="بدل">بدل — عنوان 00000010311 · نقاط 30.4.2</option>
                   <option value="حل">حل — عنوان 000000711 · نقاط 30.8</option>
                   <option value="حسب">حسب — عنوان 00000071401 · نقاط 2.60.8</option>
@@ -1241,7 +1241,7 @@ body {
         <div class="menu-dropdown">
             <div class="menu-dropdown-item" onclick="showHelp()">دليل سريع</div>
             <div class="menu-dropdown-item" onclick="checkForUpdate()">فحص التحديثات</div>
-            <div class="menu-dropdown-item" onclick="alert('بيئة عمل فاضل 8.0.0 — المترجم الشجري الشبكي السادس\nم. فاضل عباس الجعيفري\nCODEC COSMIC OS\n\nهذه بيئة تعلّم في المتصفح (محاكاة تعليميّة).\nالمحرّك الحقيقيّ fdl v5 — المترجم الخامس يستضيف نفسه\nGEN1==GEN2==GEN3 و642 برنامجاً مُبرهَناً — يُحمَّل من صفحة اللغة في موقع الأكاديميّة.')">حول فاضل</div>
+            <div class="menu-dropdown-item" onclick="alert('بيئة عمل فاضل 8.0.0 — المترجم الشجري الشبكي السادس\nم. فاضل عباس الجعيفري\nCODEC COSMIC OS\n\nبيئة تكتب فيها بالعربية ويعمل معك حارس يقرأ سطرك وهو يُكتب.\nوفيها مقلع مدمج يشغّل برنامجك ويريك خرجه داخل المتصفح.\n\nتعلّم اللغة من صفحتها في موقع الأكاديميّة.')">حول فاضل</div>
         </div>
     </div>
 </div>
@@ -1294,8 +1294,8 @@ body {
                         <ul class="sidebar-list" id="مرجع-الربط"></ul>
                     </div>
                     <div class="sidebar-section">
-                        <div class="sidebar-section-title" onclick="toggleSection(this)">&#9660; الحديدُ المطروقُ فى برامجِ المصدر</div>
-                        <ul class="sidebar-list" id="مرجع-المطروق"></ul>
+                        <div class="sidebar-section-title" onclick="toggleSection(this)" style="display:none">&#9660; امثلة</div>
+                        <ul class="sidebar-list" id="مرجع-المطروق" style="display:none"></ul>
                     </div>
             </div>
         </div>
@@ -4577,7 +4577,7 @@ function اعرض_الحارس() {
     const ن = م ? م.value : '';
     const ر = شغل_الحارس(ن);
     const بص = (فضل_التعريفات.الحارس && فضل_التعريفات.الحارس.بصمة) ? فضل_التعريفات.الحارس.بصمة.slice(0, 16) : '—';
-    let ه = '<div class="ح-راس">حارس القوالب — ' + ر.حراسات + ' حراسة على ' + ر.اسطر +
+    let ه = '<div class="ح-راس">الحارس — ' + ر.حراسات + ' حراسة على ' + ر.اسطر +
             ' سطرا · بصمة ' + بص + '</div>';
     if (!ر.صرخات.length) {
         ه += '<div class="ح-صمت">✅ صمت — ولا صرخة</div>';
@@ -10915,15 +10915,14 @@ COMMANDS.push(
     border-radius:6px; padding:3px 11px; cursor:pointer; font:inherit; font-size:11.5px; margin-right:6px; }
   #وسم-المحاكاة button:hover { background:rgba(255,255,255,.24); }
 </style>
-<div id="لوح-الحارس"><div class="ل-راس"><span class="ل-اسم">حارس القوالب</span><span class="ل-غلق" data-لوح="لوح-الحارس">✕</span></div><div class="ل-جوف"></div></div>
+<div id="لوح-الحارس"><div class="ل-راس"><span class="ل-اسم">الحارس</span><span class="ل-غلق" data-لوح="لوح-الحارس">✕</span></div><div class="ل-جوف"></div></div>
 <div id="لوح-الجذور"><div class="ل-راس"><span class="ل-اسم">الجذور المختومة</span><span class="ل-غلق" data-لوح="لوح-الجذور">✕</span></div><div class="ل-جوف"></div></div>
 <div id="لوح-الطبع"><div class="ل-راس"><span class="ل-اسم">الطبع في الحديد</span><span class="ل-غلق" data-لوح="لوح-الطبع">✕</span></div><div class="ل-جوف"></div></div>
 <div id="وسم-المحاكاة">
-  <span>⚠ <b>محاكاة لا حَكَم</b> — خرج هذه البيئة محاكاة ⛔ لا شهادة ولا حجة.
-        والحَكَم الحديد وحده: «⛔ وما لم يُر على الشاشة لا يُدعى» (القسم العاشر).</span>
+  <span>الخرج هنا تقريبيّ ليعلّمك ويكشف اخطاء كتابتك — والخرج النهائيّ هو ما يظهره المقلع حين تشغّل برنامجك.</span>
   <span>
     <button id="زر-الطبع" style="background:rgba(52,211,153,.22);border-color:rgba(52,211,153,.5);color:#a7f3d0">اطبع في الحديد</button>
-    <button id="زر-الحارس">حارس القوالب</button>
+    <button id="زر-الحارس">الحارس</button>
     <button id="زر-الجذور">الجذور المختومة</button>
     <span id="شريط-التعريفات">… التعريفات</span>
   </span>
