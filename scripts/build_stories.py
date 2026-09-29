@@ -193,7 +193,6 @@ async function checkUpdates() {{
 setInterval(checkUpdates, 120000);
 checkUpdates();
 </script>
-<script src="../../js/edit-button.js"></script>
 </body>
 </html>
 """
@@ -347,7 +346,6 @@ async function check() {{
 setInterval(check, 120000);
 check();
 </script>
-<script src="../../js/edit-button.js"></script>
 </body>
 </html>"""
 
