@@ -20,7 +20,7 @@ import hashlib, json, os, re, sys
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 جذر = os.path.dirname(os.path.abspath(__file__))
-منشور = os.path.join(جذر, 'downloads', 'فاضل_IDE.html')
+منشور = os.path.join(جذر, 'downloads', 'فاضل', 'فاضل_IDE.html')
 بيان = os.path.join(جذر, 'downloads', 'version.json')
 حاكم = os.path.join(r'd:\drive_d_backup', 'لغة فاضل محدث',
                     '05_البيئة', 'فاضل_IDE.html')

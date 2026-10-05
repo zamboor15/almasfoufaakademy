@@ -27,7 +27,7 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 جذر = os.path.dirname(os.path.abspath(__file__))
 حاكم = r'd:\drive_d_backup\لغة فاضل محدث\05_البيئة\فاضل_IDE.html'
-هدف = os.path.join(جذر, 'downloads', 'فاضل_IDE.html')
+هدف = os.path.join(جذر, 'downloads', 'فاضل', 'فاضل_IDE.html')
 بيان = os.path.join(جذر, 'downloads', 'version.json')
 
 # ── نصوص الواجهة : (ما فى الحاكم , ما يُنشَر , وصف) ──────────────

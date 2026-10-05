@@ -1,0 +1,77 @@
+{
+    "name": "بيئة عمل فاضل",
+    "short_name": "فاضل",
+    "description": "تكتب بالعربية ويعمل معك حارس يقرأ سطرك وهو يُكتب، ومقلع مدمج يشغل برنامجك ويريك خرجه.",
+    "id": "/almasfoufaakademy/downloads/فاضل/",
+    "start_url": "./%D9%81%D8%A7%D8%B6%D9%84_IDE.html",
+    "scope": "./",
+    "display": "standalone",
+    "display_override": ["window-controls-overlay", "standalone"],
+    "orientation": "any",
+    "lang": "ar",
+    "dir": "rtl",
+    "background_color": "#0a1628",
+    "theme_color": "#0c2040",
+    "categories": ["education", "developer", "productivity"],
+
+    "icons": [
+        {
+            "src": "%D9%81%D8%A7%D8%B6%D9%84-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "%D9%81%D8%A7%D8%B6%D9%84-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "%D9%81%D8%A7%D8%B6%D9%84-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+
+    "file_handlers": [
+        {
+            "action": "./%D9%81%D8%A7%D8%B6%D9%84_IDE.html",
+            "name": "برنامج فاضل",
+            "accept": {
+                "text/plain": [".فضل"]
+            },
+            "icons": [
+                {
+                    "src": "%D9%81%D8%A7%D8%B6%D9%84-192.png",
+                    "sizes": "192x192",
+                    "type": "image/png"
+                }
+            ],
+            "launch_type": "single-client"
+        }
+    ],
+
+    "launch_handler": {
+        "client_mode": "focus-existing"
+    },
+
+    "shortcuts": [
+        {
+            "name": "برنامج جديد",
+            "url": "./%D9%81%D8%A7%D8%B6%D9%84_IDE.html?جديد=1",
+            "icons": [
+                {
+                    "src": "%D9%81%D8%A7%D8%B6%D9%84-192.png",
+                    "sizes": "192x192",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "تعلم اللغة",
+            "url": "../../pages/fdl.html"
+        }
+    ]
+}
