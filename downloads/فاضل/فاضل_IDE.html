@@ -9772,15 +9772,120 @@ async function checkForUpdate(silent) {
     }
 }
 
-function applyUpdate() {
+async function applyUpdate() {
     const url = document.getElementById('update-btn').getAttribute('data-url');
-    if (url) {
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'فاضل_IDE.html';
-        a.click();
+    if (!url) return;
+    /* ① التحديثُ فى مكانِه اوّلا ⟹ فلا نسخةَ ثانيةٌ فى Downloads */
+    if (typeof حدّث_في_مكانه === 'function' && await حدّث_في_مكانه(url)) {
+        const لافتة = document.getElementById('update-banner');
+        if (لافتة) لافتة.classList.remove('show');
+        return;
     }
+    /* ② والّا فالتنزيلُ كما كان (فايرفوكس · سفارى · او الغى المستعمِل) */
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'فاضل_IDE.html';
+    a.click();
 }
+/* ═══ المحدِّثُ فى مكانِه — امرُ فاضل 6 تشرين الاوّل 2026 ═══════════
+   «فلماذا لايوجد خاصية التحديث بدل التنزيل … باختيار الملف المعنى
+    بالتحديث او البحث عنه تلقائيا»
+
+   وكانَ زرُّ «تحديث الآن» يُنزِّلُ نسخةً ثانيةً فى Downloads والقديمُ
+   يبقى. ⟹ فصارَ يكتبُ فوقَ ملفِّك فى مكانِه:
+     · اوّلَ مرّةٍ   : يسالُك «ايُّ ملفٍّ؟» مرّةً واحدةً
+     · وكلَّ مرّةٍ بعدَها : زرٌّ واحدٌ بلا سؤالٍ — المقبضُ محفوظٌ
+   ⚖ ويعودُ الى التنزيلِ وحدَه ان لم يدعمْه المتصفّحُ (فايرفوكس · سفارى)
+   ⛔ ولا يُكتَبُ شىءٌ الّا بعدَ ان تُجلَبَ النسخةُ كاملةً ويُتحقَّقَ منها. */
+(function () {
+    const مخزن = 'فاضل_مقابض';
+    const مفتاح = 'ملف_البيئة';
+
+    function افتح_المخزن() {
+        return new Promise(function (نجح, فشل) {
+            const ط = indexedDB.open('فاضل_البيئة', 1);
+            ط.onupgradeneeded = function () {
+                if (!ط.result.objectStoreNames.contains(مخزن)) {
+                    ط.result.createObjectStore(مخزن);
+                }
+            };
+            ط.onsuccess = function () { نجح(ط.result); };
+            ط.onerror = function () { فشل(ط.error); };
+        });
+    }
+
+    function بالمخزن(وضع, عمل) {
+        return افتح_المخزن().then(function (ق) {
+            return new Promise(function (نجح, فشل) {
+                const ص = ق.transaction(مخزن, وضع).objectStore(مخزن);
+                const ط = عمل(ص);
+                ط.onsuccess = function () { نجح(ط.result); };
+                ط.onerror = function () { فشل(ط.error); };
+            });
+        });
+    }
+
+    const احفظ_المقبض = م => بالمخزن('readwrite', ص => ص.put(م, مفتاح));
+    const اقرأ_المقبض = () => بالمخزن('readonly', ص => ص.get(مفتاح))
+                              .catch(function () { return null; });
+
+    async function اذن_الكتابة(مقبض) {
+        if (!مقبض || !مقبض.queryPermission) return false;
+        const خيار = { mode: 'readwrite' };
+        if (await مقبض.queryPermission(خيار) === 'granted') return true;
+        return await مقبض.requestPermission(خيار) === 'granted';
+    }
+
+    window.حدّث_في_مكانه = async function (عنوان) {
+        if (!window.showOpenFilePicker) return false;   /* ⟹ يُنزَّلُ كما كان */
+        let مقبض = null;
+        try { مقبض = await اقرأ_المقبض(); } catch (ع) { مقبض = null; }
+
+        if (مقبض && !(await اذن_الكتابة(مقبض))) مقبض = null;
+
+        if (!مقبض) {
+            try {
+                const مختار = await window.showOpenFilePicker({
+                    multiple: false,
+                    types: [{ description: 'بيئةُ فاضل',
+                              accept: { 'text/html': ['.html', '.htm'] } }]
+                });
+                مقبض = مختار[0];
+                if (!(await اذن_الكتابة(مقبض))) return false;
+            } catch (ع) { return false; }   /* الغى المستعمِلُ */
+        }
+
+        /* ⛔ ولا يُكتَبُ حتى تُجلَبَ النسخةُ كاملةً ويُتحقَّقَ انّها بيئةُ فاضل */
+        let نص = '';
+        try {
+            const ج = await fetch(عنوان, { cache: 'reload' });
+            if (!ج || !ج.ok) throw new Error('جلب');
+            نص = await ج.text();
+        } catch (ع) {
+            if (typeof toast === 'function') toast('تعذّرَ جلبُ النسخةِ الجديدة', 'error');
+            return false;
+        }
+        if (نص.length < 100000 || نص.indexOf('بيئة عمل فاضل') < 0) {
+            if (typeof toast === 'function') toast('النسخةُ المجلوبةُ ليست بيئةَ فاضل ⛔ لم يُكتَبْ شىء', 'error');
+            return false;
+        }
+
+        try {
+            const كاتب = await مقبض.createWritable();
+            await كاتب.write(نص);
+            await كاتب.close();
+            await احفظ_المقبض(مقبض);        /* ⟹ فالمرّةُ القادمةُ بلا سؤال */
+            if (typeof toast === 'function') {
+                toast('حُدِّثَ ملفُّك فى مكانِه : ' + مقبض.name, 'success');
+            }
+            return true;
+        } catch (ع) {
+            if (typeof toast === 'function') toast('تعذّرَت الكتابةُ فى الملفّ', 'error');
+            return false;
+        }
+    };
+})();
+
 
 function dismissUpdate() {
     document.getElementById('update-banner').classList.remove('show');
