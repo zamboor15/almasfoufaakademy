@@ -180,7 +180,8 @@ def حال_التحليل(نصّ):
             esprima.parseScript(ج)
             حال.append('OK')
         except Exception as ع:
-            حال.append(str(ع)[:60])
+            # ⚠ يُسقَطُ رقمُ السطرِ : التحويلُ قد يُزيحُه بلا كسرٍ
+            حال.append(re.sub(r'Line \d+: ', '', str(ع))[:60])
     return حال
 
 قبل_التحويل = حال_التحليل(خام.decode('utf-8'))
