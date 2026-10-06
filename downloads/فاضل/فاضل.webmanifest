@@ -6,7 +6,6 @@
     "start_url": "./%D9%81%D8%A7%D8%B6%D9%84_IDE.html",
     "scope": "./",
     "display": "standalone",
-    "display_override": ["window-controls-overlay", "standalone"],
     "orientation": "any",
     "lang": "ar",
     "dir": "rtl",
