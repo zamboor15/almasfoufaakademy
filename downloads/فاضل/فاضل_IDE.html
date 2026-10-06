@@ -9864,8 +9864,10 @@ if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
     /* وبعدَ ثلاثِ ثوانٍ : ان لم يظهرِ الزرُّ فالسببُ يُقالُ صريحا */
     setTimeout(function () {
         if (document.getElementById('زر-التثبيت')) return;
-        var مثبّتة = matchMedia('(display-mode: standalone)').matches ||
-                     navigator.standalone === true;
+        var مثبّتة = (typeof مثبَّتةٌ_الآن === 'function')
+            ? مثبَّتةٌ_الآن()
+            : (matchMedia('(display-mode: standalone)').matches ||
+               navigator.standalone === true);
         if (مثبّتة) return;                       /* تعملُ مثبَّتةً سلفا */
         var ز = زر();
         ز.style.background = '#334155';
@@ -9896,6 +9898,50 @@ if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
         setTimeout(function () { if (ز.parentNode) ز.remove(); }, 18000);
     }, 3000);
 })();
+
+/* ═══ اصلاحانِ مقيسانِ 6 تشرين الاوّل 2026 ══════════════════════════
+
+   ① «Ctrl+S» كانَ مربوطا بـeditor وحدَه ⟹ فان لم يكنِ المحرِّرُ مُركَّزا
+      التقطَه المتصفّحُ ونفَّذَ «حفظُ الصفحة» : حُفِظَت البيئةُ نفسُها
+      8,344 ك.ب باسمِ «تجربة.فضل» فى 05_البيئة — قِيسَ بصورةِ فاضل.
+      ⟹ فمعالِجٌ على المستندِ فى **طورِ الالتقاط** يسبقُ المتصفّحَ.
+
+   ② وفحصُ «مثبَّتةٌ سلفا» كانَ يختبرُ (display-mode: standalone) وحدَه،
+      والبيانُ فيه window-controls-overlay ⟹ فالوضعُ غيرُ standalone
+      فظهرَ «التثبيتُ غيرُ متاحٍ هنا» وهى مثبَّتةٌ تعمل.
+      ⟹ فتُختبَرُ الاوضاعُ الاربعةُ كلُّها.
+   ═══════════════════════════════════════════════════════════════ */
+(function () {
+    /* ① Ctrl+S حيثُما كانَ التركيزُ ⛔ ولا يصلُ المتصفّح */
+    document.addEventListener('keydown', function (ح) {
+        if ((ح.key !== 's' && ح.key !== 'S') || !(ح.ctrlKey || ح.metaKey)) return;
+        ح.preventDefault();
+        ح.stopPropagation();
+        try {
+            if (ح.shiftKey) {
+                if (typeof احفظ_باسم === 'function') { احفظ_باسم(); return; }
+            }
+            if (typeof احفظ_على_الحالي === 'function') { احفظ_على_الحالي(); return; }
+            if (typeof احفظ_باسم === 'function') { احفظ_باسم(); return; }
+            if (typeof saveFile === 'function') { saveFile(); }
+        } catch (ع) {
+            if (typeof toast === 'function') toast('تعذّرَ الحفظُ', 'error');
+        }
+    }, true);                       /* ⟸ طورُ الالتقاطِ : يسبقُ الجميع */
+
+    /* ② هل تعملُ مثبَّتةً؟ — الاوضاعُ الاربعةُ لا وضعٌ واحد */
+    window.مثبَّتةٌ_الآن = function () {
+        var اوضاع = ['standalone', 'window-controls-overlay',
+                     'minimal-ui', 'fullscreen'];
+        for (var i = 0; i < اوضاع.length; i++) {
+            try {
+                if (matchMedia('(display-mode: ' + اوضاع[i] + ')').matches) return true;
+            } catch (ع) { /* متصفّحٌ قديم */ }
+        }
+        return navigator.standalone === true;
+    };
+})();
+
 
 
 /* ② نقرتانِ على «برنامجي.فضل» ⟹ يُفتَحُ هنا.
