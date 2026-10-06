@@ -9870,15 +9870,30 @@ if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
         var ز = زر();
         ز.style.background = '#334155';
         ز.style.color = '#e2e8f0';
+        /* ولكلِّ متصفّحٍ طريقُه ⟹ ⛔ ولا يُترَكُ المستعمِلُ بلا جواب.
+           والقيدُ من صانعى المتصفّحاتِ لا من البيئةِ : واجهاتُ التثبيتِ
+           وربطِ الامتدادِ والمجلّدِ ابتكرَتها جوجل ولم تُصبحْ معيارا،
+           ورفضَتها موزيلّا وآبل. والبيئةُ نفسُها تعملُ فى كلِّها. */
+        var متصفّح = navigator.userAgent;
+        var تفّاحىٌّ = /iPad|iPhone|iPod/.test(متصفّح);
+        var سفارى = /^((?!chrome|android|crios|fxios|edg).)*safari/i.test(متصفّح);
+        var فايرفوكس = /firefox|fxios/i.test(متصفّح);
+
         if (location.protocol === 'file:') {
             ز.textContent = 'للتثبيتِ افتحْها من الموقعِ ⛔ لا من ملفٍّ منزَّل';
+        } else if (تفّاحىٌّ) {
+            ز.textContent = 'للتثبيتِ : شارِكْ ⟸ اضفْ الى الشاشةِ الرئيسيّة';
+        } else if (سفارى) {
+            ز.textContent = 'للتثبيتِ : شارِكْ ⟸ اضفْ الى الـDock';
+        } else if (فايرفوكس) {
+            ز.textContent = 'البيئةُ تعملُ كاملةً هنا — والتثبيتُ يحتاجُ كروم او ايدج';
         } else if (!('serviceWorker' in navigator)) {
             ز.textContent = 'التثبيتُ يعملُ على كروم او ايدج على سطحِ المكتب';
         } else {
             ز.textContent = 'التثبيتُ غيرُ متاحٍ هنا — جرّبْ كروم او ايدج';
         }
         ز.onclick = function () { ز.remove(); };
-        setTimeout(function () { if (ز.parentNode) ز.remove(); }, 12000);
+        setTimeout(function () { if (ز.parentNode) ز.remove(); }, 18000);
     }, 3000);
 })();
 
