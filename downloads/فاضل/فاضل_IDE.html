@@ -9810,6 +9810,17 @@ if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
             .catch(function () { /* تعملُ البيئةُ بلا عاملٍ خدميٍّ ايضا */ });
     });
 }
+    /* ⟸ وحينَ يتولّى عاملٌ جديدٌ ⟹ تُعادُ الصفحةُ مرّةً واحدةً فيصلُ
+       التحديثُ بفتحةٍ واحدةٍ لا اثنتَين. وحارسٌ يمنعُ التكرار. */
+    if ('serviceWorker' in navigator) {
+        var جُدِّدَ = false;
+        navigator.serviceWorker.addEventListener('controllerchange', function () {
+            if (جُدِّدَ) return;
+            جُدِّدَ = true;
+            location.reload();
+        });
+    }
+
 
 /* ═══ المشغِّلُ ④ : زرُّ تثبيتٍ ظاهرٌ ═══════════════════════════════
    امرُ فاضل 6 تشرين الاوّل: «لم يظهر خيار تثبيت عند تنزيل البيئة».
