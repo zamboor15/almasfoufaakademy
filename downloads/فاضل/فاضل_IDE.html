@@ -6177,7 +6177,7 @@ editor.addEventListener('keydown', (e) => {
         runCode();
     }
     // Ctrl+S — حفظ
-    if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+    if ((e.code === 'KeyS' || e.key === 's' || e.key === 'س') && (e.ctrlKey || e.metaKey)) {
         e.preventDefault();
         if (e.shiftKey) { احفظ_باسم(); } else { احفظ_على_الحالي(); }
     }
@@ -6893,12 +6893,12 @@ editor.addEventListener('blur', () => setTimeout(hideAutocomplete, 200));
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { closeHelp(); closePalette(); closeSearch(); hideAutocomplete(); }
     // Ctrl+Shift+P — لوحة الأوامر
-    if (e.key === 'P' && e.ctrlKey && e.shiftKey) { e.preventDefault(); openPalette(); }
-    if (e.key === 'p' && e.ctrlKey && e.shiftKey) { e.preventDefault(); openPalette(); }
+    if ((e.code === 'KeyP' || e.key === 'P') && e.ctrlKey && e.shiftKey) { e.preventDefault(); openPalette(); }
+    if (e.key === 'p' && e.ctrlKey && e.shiftKey) { e.preventDefault(); openPalette(); }  /* ⟸ «code» فى السطرِ الذى قبلَه */
     // Ctrl+F — بحث
-    if (e.key === 'f' && e.ctrlKey && !e.shiftKey) { e.preventDefault(); openSearch(); }
+    if ((e.code === 'KeyF' || e.key === 'f') && e.ctrlKey && !e.shiftKey) { e.preventDefault(); openSearch(); }
     // Ctrl+H — بحث واستبدال
-    if (e.key === 'h' && e.ctrlKey) { e.preventDefault(); openSearch(); toggleReplace(); }
+    if ((e.code === 'KeyH' || e.key === 'h') && e.ctrlKey) { e.preventDefault(); openSearch(); toggleReplace(); }
 });
 
 // === نظام التحديث ===
@@ -8279,13 +8279,13 @@ function fdlValidateCode() {
 
 document.addEventListener('keydown', (e) => {
     // Ctrl+Shift+O — تشويش
-    if (e.key === 'O' && e.ctrlKey && e.shiftKey) { e.preventDefault(); cosmicObfuscate(); }
+    if ((e.code === 'KeyO' || e.key === 'O') && e.ctrlKey && e.shiftKey) { e.preventDefault(); cosmicObfuscate(); }
     // Ctrl+Shift+D — فك تشويش
-    if (e.key === 'D' && e.ctrlKey && e.shiftKey) { e.preventDefault(); cosmicDeobfuscate(); }
+    if ((e.code === 'KeyD' || e.key === 'D') && e.ctrlKey && e.shiftKey) { e.preventDefault(); cosmicDeobfuscate(); }
     // Ctrl+Shift+4 — تشفير Level 4 (sidebar panel)
     if (e.key === '4' && e.ctrlKey && e.shiftKey) { e.preventDefault(); switchSidePanel('cipher'); }
     // Ctrl+Shift+F — دردشة AI
-    if (e.key === 'F' && e.ctrlKey && e.shiftKey) { e.preventDefault(); aiChat(); }
+    if ((e.code === 'KeyF' || e.key === 'F') && e.ctrlKey && e.shiftKey) { e.preventDefault(); aiChat(); }
 });
 
 // تسجيل الامتدادات المدمجة
