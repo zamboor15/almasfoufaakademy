@@ -7186,7 +7186,13 @@ if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
 (function () {
     /* ① Ctrl+S حيثُما كانَ التركيزُ ⛔ ولا يصلُ المتصفّح */
     document.addEventListener('keydown', function (ح) {
-        if ((ح.key !== 's' && ح.key !== 'S') || !(ح.ctrlKey || ح.metaKey)) return;
+        /* ⚠ «code» لا «key» : بلوحةِ المفاتيحِ العربيّةِ يُعطى مفتاحُ S
+           الحرفَ «س» ⟹ فلا يتحقّقُ الشرطُ، ويمرُّ المفتاحُ الى المتصفّحِ
+           فينفّذُ «حفظُ الصفحة» : حُفِظَت البيئةُ 8 م.ب مرّتَين عندَ فاضل.
+           و«code» يصفُ المفتاحَ الماديَّ فلا يتبدّلُ بتبدّلِ اللوحة. */
+        const مفتاحُ_سين = (ح.code === 'KeyS') ||
+                            ح.key === 's' || ح.key === 'S' || ح.key === 'س';
+        if (!مفتاحُ_سين || !(ح.ctrlKey || ح.metaKey)) return;
         ح.preventDefault();
         ح.stopPropagation();
         try {
