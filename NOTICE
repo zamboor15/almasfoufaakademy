@@ -16,81 +16,78 @@ own work.
 ① v86 — محاكي x86 في المتصفّح · BSD-2-Clause
 ──────────────────────────────────────────────────────────────
 
-**كيفَ عُرِفَ (مقيسٌ 9 تشرين الأوّل 2026):** الكتلةُ `محاكي_ب64`
-(2,101,621 بايتة بعدَ فكِّ base64) تُصدِّرُ `v86_malloc` و`v86_free`
-و`svga_allocate_memory`، وفيها `zstd_create…`.
+```
+Copyright (c) 2012, The v86 contributors
+All rights reserved.
+```
+
+**نصُّ الرخصةِ كاملاً:** `licenses/v86-BSD-2-Clause.txt`
+(منقولٌ بايتةً ببايتةٍ من `LICENSE` الذي جاءَ مع المحاكي · 1,306 بايتة)
 
 **المشروعُ:** https://github.com/copy/v86
-**الرخصةُ:** BSD-2-Clause — ونصُّها:
 
-```
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
+**كيفَ عُرِفَ (مقيسٌ 9 تشرين الأوّل 2026):** الكتلةُ `محاكي_ب64`
+في البيئةِ = `v86.wasm` (2,101,621 بايتة) وتُصدِّرُ `v86_malloc`
+و`v86_free` و`svga_allocate_memory`، وفيها `zstd`.
 
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the
-   distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-```
-
-🔴 **وسطرُ «Copyright (c) …» ناقصٌ ههنا قصداً** — فلم أجدْه مكتوباً
-داخلَ الكتلةِ، ⛔ ولا أختلقُ اسمَ صاحبِ حقٍّ من ذاكرتي.
-**⟹ يُنسَخُ السطرُ حرفاً من ملفِّ `LICENSE` في مستودعِ المشروعِ أعلاه
-ويُوضَعُ فوقَ النصِّ السابقِ.**
+**الإصدارُ: ⛔ لم يُقَسْ** — لا رقمَ في `v86.wasm` ولا في `libv86.js`.
+⚠ **وفي الصورةِ أرقامٌ (`18.1.3` · `1.98.1` · `0.17.1`) وهي أرقامُ
+أدواتِ البناءِ ⛔ لا إصدارُ المحاكي** — فلا تُنسَبُ إليه.
+**وتاريخُ الملفّاتِ عندَنا:** 27 أيلول 2026.
 
 ──────────────────────────────────────────────────────────────
-② SeaBIOS — نظامُ الإقلاعِ · LGPL-3.0
+② SeaBIOS 1.16.2 — نظامُ الإقلاعِ · LGPL-3.0
 ──────────────────────────────────────────────────────────────
 
-**كيفَ عُرِفَ:** الكتلةُ `بيوس_ب64` (131,072 بايتة) تحوي
-`_DMI_.SeaBIOS.04/01/2014` و`etc/extra-pci-roots` (وهي ترويسةُ
-`fw_cfg` في QEMU) ⟹ فهي صورةُ `bios-256k.bin` التي تُوزَّعُ مع QEMU.
+**نصُّ الرخصةِ كاملاً:** `licenses/LGPL-3.0.txt`
+(منقولٌ بايتةً ببايتةٍ من `COPYING.LESSER` · 7,639 بايتة)
 
 **المشروعُ:** https://www.seabios.org — https://github.com/coreboot/seabios
+
+**كيفَ عُرِفَ (مقيسٌ):** الكتلةُ `بيوس_ب64` = `seabios.bin`
+(131,072 بايتة) وفيها نصّاً:
+```
+rel-1.16.2-0-gea1b7a0        ⟸ ومنه الإصدارُ
+SeaBIOS (version %s)
+_DMI_.SeaBIOS.04/01/2014
+etc/extra-pci-roots          ⟸ ترويسةُ fw_cfg في QEMU
+```
 
 ──────────────────────────────────────────────────────────────
 ③ SeaVGABIOS — بيوسُ الشاشةِ · LGPL-3.0
 ──────────────────────────────────────────────────────────────
 
-**كيفَ عُرِفَ:** الكتلةُ `شاشة_بيوس_ب64` (36,352 بايتة) تحوي نصّاً
-صريحاً داخلَها:
+**نصُّ الرخصةِ كاملاً:** `licenses/LGPL-3.0.txt` (هي نفسُها)
 
+**كيفَ عُرِفَ (مقيسٌ):** الكتلةُ `شاشة_بيوس_ب64` = `vgabios.bin`
+(36,352 بايتة) وفيها إخطارُ حقِّ المؤلّفِ **مكتوباً داخلَها**:
 ```
-SeaBIOS VBE(C) 2011 SeaBIOS Developers
+SeaBIOS VBE(C) 2011
+SeaBIOS Developers
 SeaBIOS VBE Adapter
 ```
+**⟹ وهذا الإخطارُ جزءٌ من الصورةِ ⛔ ولا يُنزَعُ.**
 
-**⟹ وإخطارُ حقِّ المؤلّفِ هذا مكتوبٌ في الصورةِ نفسِها ⛔ ولا يُنزَعُ.**
+**الإصدارُ: ⛔ لم يُقَسْ** — لا رقمَ في الصورةِ. والأرجحُ أنّه من
+حزمةِ SeaBIOS نفسِها، **وهذا ترجيحٌ لا قياسٌ.**
 
 ──────────────────────────────────────────────────────────────
-🔴 ما يبقى على صاحبِ المستودعِ — خطوتانِ خارجيّتانِ
+الوسائطُ في الأمثلةِ
 ──────────────────────────────────────────────────────────────
 
-**①** يُنسَخُ سطرُ `Copyright (c) …` من مستودعِ `v86` ويُوضَعُ في ①.
+إن كانَ في البيئةِ مثالٌ يحوي صورةً أو صوتاً أو فيديو من مصدرٍ
+خارجيٍّ، **فرخصتُه ونسبتُه مكتوبتانِ عندَه ⛔ ولا تُنزَعان** — وفي
+بناءِ النشرِ حارسٌ يُوقِفُ الإيداعَ إن غابَ نصُّ النسبةِ.
 
-**②** يُنسَخُ **نصُّ LGPL-3.0 كاملاً** (ومعه GPL-3.0 الذي تُحيلُ إليه)
-من https://www.gnu.org/licenses/ ويُضافُ إلى هذا الملفِّ أو إلى
-ملفٍّ مرافقٍ. **⛔ ولم أكتبْه من ذاكرتي: نصٌّ قانونيٌّ في سبعةِ
-آلافِ محرفٍ، وخطأُ محرفٍ فيه خطأٌ في وثيقةٍ مُلزِمةٍ.**
+──────────────────────────────────────────────────────────────
+وكلمةٌ في حدِّ هذا الإخطارِ
+──────────────────────────────────────────────────────────────
 
-**⚠ وتنبيهٌ لا أُخفيه:** LGPL تُوجِبُ — فوقَ الإخطارِ ونصِّ الرخصةِ —
-أن يستطيعَ المستعمِلُ **تبديلَ المكتبةِ المرخَّصةِ بأخرى** (الربطُ
-من جديدٍ). وفي بيئةٍ من ملفٍّ واحدٍ مُضمَّنٍ بـbase64 فإنّ هذا يُستوفى
-عملاً بأن تُذكَرَ الصورتانِ باسمِهما وإصدارِهما ومصدرِهما حتّى يَقدِرَ
-من أرادَ على استبدالِهما. **ولستُ محامياً، وهذا ما تقتضيه الممارسةُ
-المعتادةُ ⛔ لا فتوى قانونيّةً.**
+⚠ **LGPL تُوجِبُ — فوقَ الإخطارِ ونصِّ الرخصةِ — أن يَقدِرَ المستعمِلُ
+على تبديلِ المكتبةِ المرخَّصةِ بأخرى.** وفي بيئةٍ من ملفٍّ واحدٍ
+مُضمَّنٍ بـbase64 فإنّ هذا يُستوفى عملاً بأن تُذكَرَ كلُّ صورةٍ باسمِها
+وحجمِها بالبايتِ وإصدارِها ومصدرِها — كما في ① و② و③ — **فيَقدِرُ من
+أرادَ على جلبِ الأصلِ واستبدالِه.**
+
+**⛔ ولستُ محامياً: هذا ما تقتضيه الممارسةُ المعتادةُ لا فتوى
+قانونيّةً.**
