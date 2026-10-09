@@ -1139,7 +1139,7 @@ body {
     return ح || 1;
   }
 
-  function فك_الجمل(بايتات) {
+  function فك_الكتلة(بايتات) {
     var ك = ق_م, ن = ك.length;
     var ح = بذرة(ك), خرج = new Uint8Array(بايتات.length), i, د, م, ق, ب;
     for (i = 0; i < بايتات.length; i++) {
@@ -1153,7 +1153,7 @@ body {
     return خرج;
   }
 
-  window.فك_الجمل = فك_الجمل;
+  window.فك_الكتلة = فك_الكتلة;
 })();
 </script>
 </head>
@@ -1958,7 +1958,7 @@ function شق_مضمن() {
     const خ = atob(م ? س.slice(1) : س);
     const ب = new Uint8Array(خ.length);
     for (let i = 0; i < خ.length; i++) ب[i] = خ.charCodeAt(i);
-    return م ? window.فك_الجمل(ب) : ب;
+    return م ? window.فك_الكتلة(ب) : ب;
 }
 
 function صورة_المعامل(م) {
@@ -9422,7 +9422,7 @@ function اشتق_مستويات(ح) {
 function لوح_256(ع) { const ذ = ع.svga_memory, ل = Array.from({length: 256}, function (_, i) { return i < 16 ? (لوحة_الالوان[i] || [0, 0, 0]).slice() : [0, 0, 0]; }), ر = new Uint8Array(16), ن = Math.min(524288, ذ.length >> 2);
   for (let i = 0; i < ن; i++) { const c = ذ[4 * i + 3]; if (c < 16 && !ر[c]) { ر[c] = 1; ل[c] = [ذ[4 * i + 2], ذ[4 * i + 1], ذ[4 * i]]; } } return ل; }
 let صورة_256 = null, لوحة_256 = null;   /* ⟸ ④ : ذاكرةُ العرضِ ولوحُها كاملا بعدَ الوقوفِ ⟸ الصورةُ بالوانِها الحقيقيّةِ (التنعيمُ · التدرّجُ · الظلُّ) */
-function ب64_بايتات(س) { const م = س.charCodeAt(0) === 1580; const خ = atob(م ? س.slice(1) : س), ب = new Uint8Array(خ.length); for (let i = 0; i < خ.length; i++) ب[i] = خ.charCodeAt(i); return م ? window.فك_الجمل(ب) : ب; }
+function ب64_بايتات(س) { const م = س.charCodeAt(0) === 1580; const خ = atob(م ? س.slice(1) : س), ب = new Uint8Array(خ.length); for (let i = 0; i < خ.length; i++) ب[i] = خ.charCodeAt(i); return م ? window.فك_الكتلة(ب) : ب; }
 const معنى_الصرخة = {
   8: 'تكديسٌ فوقَ الحدِّ', 9: 'سطرٌ بلا عنوانٍ', 10: 'ما بعدَ العنوانِ ليسَ جذرا', 12: 'مسكنٌ بلا اعلانٍ',
   16: 'جذرٌ خارجَ العشرةِ', 19: 'تصرّفٌ خارجَ 1…16', 25: 'ليسَ زوجا : مسكنٌ = ساكنٌ', 28: 'الاحداثىُّ الفارغُ : تصرّفٌ غيرُ مكتوبٍ فى المصدرِ',
