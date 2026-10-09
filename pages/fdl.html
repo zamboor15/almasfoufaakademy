@@ -366,7 +366,7 @@
                         <tr><td><strong>خرج</strong></td><td>الخروج</td><td><strong>بدل</strong></td><td>المبادلة</td></tr>
                         <tr><td><strong>طبع</strong></td><td>الاظهار · العرض · الاعلان</td><td><strong>صلح</strong></td><td>المصالحة · حل الخلاف</td></tr>
                         <tr><td><strong>حل</strong></td><td>القرص</td><td><strong>حسب</strong></td><td>الحساب · وكل شيء يُحسب</td></tr>
-                        <tr><td><strong>شرط</strong></td><td>المقارنة</td><td><strong>اطر</strong></td><td>الرسم والاطار — اطر:1 يرسم محيط مستطيل على اللوح</td></tr>
+                        <tr><td><strong>شرط</strong></td><td>المقارنة</td><td><strong>اطر</strong></td><td>الرسم والاطار — اطر:1 يرسم محيط اي شكل على اللوح</td></tr>
                         <tr><td><strong>ربط</strong></td><td>الربط · الآصرة · الصلة</td><td></td><td></td></tr>
                     </tbody>
                 </table>
@@ -388,7 +388,7 @@
                         <tr><td><code>طبع:7</code></td><td>يطبع في مكان ثابت يُمحى ويُرسم كلوحة عدّاد</td><td><code>طبع:7(العدد=س)</code></td></tr>
                         <tr><td><code>طبع:9</code></td><td>يختار لون القلم او يصنع لونا</td><td><code>طبع:9(لون)</code></td></tr>
                         <tr><td><code>طبع:2</code></td><td>عائلة تلبس قيم عائلة عضوا بعضو</td><td><code>طبع:2(بطاقة=مريض)</code></td></tr>
-                        <tr><td><code>طبع:3</code></td><td>ينسخ عائلة عمل الى موضعه عند البناء</td><td><code>طبع:3(0111)</code></td></tr>
+                        
                         <tr><td><code>طبع:6</code></td><td>يقرأ ساعة الحاسوب</td><td><code>طبع:6(سنة=9)</code></td></tr>
                         <tr><td rowspan="4"><strong>صنف</strong></td><td><code>صنف:14</code></td><td>الجذع</td><td><code>صنف:14(ترحيب=تحية)</code></td></tr>
                         <tr><td><code>صنف:2</code></td><td>الفرع الكبير: عائلة واعضاؤها</td><td><code>صنف:2(تحية=كلمة)</code></td></tr>
@@ -415,8 +415,8 @@
                         <tr><td><code>شرط:3</code></td><td>«كلّما»: حلقة شروط</td><td><code>شرط:3(ي==5)</code></td></tr>
                         <tr><td rowspan="2"><strong>ربط</strong></td><td><code>ربط:8</code></td><td>ينتظر مفتاحا او نقرة او كتابة</td><td><code>ربط:8(مفتاح ,نقرة)</code></td></tr>
                         <tr><td><code>ربط:3</code></td><td>«ثمّ»: رابط تعاقب بين امرين</td><td><code>ربط:3(رقم)</code></td></tr>
-                        <tr><td rowspan="2"><strong>اطر</strong></td><td><code>اطر:14</code></td><td>يرسم الكيان</td><td><code>اطر:14(شاشة-06)</code></td></tr>
-                        <tr><td><code>اطر:1</code></td><td>يرسم مستطيلا</td><td><code>اطر:1(اطار)</code></td></tr>
+                        <tr><td rowspan="2"><strong>اطر</strong></td><td><code>اطر:14</code></td><td>يستعير الكيان ويتبنّاه · والاصل يبقى في مكانه</td><td><code>اطر:14(شاشة-06)</code></td></tr>
+                        <tr><td><code>اطر:1</code></td><td>يرسم محيط اي شكل</td><td><code>اطر:1(اطار)</code></td></tr>
                         <tr><td rowspan="1"><strong>صلح</strong></td><td><code>صلح:3</code></td><td>ما اتّفق عليه عددان بتّة ببتّة</td><td><code>صلح:3(ا=ب)</code></td></tr>
                         <tr><td rowspan="3"><strong>خرج</strong></td><td><code>خرج:1</code></td><td>يوقف البرنامج</td><td><code>خرج:1()</code></td></tr>
                         <tr><td><code>خرج:10</code></td><td>يستخرج سجلّا من قطاع البيانات</td><td><code>خرج:10(بطاقة=اسم)</code></td></tr>
@@ -793,8 +793,8 @@
             <p class="unit-note" style="margin-bottom:16px">
                 الشاشة الواح، واللوح كيان له عنوانه. فتكتب <code>شاشة-0510-قلم</code>:
                 اسم المكتبة، ثم عنوان اللوح، ثم ما تريد منه.
-                <br><code>اطر:14(شاشة-06)</code> يرسم الكيان كله &nbsp;·&nbsp;
-                <code>اطر:1(اطار)</code> يرسم مستطيلا &nbsp;·&nbsp;
+                <br><code>اطر:14(شاشة-06)</code> يستعير الكيان كله ⟸ والاصل يبقى في مكانه &nbsp;·&nbsp;
+                <code>اطر:1(اطار)</code> يرسم محيط الشكل &nbsp;·&nbsp;
                 <code>صنف:5(نافذة)</code> يفكّك الكيان الى الواحه &nbsp;·&nbsp;
                 <code>بدل:7(0900)</code> يقلب اللوح او الشاشة.
             </p>
