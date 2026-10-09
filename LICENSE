@@ -36,6 +36,26 @@
   ⛔ نزعُ هذا الإخطارِ أو حَجْبُ نسبةِ العملِ إلى صاحبِه.
   ⛔ تدريبُ نموذجٍ آليٍّ على هذا العملِ أو على ما يُنزَّلُ منه.
 
+ما ليس ملكاً لصاحبِ هذا الحقِّ — إخطارُ أطرافٍ ثالثةٍ
+──────────────────────────────────────────────────────
+
+تحوي بيئةُ العملِ المنزَّلةُ مكوّناتٍ من أطرافٍ ثالثةٍ، **وهي ليست
+ملكاً لصاحبِ هذا الحقِّ**، ولكلٍّ منها رخصتُها الخاصّةُ التي تحكُمُها
+⛔ لا هذه الوثيقةُ. وما تقدَّمَ من حقوقٍ محفوظةٍ يخصُّ **عملَ فاضل
+وحدَه**: اللغةَ وترميزَها ومترجمَها ومفسِّرَها وبيئتَها ومنهاجَها.
+
+| المكوّنُ | ما هو | رخصتُه |
+|---|---|---|
+| `v86` | محاكي x86 في المتصفّح (ومعه `zstd`) | BSD-2-Clause |
+| `SeaBIOS` | نظامُ الإقلاعِ | LGPL-3.0 |
+| `SeaVGABIOS` | بيوسُ الشاشةِ — «SeaBIOS VBE (C) 2011 SeaBIOS Developers» | LGPL-3.0 |
+
+**ونصوصُ هذه الرخصِ وإخطاراتُ حقوقِها محفوظةٌ في ملفِّ `NOTICE`
+المرافقِ، وهي جزءٌ لا يُنزَعُ من أيِّ توزيعٍ لهذه البيئةِ.**
+
+وإن كانَ في البيئةِ مثالٌ يحوي صورةً أو صوتاً أو فيديو من مصدرٍ
+خارجيٍّ، فرخصتُه ونسبتُه مكتوبتانِ عندَه ⛔ ولا تُنزَعان.
+
 بلا ضمان
 ─────────
 يُقدَّمُ هذا العملُ كما هو، بلا ضمانٍ من أيِّ نوعٍ. ولا يُسألُ صاحبُه
@@ -68,5 +88,25 @@ in whole or in part; creating derivative languages, encodings,
 compilers or interpreters based on this work; reverse engineering or
 disassembling the compiled image; removing this notice or obscuring
 attribution; training any machine-learning model on this work.
+
+THIRD-PARTY COMPONENTS — NOT owned by the copyright holder
+───────────────────────────────────────────────────────────
+
+The downloadable environment bundles third-party components that are
+NOT the property of the copyright holder and are governed by their own
+licenses, not by this notice. The reserved rights above cover only
+Fadhel's own work: the language, its encoding, its compiler, its
+interpreter, the environment and the curriculum.
+
+  * v86 (x86 emulator, incl. zstd) — BSD-2-Clause
+  * SeaBIOS — LGPL-3.0
+  * SeaVGABIOS ("SeaBIOS VBE (C) 2011 SeaBIOS Developers") — LGPL-3.0
+
+Their license texts and copyright notices are kept in the accompanying
+NOTICE file and must be retained in any redistribution.
+
+Where an example bundles an image, sound or video from an external
+source, its license and attribution are stated alongside it and must
+not be removed.
 
 Provided "as is", without warranty of any kind.

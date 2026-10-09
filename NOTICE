@@ -1,0 +1,96 @@
+إخطارُ أطرافٍ ثالثةٍ — THIRD-PARTY NOTICES
+══════════════════════════════════════════════════════════════
+
+تحوي بيئةُ العملِ المنزَّلةُ (`downloads/فاضل/فاضل_IDE.html`) مكوّناتٍ
+من أطرافٍ ثالثةٍ **ليست ملكاً لصاحبِ حقوقِ هذا المستودعِ**، ولكلٍّ
+رخصتُها التي تحكُمُها. وما في `LICENSE` من حقوقٍ محفوظةٍ **يخصُّ عملَ
+م. فاضل عبّاس الجعيفري وحدَه**: لغةَ فاضل وترميزَها ومترجمَها
+ومفسِّرَها وبيئتَها ومنهاجَها.
+
+The downloadable environment bundles third-party components that are
+NOT owned by this repository's copyright holder. Each is governed by
+its own license. The reserved rights in `LICENSE` cover only Fadhel's
+own work.
+
+──────────────────────────────────────────────────────────────
+① v86 — محاكي x86 في المتصفّح · BSD-2-Clause
+──────────────────────────────────────────────────────────────
+
+**كيفَ عُرِفَ (مقيسٌ 9 تشرين الأوّل 2026):** الكتلةُ `محاكي_ب64`
+(2,101,621 بايتة بعدَ فكِّ base64) تُصدِّرُ `v86_malloc` و`v86_free`
+و`svga_allocate_memory`، وفيها `zstd_create…`.
+
+**المشروعُ:** https://github.com/copy/v86
+**الرخصةُ:** BSD-2-Clause — ونصُّها:
+
+```
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the
+   distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+```
+
+🔴 **وسطرُ «Copyright (c) …» ناقصٌ ههنا قصداً** — فلم أجدْه مكتوباً
+داخلَ الكتلةِ، ⛔ ولا أختلقُ اسمَ صاحبِ حقٍّ من ذاكرتي.
+**⟹ يُنسَخُ السطرُ حرفاً من ملفِّ `LICENSE` في مستودعِ المشروعِ أعلاه
+ويُوضَعُ فوقَ النصِّ السابقِ.**
+
+──────────────────────────────────────────────────────────────
+② SeaBIOS — نظامُ الإقلاعِ · LGPL-3.0
+──────────────────────────────────────────────────────────────
+
+**كيفَ عُرِفَ:** الكتلةُ `بيوس_ب64` (131,072 بايتة) تحوي
+`_DMI_.SeaBIOS.04/01/2014` و`etc/extra-pci-roots` (وهي ترويسةُ
+`fw_cfg` في QEMU) ⟹ فهي صورةُ `bios-256k.bin` التي تُوزَّعُ مع QEMU.
+
+**المشروعُ:** https://www.seabios.org — https://github.com/coreboot/seabios
+
+──────────────────────────────────────────────────────────────
+③ SeaVGABIOS — بيوسُ الشاشةِ · LGPL-3.0
+──────────────────────────────────────────────────────────────
+
+**كيفَ عُرِفَ:** الكتلةُ `شاشة_بيوس_ب64` (36,352 بايتة) تحوي نصّاً
+صريحاً داخلَها:
+
+```
+SeaBIOS VBE(C) 2011 SeaBIOS Developers
+SeaBIOS VBE Adapter
+```
+
+**⟹ وإخطارُ حقِّ المؤلّفِ هذا مكتوبٌ في الصورةِ نفسِها ⛔ ولا يُنزَعُ.**
+
+──────────────────────────────────────────────────────────────
+🔴 ما يبقى على صاحبِ المستودعِ — خطوتانِ خارجيّتانِ
+──────────────────────────────────────────────────────────────
+
+**①** يُنسَخُ سطرُ `Copyright (c) …` من مستودعِ `v86` ويُوضَعُ في ①.
+
+**②** يُنسَخُ **نصُّ LGPL-3.0 كاملاً** (ومعه GPL-3.0 الذي تُحيلُ إليه)
+من https://www.gnu.org/licenses/ ويُضافُ إلى هذا الملفِّ أو إلى
+ملفٍّ مرافقٍ. **⛔ ولم أكتبْه من ذاكرتي: نصٌّ قانونيٌّ في سبعةِ
+آلافِ محرفٍ، وخطأُ محرفٍ فيه خطأٌ في وثيقةٍ مُلزِمةٍ.**
+
+**⚠ وتنبيهٌ لا أُخفيه:** LGPL تُوجِبُ — فوقَ الإخطارِ ونصِّ الرخصةِ —
+أن يستطيعَ المستعمِلُ **تبديلَ المكتبةِ المرخَّصةِ بأخرى** (الربطُ
+من جديدٍ). وفي بيئةٍ من ملفٍّ واحدٍ مُضمَّنٍ بـbase64 فإنّ هذا يُستوفى
+عملاً بأن تُذكَرَ الصورتانِ باسمِهما وإصدارِهما ومصدرِهما حتّى يَقدِرَ
+من أرادَ على استبدالِهما. **ولستُ محامياً، وهذا ما تقتضيه الممارسةُ
+المعتادةُ ⛔ لا فتوى قانونيّةً.**
