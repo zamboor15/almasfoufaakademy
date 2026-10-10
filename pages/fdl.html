@@ -44,7 +44,27 @@
             padding: 6px 18px; border-radius: 20px; font-size: 0.9rem; margin-bottom: 20px;
             border: 1px solid rgba(232,184,104,0.25);
         }
-        .fdl-owner { color: #64748b; font-size: 0.92rem; margin-top: 10px; }
+        .fdl-owner { color: #9fb4cc; font-size: 0.98rem; margin-top: 10px; line-height: 1.9; }
+
+        /* ── وضوحُ راسِ الصفحةِ — امرُ فاضل 10 تشرين الاوّل 2026 ──
+           المقيسُ على خلفيّةِ الهيرو #0c2040 (حدُّ AA = 4.5) :
+             #64748b ⟹ 3.40:1 🔴 ساقطٌ ⟸ وهو الذى كانَ
+             #9fb4cc ⟹ 7.62:1 ✅  ·  #c7d6ea ⟹ 10.98:1 ✅  ·  #e8b868 ⟹ 8.86:1 ✅
+           🔴 وعلّتانِ ابعدُ من اللونِ ، ولولاهما لبقِىَ الخفاءُ :
+             ① «h1» بلا قاعدةٍ — التنسيقُ مكتوبٌ لـ«.fdl-hero h2» ولا h1
+                ولا body فى الصفحةِ ⟹ فيرثُ لونا من ملفٍّ آخرَ.
+             ② والفقرةُ الاولى بلا صنفٍ ⟹ فلا تاخذُ «.subtitle».
+           ⟹ فتُكتَبُ قواعدُ للموجودِ فى الصفحةِ لا للمنتظَرِ.
+           ⛔ و«#64748b» يبقى فى عشرةِ مواضعَ اُخرى : اكثرُها على خلفيّةٍ
+             فاتحةٍ (#fff) فتباينُه هناكَ سليمٌ ⟹ فلا يُمَسُّ. */
+        .fdl-hero h1 { color:#e8b868; font-size:2.6rem; margin-bottom:14px;
+                       text-shadow:0 0 30px rgba(232,184,104,0.35); }
+        .fdl-hero p  { color:#c7d6ea; font-size:1.12rem; line-height:1.95; max-width:780px; }
+        .fdl-hero p.fdl-owner { color:#9fb4cc; font-size:0.98rem; }
+        @media (max-width:700px){
+          .fdl-hero h1 { font-size:2rem; }
+          .fdl-hero p  { font-size:1.02rem; }
+        }
 
         .iraq-flag { display:inline-block; width:60px; height:36px; position:relative; margin:0 12px; vertical-align:middle; animation:flagWave 2s ease-in-out infinite; transform-origin:left center; }
         @keyframes flagWave {
