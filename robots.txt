@@ -4,4 +4,4 @@ Disallow: /*.md$
 Disallow: /node_modules/
 Disallow: /scripts/
 
-Sitemap: https://zamboor15.github.io/almasfoufaakademy/sitemap.xml
+Sitemap: https://almasfoufaakademy.com/sitemap.xml

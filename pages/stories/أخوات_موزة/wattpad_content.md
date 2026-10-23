@@ -20,7 +20,7 @@
 "حيث لا سماء — لا ميزان"
 
 🌐 موقعي الرسمي:
-https://zamboor15.github.io/almasfoufaakademy/
+https://almasfoufaakademy.com/
 ```
 
 ### النسخة الإنجليزية:
@@ -39,7 +39,7 @@ https://zamboor15.github.io/almasfoufaakademy/
 "Where there is no sky — there is no Balance"
 
 🌐 Official website:
-https://zamboor15.github.io/almasfoufaakademy/
+https://almasfoufaakademy.com/
 ```
 
 ---
@@ -193,7 +193,7 @@ uprising
 
 للمزيد من أعمالي — النظرية الفيزيائية، لغة البرمجة، القصص القادمة:
 🌐 **أكاديمية المصفوفة للذكاء الاصطناعي**
-https://zamboor15.github.io/almasfoufaakademy/
+https://almasfoufaakademy.com/
 
 📱 للتواصل:
 fadhilabbas51@gmail.com
@@ -325,7 +325,7 @@ https://www.wattpad.com/user/zamboor15
 
 الكتابة ليست مهنتي — لكنها روحي.
 
-موقعي: https://zamboor15.github.io/almasfoufaakademy/
+موقعي: https://almasfoufaakademy.com/
 قصصي على Wattpad: https://www.wattpad.com/user/zamboor15
 ```
 
