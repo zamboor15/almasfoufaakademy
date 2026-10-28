@@ -6,6 +6,7 @@
     <meta name="description" content="اسألْ «فاضل ai» — نموذجُ اكاديميةِ المصفوفةِ العربيُّ: يُجيبُ بالعربيّةِ ويذكرُ مصدرَه، في المتصفّحِ بلا تنزيلٍ ولا تسجيلٍ.">
     <meta name="keywords" content="فاضل ai، نموذج عربي، ذكاء اصطناعي عربي، اسال، شرع ذكي، اكاديمية المصفوفة">
     <title>اسألْ فاضل ai - اكاديمية المصفوفة للذكاء الاصطناعي</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/fdl_icon.svg">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,6 +19,7 @@
     <meta property="og:description" content="نموذجٌ عربيٌّ يُجيبُ ويذكرُ مصدرَه — في المتصفّحِ بلا تنزيلٍ ولا تسجيلٍ.">
     <meta property="og:site_name" content="اكاديمية المصفوفة للذكاء الاصطناعي">
     <meta property="og:locale" content="ar_IQ">
+    <meta property="og:image" content="https://almasfoufaakademy.com/assets/fdl_icon.svg">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -25,63 +27,112 @@
     <meta name="twitter:description" content="نموذجٌ عربيٌّ يُجيبُ ويذكرُ مصدرَه — في المتصفّحِ بلا تنزيلٍ ولا تسجيلٍ.">
 
     <style>
-    .ai-wrap { max-width: 980px; margin: 0 auto; padding: 0 18px 60px; }
-    .srv-bar { display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px;
-               background:#0f172a; color:#cbd5e1; border-radius:12px;
-               padding:14px 18px; margin:-30px 0 26px; box-shadow:var(--shadow-lg); }
-    .srv-dot { width:11px; height:11px; border-radius:50%; background:#64748b; flex:none;
+    /* ═══ الصفحةُ عمودانِ : الشريطُ الايمنُ دردشةٌ ، والايسرُ تعريفٌ ═══ */
+    .ai-grid { display:flex; gap:26px; align-items:flex-start;
+               max-width:1240px; margin:0 auto; padding:34px 18px 60px; }
+    .ai-main { flex:1 1 auto; min-width:0; }
+
+    /* ── ① الشريطُ الجانبيُّ الايمنُ : ثابتٌ بطولِ النافذةِ ──
+       ⚖ وشريطُ التصفّحِ لاصقٌ (position:sticky) فوقَ الصفحةِ ⟹ فيُترَكُ له علوُّه
+         والّا انزلقَ العمودُ تحتَه واختفى راسُه. */
+    .ai-side { flex:0 0 430px; max-width:430px; position:sticky; top:86px;
+               height:calc(100vh - 100px); min-height:520px;
+               display:flex; flex-direction:column; overflow:hidden;
+               background:#fff; border:1px solid var(--border-color);
+               border-radius:18px; box-shadow:var(--shadow-lg); }
+
+    .side-head { flex:none; display:flex; align-items:center; gap:11px;
+                 padding:12px 14px; color:#e2e8f0;
+                 background:linear-gradient(135deg,#0a1628,#0c2040); }
+    .ava { width:42px; height:42px; border-radius:12px; flex:none; display:block;
+           box-shadow:0 0 0 1px rgba(232,184,104,.38), 0 3px 10px rgba(0,0,0,.35); }
+    .side-head .nm { display:flex; flex-direction:column; gap:2px; min-width:0; }
+    .side-head .nm b { font-size:1.06rem; color:#e8b868; letter-spacing:.3px; }
+    .srv-txt { font-size:.84rem; color:#94a3b8; white-space:nowrap;
+               overflow:hidden; text-overflow:ellipsis; }
+    .srv-dot { width:11px; height:11px; border-radius:50%; background:#64748b;
+               flex:none; margin-inline-start:auto;
                box-shadow:0 0 0 4px rgba(100,116,139,.18); }
     .srv-dot.on  { background:#22c55e; box-shadow:0 0 0 4px rgba(34,197,94,.22); }
     .srv-dot.off { background:#ef4444; box-shadow:0 0 0 4px rgba(239,68,68,.22); }
-    .srv-txt { font-weight:600; }
-    .srv-num { font-size:.92rem; color:#94a3b8; }
-    .srv-num b { color:#e8b868; font-weight:700; }
 
-    .q-box { display:flex; gap:10px; align-items:flex-end; }
-    .q-box textarea { flex:1; min-height:74px; max-height:220px; resize:vertical;
-            font: inherit; font-size:1.06rem; line-height:1.7; padding:14px 16px;
-            border:2px solid var(--border-color); border-radius:12px; outline:none; }
-    .q-box textarea:focus { border-color:#6366f1; }
-    .q-send { flex:none; padding:16px 26px; border:0; border-radius:12px; cursor:pointer;
-              font:inherit; font-weight:700; font-size:1.05rem; color:#fff;
-              background:linear-gradient(135deg,#15803d,#0f766e); }
-    .q-send:disabled { opacity:.55; cursor:default; }
-    .q-hint { color:var(--text-light); font-size:.92rem; margin:10px 2px 0; }
-    .q-seed { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 0; }
-    .q-seed button { font:inherit; font-size:.93rem; cursor:pointer; color:#334155;
-            background:#f1f5f9; border:1px solid var(--border-color);
-            border-radius:999px; padding:7px 15px; }
-    .q-seed button:hover { background:#e2e8f0; }
+    /* ── ② مجرى الكلامِ : هو وحدَه الّذى يُمرَّرُ ── */
+    .thread { flex:1 1 auto; overflow-y:auto; overscroll-behavior:contain;
+              padding:16px 14px; background:#f8fafc;
+              display:flex; flex-direction:column; gap:14px; }
+    .thread::-webkit-scrollbar { width:9px; }
+    .thread::-webkit-scrollbar-thumb { background:#cbd5e1; border-radius:9px; }
 
-    .thread { margin:30px 0 0; display:flex; flex-direction:column; gap:16px; }
-    .bub { border-radius:14px; padding:14px 18px; line-height:1.85; }
-    .bub-q { background:#eef2ff; border:1px solid #c7d2fe; align-self:flex-start;
-             max-width:88%; font-weight:600; }
+    .bub { border-radius:14px; padding:13px 16px; line-height:1.85; }
+    .bub-q { background:#1e293b; color:#f1f5f9; align-self:flex-start;
+             max-width:90%; font-weight:600; border-radius:14px 14px 14px 4px; }
     .bub-a { background:#fff; border:1px solid var(--border-color);
              box-shadow:var(--shadow); }
-    .bub-a .ans { font-size:1.1rem; color:var(--text-dark); white-space:pre-wrap; }
+    .bub-a .ans { font-size:1.06rem; color:var(--text-dark); white-space:pre-wrap; }
     .bub-note { background:#fff7ed; border:1px solid #fed7aa; color:#7c2d12; }
+    .who { display:flex; align-items:center; gap:7px; margin:0 0 8px;
+           font-size:.85rem; font-weight:700; color:#0f766e; }
+    .who img { width:20px; height:20px; border-radius:6px; display:block; }
 
-    .tags { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0; }
-    .tag { font-size:.86rem; padding:4px 11px; border-radius:999px;
+    /* ── ③ بطاقةُ الترحيبِ والبذورُ : فى اعلى المجرى ── */
+    .hello { background:#fff; border:1px dashed #cbd5e1; border-radius:14px;
+             padding:15px 16px; color:#475569; line-height:1.9; }
+    .hello h4 { margin:0 0 7px; font-size:1.05rem; color:var(--text-dark); }
+    .q-seed { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0; }
+    .q-seed button { font:inherit; font-size:.9rem; cursor:pointer; color:#334155;
+            background:#f1f5f9; border:1px solid var(--border-color);
+            border-radius:999px; padding:6px 13px; }
+    .q-seed button:hover { background:#e2e8f0; }
+
+    /* ── ④ شريطُ الكتابةِ : ملتصقٌ باسفلِ العمودِ دائما ── */
+    .q-box { flex:none; display:flex; gap:9px; align-items:flex-end;
+             padding:10px 10px 4px; background:#fff;
+             border-top:1px solid var(--border-color); }
+    .q-box textarea { flex:1 1 auto; min-width:0; height:50px; max-height:150px;
+            resize:none; overflow-y:auto; font:inherit; font-size:1.02rem;
+            line-height:1.6; padding:12px 14px; border:2px solid var(--border-color);
+            border-radius:13px; outline:none; }
+    .q-box textarea:focus { border-color:#0f766e; }
+    .q-send { flex:none; width:50px; height:50px; border:0; border-radius:13px;
+              cursor:pointer; font-size:1.1rem; color:#fff;
+              background:linear-gradient(135deg,#15803d,#0f766e); }
+    .q-send:disabled { opacity:.5; cursor:default; }
+    .q-hint { flex:none; margin:0; padding:5px 14px 9px; background:#fff;
+              color:var(--text-light); font-size:.8rem; }
+
+    /* ── ⑤ الشاراتُ والاقتباسُ ── */
+    .tags { display:flex; flex-wrap:wrap; gap:7px; margin:11px 0 0; }
+    .tag { font-size:.83rem; padding:3px 10px; border-radius:999px;
            background:#f1f5f9; color:#475569; border:1px solid var(--border-color); }
     .tag.good { background:#dcfce7; color:#14532d; border-color:#86efac; }
     .tag.mid  { background:#fef9c3; color:#713f12; border-color:#fde047; }
     .tag.none { background:#f1f5f9; color:#475569; }
-
-    .quote { margin:14px 0 0; padding:12px 16px; border-right:4px solid #e8b868;
+    .quote { margin:12px 0 0; padding:11px 14px; border-right:4px solid #e8b868;
              background:#fffbeb; border-radius:0 10px 10px 0; color:#422006;
-             font-size:1rem; line-height:1.9; }
-    .quote .src { display:block; margin-top:7px; font-size:.88rem; color:#92400e; }
-    .trace { margin:12px 0 0; font-size:.93rem; color:var(--text-light); }
+             font-size:.98rem; line-height:1.9; }
+    .quote .src { display:block; margin-top:6px; font-size:.86rem; color:#92400e; }
+    .trace { margin:10px 0 0; font-size:.9rem; color:var(--text-light); }
     .trace b { color:#334155; }
     .spin { display:inline-block; width:15px; height:15px; border:2px solid #cbd5e1;
             border-top-color:#15803d; border-radius:50%; animation:sp .8s linear infinite; }
     @keyframes sp { to { transform: rotate(360deg); } }
-    @media (max-width:640px) {
-      .q-box { flex-direction:column; align-items:stretch; }
-      .q-send { width:100%; }
-      .bub-q { max-width:100%; }
+
+    /* ── ⑥ العمودُ الايسرُ : التعريفُ والارقامُ ── */
+    .num-row { display:flex; flex-wrap:wrap; gap:12px; margin:0 0 22px; }
+    .num-card { flex:1 1 150px; background:#0f172a; color:#cbd5e1;
+                border-radius:13px; padding:14px 16px; box-shadow:var(--shadow); }
+    .num-card b { display:block; font-size:1.5rem; color:#e8b868; line-height:1.3; }
+    .num-card span { font-size:.88rem; }
+    .info-box { padding:22px; border:1px solid var(--border-color);
+                border-radius:14px; background:#f8fafc; margin:0 0 20px; }
+    .info-box h3 { margin:0 0 10px; font-size:1.15rem; }
+    .info-box p { margin:0 0 10px; color:#475569; line-height:1.9; }
+    .info-box p:last-child { margin:0; }
+
+    @media (max-width:980px) {
+      .ai-grid { flex-direction:column; padding-top:24px; }
+      .ai-side { position:static; flex:none; width:100%; max-width:none;
+                 height:76vh; min-height:460px; }
     }
     </style>
 </head>
@@ -116,51 +167,75 @@
         <p style="font-size:1.1rem;color:#8899b0;font-family:'Traditional Arabic','Amiri',serif;margin:0">اللهم صلِّ على محمد وآله الطاهرين</p>
     </div>
 
-    <section class="hero" style="min-height:34vh">
-        <div class="hero-content">
-            <h2>اسألْ فاضل ai</h2>
-            <p>نموذجُنا العربيُّ: يُجيبُ بالعربيّةِ ويذكرُ مصدرَه، وإنْ لم يعرفْ قالَ ذلك ولم يخترعْ. في المتصفّحِ بلا تنزيلٍ ولا تسجيلٍ.</p>
-        </div>
-    </section>
+    <section class="ai-grid">
 
-    <section style="padding:50px 0 0">
-      <div class="ai-wrap">
-
-        <div class="srv-bar">
+      <!-- ═══ ① الشريطُ الجانبيُّ الايمنُ : الدردشةُ ═══ -->
+      <aside class="ai-side">
+        <div class="side-head">
+            <img class="ava" src="../assets/fdl_icon.svg" alt="فاضل ai">
+            <div class="nm">
+                <b>فاضل ai</b>
+                <span class="srv-txt" id="srvTxt">يُسألُ النموذجُ عن حالِه…</span>
+            </div>
             <span class="srv-dot" id="dot"></span>
-            <span class="srv-txt" id="srvTxt">يُسألُ النموذجُ عن حالِه…</span>
-            <span class="srv-num" id="srvNum"></span>
+        </div>
+
+        <div class="thread" id="thread">
+            <div class="hello">
+                <h4>أهلاً بك — اسألْ بالعربيّةِ</h4>
+                يُجيبُ من مصادرِه ويعرضُ الاقتباسَ وموضعَه، وإنْ لم يعرفْ قالَ ذلك ولم يخترعْ.
+                <div class="q-seed" id="seed">
+                    <button>ما اسمك؟</button>
+                    <button>كم آية في سورة الحمد؟</button>
+                    <button>ما حكم صلاة المسافر؟</button>
+                    <button>ما معنى الجذر «ك ت ب»؟</button>
+                </div>
+            </div>
         </div>
 
         <div class="q-box">
-            <textarea id="q" rows="2" placeholder="اكتبْ سؤالَك بالعربيّةِ… (Enter للإرسال · Shift+Enter لسطرٍ جديد)"></textarea>
-            <button class="q-send" id="send"><i class="fas fa-paper-plane"></i> اسألْ</button>
+            <textarea id="q" rows="1" placeholder="اكتبْ سؤالَك… (Enter للإرسال · Shift+Enter سطرٌ جديد)"></textarea>
+            <button class="q-send" id="send" title="اسألْ"><i class="fas fa-paper-plane"></i></button>
         </div>
-        <p class="q-hint">بلا حسابٍ ولا مفتاحٍ. ولا يُحفَظُ سؤالُك عندنا باسمِك.</p>
+        <p class="q-hint">بلا حسابٍ ولا مفتاحٍ · ولا يُحفَظُ سؤالُك عندنا باسمِك.</p>
+      </aside>
 
-        <div class="q-seed" id="seed">
-            <button>ما اسمك؟</button>
-            <button>كم آية في سورة الحمد؟</button>
-            <button>ما حكم صلاة المسافر؟</button>
-            <button>ما معنى الجذر «ك ت ب»؟</button>
-        </div>
+      <!-- ═══ ② العمودُ الايسرُ : التعريفُ ═══ -->
+      <div class="ai-main">
+        <h2 style="margin:0 0 10px;font-size:2rem">اسألْ فاضل ai</h2>
+        <p style="margin:0 0 24px;color:#475569;line-height:1.95;font-size:1.08rem">
+          نموذجُنا العربيُّ: يُجيبُ بالعربيّةِ ويذكرُ مصدرَه، وإنْ لم يعرفْ قالَ ذلك ولم يخترعْ.
+          في المتصفّحِ بلا تنزيلٍ ولا تسجيلٍ — والشريطُ إلى يمينِك.
+        </p>
 
-        <div class="thread" id="thread"></div>
+        <div class="num-row" id="numRow"></div>
 
-        <div style="margin:44px 0 0;padding:22px;border:1px solid var(--border-color);border-radius:14px;background:#f8fafc">
-            <h3 style="margin:0 0 10px;font-size:1.15rem">وما هذا النموذجُ؟</h3>
-            <p style="margin:0 0 10px;color:#475569;line-height:1.9">
+        <div class="info-box">
+            <h3>وما هذا النموذجُ؟</h3>
+            <p>
               نموذجٌ عربيٌّ بنيناه في الأكاديميّةِ على نصوصٍ عربيّةٍ مفهرسةٍ بجذورِها: يُجيبُ من مصادرِه
               ويعرضُ الاقتباسَ وموضعَه، ويُفصحُ عن درجةِ ثقتِه، وإنْ شكَّ سكتَ وقالَ سببَ سكوتِه.
             </p>
-            <p style="margin:0;color:#475569;line-height:1.9">
-              وهو يعملُ على خادمِ الأكاديميّةِ، فإنْ كانَ متوقّفا ظهرَ ذلك في الشريطِ أعلاه —
+            <p>
+              وهو يعملُ على خادمِ الأكاديميّةِ، فإنْ كانَ متوقّفا ظهرَ ذلك في رأسِ الشريطِ —
               وللعملِ على هاتفِك في كلِّ وقتٍ هناكَ تطبيقُ
               <a href="apps.html" style="color:#15803d;font-weight:700">شرع ذكي</a>.
             </p>
         </div>
 
+        <div class="info-box">
+            <h3>وكيف تقرأُ جوابَه؟</h3>
+            <p>
+              تحتَ كلِّ جوابٍ شاراتٌ: <b>الحكمُ</b> (أجابَ أم سكتَ) و<b>الثقةُ</b> بالنسبةِ المئويّةِ
+              و<b>الزمنُ</b> بالثانيةِ. وإنْ كانَ للجوابِ أصلٌ في مصادرِه ظهرَ <b>الاقتباسُ</b>
+              بإطارٍ ذهبيٍّ ومعَه اسمُ المصدرِ وموضعُه.
+            </p>
+            <p>
+              والجوابُ يظهرُ فوقَ شريطِ الكتابةِ مباشرةً ⟸ فمرِّرِ الشريطَ إلى أعلى لتقرأَ ما سبقَ.
+            </p>
+        </div>
       </div>
+
     </section>
 
     <footer class="footer">
@@ -199,6 +274,7 @@
 
       /* عنوانُ النموذجِ. والطلبُ «بسيطٌ» بنوعِ محتوى نصّيٍّ ⟸ فلا تمهيدَ يسبقُه. */
       var خادم = 'https://ai.almasfoufaakademy.com';
+      var ايقونة = '../assets/fdl_icon.svg';
       var جلسة = null, مشغول = false;
 
       var thread = document.getElementById('thread');
@@ -206,7 +282,7 @@
       var send   = document.getElementById('send');
       var dot    = document.getElementById('dot');
       var srvTxt = document.getElementById('srvTxt');
-      var srvNum = document.getElementById('srvNum');
+      var numRow = document.getElementById('numRow');
 
       function عدد(n) {
         return (typeof n === 'number' && isFinite(n))
@@ -230,19 +306,42 @@
       function افحص() {
         اطلب('معلومات').then(function (د) {
           dot.className = 'srv-dot on';
-          srvTxt.textContent = (د['اسم'] || 'فاضل ai') + ' — متّصلٌ وجاهزٌ';
-          var ق = [];
-          if (عدد(د['فَقَرات']))          ق.push('<b>' + عدد(د['فَقَرات']) + '</b> فقرة');
-          if (عدد(د['جَذور_مَفهرَسة']))   ق.push('<b>' + عدد(د['جَذور_مَفهرَسة']) + '</b> جذرا مفهرسا');
-          if (عدد(د['مَصادر']))           ق.push('<b>' + عدد(د['مَصادر']) + '</b> مصدرا');
-          if (عدد(د['مسائل']))            ق.push('<b>' + عدد(د['مسائل']) + '</b> مسألة');
-          srvNum.innerHTML = ق.join(' · ');
+          srvTxt.textContent = 'متّصلٌ وجاهزٌ';
+          var ق = [['فَقَرات', 'فقرةً'], ['جَذور_مَفهرَسة', 'جذرا مفهرسا'],
+                   ['مَصادر', 'مصدرا'], ['مسائل', 'مسألةً']];
+          var ن = '';
+          for (var i = 0; i < ق.length; i++) {
+            var ق_ = عدد(د[ق[i][0]]);
+            if (ق_) ن += '<div class="num-card"><b>' + ق_ + '</b><span>'
+                         + ق[i][1] + '</span></div>';
+          }
+          numRow.innerHTML = ن;
         }).catch(function () {
           dot.className = 'srv-dot off';
-          srvTxt.textContent = 'النموذجُ غيرُ متاحٍ الآنَ';
-          srvNum.innerHTML = 'يعملُ على خادمِ الأكاديميّةِ ⟸ جرّبْ بعدَ قليلٍ، '
-            + 'أو خُذِ التطبيقَ من <a href="apps.html" style="color:#e8b868;font-weight:700">صفحةِ التطبيقاتِ</a>.';
+          srvTxt.textContent = 'غيرُ متاحٍ الآنَ';
+          numRow.innerHTML = '<div class="num-card" style="flex:1 1 100%">'
+            + '<b style="font-size:1.1rem">النموذجُ غيرُ متاحٍ الآنَ</b>'
+            + '<span>يعملُ على خادمِ الأكاديميّةِ ⟸ جرّبْ بعدَ قليلٍ، أو خُذِ التطبيقَ من '
+            + '<a href="apps.html" style="color:#e8b868;font-weight:700">صفحةِ التطبيقاتِ</a>.'
+            + '</span></div>';
         });
+      }
+
+      /* ② التمريرُ : رأسُ الجوابِ يُحاذى اعلى المجرى ⟸ فيُقرَأُ نازلا */
+      function انزل(هدف) {
+        var غاية;
+        if (هدف) {
+          غاية = thread.scrollTop
+                 + (هدف.getBoundingClientRect().top - thread.getBoundingClientRect().top)
+                 - 10;
+          var حد = thread.scrollHeight - thread.clientHeight;
+          if (غاية > حد) غاية = حد;
+          if (غاية < 0) غاية = 0;
+        } else {
+          غاية = thread.scrollHeight;
+        }
+        if (thread.scrollTo) thread.scrollTo({ top: غاية, behavior: 'smooth' });
+        else thread.scrollTop = غاية;
       }
 
       function فقاعة(صنف, داخل) {
@@ -250,7 +349,7 @@
         د.className = 'bub ' + صنف;
         د.innerHTML = داخل;
         thread.appendChild(د);
-        د.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        انزل();
         return د;
       }
 
@@ -259,7 +358,11 @@
           .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       }
 
-      /* ② وشارةُ الحكمِ تُنقَلُ كما قالَها النموذجُ ⛔ ولا تُجمَّلُ */
+      function راس() {
+        return '<div class="who"><img src="' + ايقونة + '" alt="">فاضل ai</div>';
+      }
+
+      /* ③ وشارةُ الحكمِ تُنقَلُ كما قالَها النموذجُ ⛔ ولا تُجمَّلُ */
       function شارات(د) {
         var ش = [];
         var حكم = د['الحكم'] || د['حال'] || '';
@@ -280,7 +383,7 @@
       function اجب(د) {
         var جواب = د['الجَواب'] || د['جواب'] || '';
         var مقدمة = د['مُقَدِّمة'] || '';
-        var ن = '';
+        var ن = راس();
         if (مقدمة) ن += '<div style="color:#64748b;margin:0 0 8px">' + امن(مقدمة) + '</div>';
         ن += '<div class="ans">' + (جواب ? امن(جواب)
              : 'سكتَ النموذجُ عن هذا السؤالِ ⛔ ولم يخترعْ جوابا.') + '</div>';
@@ -302,8 +405,8 @@
         if (مشغول || !نص.trim()) return;
         مشغول = true; send.disabled = true;
         فقاعة('bub-q', امن(نص));
-        var انتظار = فقاعة('bub-a',
-          '<span class="spin"></span> <span style="color:#64748b">يقرأُ ويبحثُ في مصادرِه…</span>');
+        var انتظار = فقاعة('bub-a', راس()
+          + '<span class="spin"></span> <span style="color:#64748b">يقرأُ ويبحثُ في مصادرِه…</span>');
 
         var جسم = { 'نَصّ': نص, 'ساعة': new Date().getHours() };
         if (جلسة) جسم['جَلسة'] = جلسة;
@@ -317,21 +420,31 @@
             انتظار.innerHTML = اجب(د);
           }
           dot.className = 'srv-dot on';
+          srvTxt.textContent = 'متّصلٌ وجاهزٌ';
         }).catch(function (x) {
           انتظار.className = 'bub bub-note';
           انتظار.innerHTML = 'لم يصلِ السؤالُ إلى النموذجِ (' + امن(x.message) + ').'
             + ' وهو يعملُ على خادمِ الأكاديميّةِ ⟸ جرّبْ بعدَ قليلٍ،'
             + ' أو خُذِ التطبيقَ من <a href="apps.html" style="color:#15803d;font-weight:700">صفحةِ التطبيقاتِ</a>.';
           dot.className = 'srv-dot off';
-          srvTxt.textContent = 'النموذجُ غيرُ متاحٍ الآنَ';
+          srvTxt.textContent = 'غيرُ متاحٍ الآنَ';
         }).then(function () {
-          مشغول = false; send.disabled = false; q.focus();
+          مشغول = false; send.disabled = false;
+          انزل(انتظار);
+          q.focus();
         });
       }
 
+      /* ④ شريطُ الكتابةِ ينمو بالسطرِ ولا يدفعُ المجرى */
+      function قِسْ() {
+        q.style.height = 'auto';
+        q.style.height = Math.min(q.scrollHeight, 150) + 'px';
+      }
+
       send.addEventListener('click', function () {
-        var ن = q.value; q.value = ''; اسال(ن);
+        var ن = q.value; q.value = ''; قِسْ(); اسال(ن);
       });
+      q.addEventListener('input', قِسْ);
       q.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' && !e.shiftKey) {
           e.preventDefault(); send.click();
