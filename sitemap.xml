@@ -21,6 +21,12 @@
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc>https://almasfoufaakademy.com/pages/ai.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
 
   <url>
     <loc>https://almasfoufaakademy.com/pages/opportunities.html</loc>
