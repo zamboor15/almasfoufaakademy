@@ -65,10 +65,20 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 <div class="hero">
     <h1>📚 مكتبة القصص</h1>
     <div class="subtitle">قصص أكاديمية المصفوفة</div>
-    <div class="meta">آخر تحديث تلقائي: <span id="lastUpdate">2026-05-10 22:47</span> <span class="live-dot" style="display:inline-block;width:8px;height:8px;background:#4a8a4f;border-radius:50%;margin-right:.5rem;animation:pulse 2s infinite;"></span></div>
+    <div class="meta">آخر تحديث تلقائي: <span id="lastUpdate">2026-10-30 17:34</span> <span class="live-dot" style="display:inline-block;width:8px;height:8px;background:#4a8a4f;border-radius:50%;margin-right:.5rem;animation:pulse 2s infinite;"></span></div>
 </div>
 <div class="container">
     <div class="stories-grid">
+        <div class="story-card-wrap">
+        <a href="%D8%B7%D9%88%D8%A8%D9%89.html" class="story-card" style="--accent:#f59e0b;border-top-color:#f59e0b;">
+            <div class="cover-wrap"><img src="%D8%B7%D9%88%D8%A8%D9%89/cover.jpg" alt="مَدينَة طُوبى" loading="lazy"></div>
+            <div class="body">
+                <h2>مَدينَة طُوبى</h2>
+                <div class="sub">٢٣ سَنَة تَمهيد لِظُهور الإِمام — ٦ مَواسِم</div>
+                <div class="info">🏙 180 حَلقَة في ٦ مَواسِم — انقر للقراءة</div>
+            </div>
+        </a>
+        </div>
         <div class="story-card-wrap">
         <a href="%D8%A3%D8%AE%D9%88%D8%A7%D8%AA_%D9%85%D9%88%D8%B2%D8%A9.html" class="story-card" style="--accent:#8b5cf6;border-top-color:#8b5cf6;">
             <div class="cover-wrap"><img src="%D8%A3%D8%AE%D9%88%D8%A7%D8%AA_%D9%85%D9%88%D8%B2%D8%A9/cover.png" alt="قصة أخوات موزة" loading="lazy"></div>
@@ -99,7 +109,7 @@ body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8
 </div>
 <script>
 // تحقق تلقائي من التحديثات كل دقيقتين
-let lastSig = 'eb044e0b7ea5';
+let lastSig = 'f118611be35b';
 async function checkUpdates() {
     try {
         const res = await fetch('stories/manifest.json?t=' + Date.now());

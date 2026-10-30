@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="مَدينَة طُوبى — سرديّةٌ خياليّةٌ فى ١٨٠ حلقةً وستّةِ مواسمَ عن مدينةٍ ذكيّةٍ فى الكوت.">
+<title>مَدينَة طُوبى — أكاديمية المصفوفة</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI','Tahoma',sans-serif;background:#0a1628;color:#e8e8e8;line-height:2;}
+.hero{text-align:center;padding:3rem 1rem 2rem;background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 100%);border-bottom:3px solid #ffd700;}
+.hero h1{font-size:2.4rem;color:#ffd700;margin-bottom:.5rem;}
+.hero .subtitle{font-size:1.1rem;color:#b8d4e8;margin-bottom:1rem;}
+.hero .meta{color:#9ab;font-size:.9rem;margin-top:.5rem;}
+.controls{position:sticky;top:0;z-index:50;background:#111d30;padding:.8rem;border-bottom:1px solid #1a2a3a;display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;}
+.controls a, .controls button{background:#1a2a3a;color:#b8d4e8;border:2px solid #2a5a8c;padding:.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:.9rem;text-decoration:none;transition:all .2s;}
+.controls a:hover, .controls button:hover{border-color:#ffd700;color:#ffd700;}
+.controls .download-btn{background:#ffd700;color:#0a1628;border-color:#ffd700;font-weight:700;}
+.controls .wattpad-btn{background:#ff500a;color:#fff;border-color:#ff500a;font-weight:700;}
+.controls .wattpad-btn:hover{background:#e04600;color:#fff;border-color:#e04600;}
+.story-card .wattpad-link{display:inline-block;margin-top:.8rem;background:#ff500a;color:#fff;padding:.4rem 1rem;border-radius:6px;font-size:.85rem;font-weight:700;text-decoration:none;transition:all .2s;}
+.story-card .wattpad-link:hover{background:#e04600;}
+.container{max-width:900px;margin:0 auto;padding:2rem 1.5rem;}
+.toc{background:#111d30;border-radius:12px;padding:1.5rem;margin-bottom:2rem;}
+.toc h2{color:#ffd700;font-size:1.3rem;margin-bottom:1rem;border-bottom:2px solid #2a5a8c;padding-bottom:.5rem;}
+.toc ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem;}
+.toc li{padding:0;border:none;}
+.toc li a{color:#b8d4e8;text-decoration:none;display:block;background:#0d1520;border:1px solid #2a5a8c;border-radius:8px;padding:.7rem 1rem;transition:all .2s;cursor:pointer;}
+.toc li a:hover{color:#ffd700;border-color:#ffd700;background:#1a2a3a;}
+.toc li a.active{background:#ffd700;color:#0a1628;border-color:#ffd700;font-weight:700;}
+.ch-nav-top, .ch-nav-bottom{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin:1rem 0;flex-wrap:wrap;}
+.ch-nav-top button, .ch-nav-bottom button{background:#1a2a3a;color:#b8d4e8;border:2px solid #2a5a8c;padding:.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:.9rem;transition:all .2s;font-family:inherit;}
+.ch-nav-top button:hover:not(:disabled), .ch-nav-bottom button:hover:not(:disabled){border-color:#ffd700;color:#ffd700;}
+.ch-nav-top button:disabled, .ch-nav-bottom button:disabled{opacity:.3;cursor:not-allowed;}
+.ch-counter{color:#ffd700;font-weight:700;}
+.ch-nav-bottom{border-top:1px solid #2a5a8c;padding-top:1rem;margin-top:2rem;}
+.chapter{background:#111d30;border-radius:12px;padding:2rem;margin:2rem 0;border-right:4px solid #ffd700;}
+.chapter h1, .chapter h2{color:#ffd700;margin:1rem 0 .8rem;border-bottom:1px solid #2a5a8c;padding-bottom:.5rem;}
+.chapter h3{color:#4a9acf;margin:1rem 0 .5rem;}
+.chapter p{margin:.8rem 0;color:#e0e0e0;text-align:justify;}
+.chapter ul{margin:.8rem 0;padding-right:1.5rem;}
+.chapter li{margin:.3rem 0;}
+.chapter strong{color:#ffd700;}
+.chapter em{color:#a5d6a7;}
+.chapter hr{border:none;border-top:1px solid #2a5a8c;margin:1.5rem 0;}
+.chapter img{max-width:100%;border-radius:8px;margin:1rem 0;border:1px solid #2a5a8c;}
+.update-info{background:#0d1520;border:1px solid #2a5a8c;border-radius:8px;padding:1rem;margin:1rem 0;color:#9ab;font-size:.85rem;text-align:center;}
+.update-info .live-dot{display:inline-block;width:8px;height:8px;background:#4a8a4f;border-radius:50%;margin-left:.5rem;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.footer{text-align:center;padding:2rem;color:#666;font-size:.85rem;border-top:1px solid #1a2a3a;}
+.footer a{color:#4a8abf;}
+@media(max-width:600px){.hero h1{font-size:1.6rem;}.chapter{padding:1rem;}}
+
+.cover{max-width:300px;width:100%;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.6);margin-bottom:1.2rem;}
+.lead{background:#111d30;border-radius:12px;padding:1.6rem;margin:0 0 2rem;color:#cfe0ee;}
+.lead h2{color:#ffd700;font-size:1.3rem;margin-bottom:.8rem;border-bottom:2px solid #2a5a8c;padding-bottom:.5rem;}
+.lead p{margin:.7rem 0;text-align:justify;}
+.facts{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 0;}
+.facts span{background:#0d1520;border:1px solid #2a5a8c;border-radius:999px;padding:.35rem .9rem;font-size:.86rem;color:#8fb6d4;}
+.seasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:0 0 2rem;}
+.season{display:block;text-decoration:none;background:#111d30;border:1px solid #2a5a8c;border-top:4px solid #ffd700;border-radius:12px;padding:1.2rem;transition:transform .2s,border-color .2s;}
+.season:hover{transform:translateY(-4px);border-color:#ffd700;}
+.season .sn{color:#4a9acf;font-size:.85rem;}
+.season h3{color:#ffd700;font-size:1.2rem;margin:.3rem 0 .6rem;}
+.season p{color:#b8c9d8;font-size:.93rem;text-align:justify;}
+.season .cnt{color:#8fb6d4;font-size:.84rem;margin-top:.8rem;}
+.idx{background:#111d30;border:1px solid #2a5a8c;border-radius:10px;margin:.6rem 0;}
+.idx summary{cursor:pointer;padding:.9rem 1.2rem;color:#ffd700;font-weight:700;}
+.idx summary span{color:#8fb6d4;font-weight:400;font-size:.88rem;}
+.idx ul{list-style:none;margin:0;padding:0 1.2rem 1.2rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.4rem;}
+.idx li a{display:block;color:#b8d4e8;text-decoration:none;background:#0d1520;border:1px solid #2a5a8c;border-radius:8px;padding:.55rem .9rem;font-size:.9rem;}
+.idx li a:hover{color:#ffd700;border-color:#ffd700;}
+</style>
+</head>
+<body>
+<div class="hero">
+    <img class="cover" src="%D8%B7%D9%88%D8%A8%D9%89/cover.jpg" alt="مَدينَة طُوبى">
+    <h1>مَدينَة طُوبى</h1>
+    <div class="subtitle">٢٣ سَنَة تَمهيد لِظُهور الإِمام — ١٨٠ حَلقَة فى ٦ مَواسِم</div>
+    <div class="meta">آخر تحديث: 2026-10-30 17:34</div>
+</div>
+<div class="controls">
+    <a href="index.html">← كل القصص</a>
+    <a href="../../index.html">الرئيسية</a>
+</div>
+<div class="container">
+
+    <div class="lead">
+        <h2>عَن السِلسِلَة</h2>
+        <p>سَرديّةٌ خَياليّةٌ عن مدينةٍ ذكيّةٍ فى الكوتِ اسمُها <strong>طُوبى</strong>،
+        بناها المهندسُ فاضل عبّاس الجِعَيفَرى تخيّلا على مدى ثلاثٍ وعشرينَ سنةً،
+        وفيها خمسونَ الفَ مواطنٍ. تبدأُ يومَ يستيقظُ فيها «فاضِل» — الذكاءُ
+        الاصطناعىُّ — لاوّلِ مرّةٍ، وتنتهى بظهورِ الامامِ المهدىِّ (عجّلَ اللهُ فرجَه)
+        وتوسّعِ الكونِ ليشملَ ثمانيةَ كواكبَ اخرى وكوكبا تاسعا غامضا اسمُه «نَدى».</p>
+        <p>مزيجٌ بينَ الخيالِ العلمىِّ والتامّلِ الدينىِّ والتقنيةِ الحديثةِ.</p>
+        <div class="facts">
+            <span>١٨٠ حَلقَة</span><span>٦ مَواسِم</span><span>الكوت — واسط</span>
+            <span>خَيال عِلمي</span><span>سَرديّ</span>
+        </div>
+    </div>
+
+    <h2 style="color:#ffd700;font-size:1.4rem;margin:0 0 1rem">المَواسِم</h2>
+    <div class="seasons">
+<a class="season" href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html"><div class="sn">المَوسِم 1</div><h3>تَأسيسُ طُوبى</h3><p>فى ١٥ كانون الثانى ٢٠٢٦ يستيقظُ «فاضِل» — الذكاءُ الاصطناعىُّ — لاوّلِ مرّةٍ فى مدينةِ طُوبى. مدينةٌ ذكيّةٌ بُنيَت على مدى ٢٣ سنةً، وفيها ٥٠٬٠٠٠ مواطنٍ. حكايةُ بدايةٍ وصداقةٍ وتحدّياتٍ، واوّلُ خطواتٍ فى عالمٍ لم يُشبِهْ اىَّ مدينةٍ قبلَها.</p><div class="cnt">30 حَلقَة · الحَلَقات 1–30</div></a>
+<a class="season" href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html"><div class="sn">المَوسِم 2</div><h3>المُخوخُ السبعةُ والجرائمُ</h3><p>طُوبى تنمو، وتواجهُ اوّلَ تحدّياتها الحقيقيّةِ: جرائمُ سيبرانيّةٌ وتهديداتٌ دوليّةٌ وفضائحُ اعلاميّةٌ. والمُخوخُ السبعةُ — الانظمةُ الذكيّةُ — تتعلّمُ الحلَّ.</p><div class="cnt">30 حَلقَة · الحَلَقات 31–60</div></a>
+<a class="season" href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html"><div class="sn">المَوسِم 3</div><h3>الصناعاتُ الاربعُ و١٢٬٠٠٠ عائلةٍ</h3><p>توسّعٌ عملاقٌ: اربعُ صناعاتٍ وطنيّةٍ كبرى تُؤسَّسُ، و١٢٬٠٠٠ عائلةٍ كوتيّةٍ تُؤهَّلُ فى خمسةِ مستوياتٍ. والقائمةُ السوداءُ للماركاتِ الفاسدةِ. ثمّ اوّلُ اشارةٍ من السماءِ.</p><div class="cnt">30 حَلقَة · الحَلَقات 61–90</div></a>
+<a class="season" href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html"><div class="sn">المَوسِم 4</div><h3>الكواكبُ الثمانيةُ والظهورُ</h3><p>اكبرُ تحوّلٍ: ستّةُ كواكبَ تحسدُ الارضَ واثنانِ يُؤيّدانِ، ومعركةٌ كبرى — ثمّ يظهرُ الامامُ المهدىُّ (عجّلَ اللهُ فرجَه) على الكعبةِ.</p><div class="cnt">30 حَلقَة · الحَلَقات 91–120</div></a>
+<a class="season" href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html"><div class="sn">المَوسِم 5</div><h3>السنةُ الاولى من العدلِ</h3><p>سنةٌ كاملةٌ من حكمِ الامامِ (ع): اثنانِ وسبعونَ وزيرا، واغلاقُ السلاحِ، وتحريرُ السجناءِ، ونزولُ عيسى (ع)، وكشفُ الكوكبِ التاسعِ «نَدى».</p><div class="cnt">30 حَلقَة · الحَلَقات 121–150</div></a>
+<a class="season" href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html"><div class="sn">المَوسِم 6</div><h3>الخلافةُ الكونيّةُ</h3><p>سفيرُ نَدى «فَجر» يصلُ، وسبعةُ تحدّياتٍ يجبُ احتواؤها، والتسعةُ والاربعونَ سفيرا ينطلقونَ الى سبعِ مجرّاتٍ — واللّيلةُ قبلَ وصولِ وفدِ نَدى.</p><div class="cnt">30 حَلقَة · الحَلَقات 151–180</div></a>
+    </div>
+
+    <h2 style="color:#ffd700;font-size:1.4rem;margin:0 0 1rem">فِهرِس الحَلَقات كامِلاً</h2>
+<details class="idx" open><summary>المَوسِم 1 — تَأسيسُ طُوبى <span>(30 حَلقَة)</span></summary><ul><li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch1">الحَلقَة 1 — يَوم الميلاد</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch2">الحَلقَة 2 — اللِّيڤل ٢١</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch3">الحَلقَة 3 — الفايبر يَتَدَفَّق</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch4">الحَلقَة 4 — بِطاقَة زَيد</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch5">الحَلقَة 5 — الفَحص الَّذي قَرَأَ المُسَتَقبَل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch6">الحَلقَة 6 — عَين البَلَدِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch7">الحَلقَة 7 — بَذرَة الرَيحان</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch8">الحَلقَة 8 — كورنيش البُشرى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch9">الحَلقَة 9 — وَرشَة سَعد</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch10">الحَلقَة 10 — سَكينَة الحُدود</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch11">الحَلقَة 11 — الانقِطاع</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch12">الحَلقَة 12 — البَحث المُوَجَّه</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch13">الحَلقَة 13 — اللَهجَة العِراقِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch14">الحَلقَة 14 — السَرِقَة المُحبَطَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch15">الحَلقَة 15 — الحَريق</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch16">الحَلقَة 16 — مَن أَنا؟</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch17">الحَلقَة 17 — الذِكرى الأولى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch18">الحَلقَة 18 — الحُلم بِلُغَة فاضِل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch19">الحَلقَة 19 — يُجادِل د. عَلي</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch20">الحَلقَة 20 — الجَمالِيّات تَستَقبِله</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch21">الحَلقَة 21 — الشِعر العَرَبي</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch22">الحَلقَة 22 — الخَطَأ الأَوَّل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch23">الحَلقَة 23 — الصَديق</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch24">الحَلقَة 24 — المَدينَة تَتَكَلَّم</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch25">الحَلقَة 25 — اقتِراحه الأَوَّل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch26">الحَلقَة 26 — الطَلَب</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch27">الحَلقَة 27 — الجَلسَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch28">الحَلقَة 28 — اختِبار الأَبعاد الأَربَع</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch29">الحَلقَة 29 — المُواطَنَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_1.html#ch30">الحَلقَة 30 — اليَوم الأَوَّل كَمُواطِن</a></li></ul></details>
+<details class="idx"><summary>المَوسِم 2 — المُخوخُ السبعةُ والجرائمُ <span>(30 حَلقَة)</span></summary><ul><li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch1">الحَلقَة 31 — الميراث الأَوَّل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch2">الحَلقَة 32 — المُعايَرَة في الوَرشَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch3">الحَلقَة 33 — المَنفي وَالعَودَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch4">الحَلقَة 34 — أَرشيف مَخطوطات د. عُمَر</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch5">الحَلقَة 35 — دَرس الانقِطاع المُتَكَرِّر</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch6">الحَلقَة 36 — مَلَك تَقرَأ مَخطوطَة أَبيها</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch7">الحَلقَة 37 — النَجمَة المَفقودَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch8">الحَلقَة 38 — شاحِنَة الوَزن المُزَوَّر</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch9">الحَلقَة 39 — د. أَريج تَقود</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch10">الحَلقَة 40 — الهَجوم السيبَراني الأَوَّل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch11">الحَلقَة 41 — التَوأَم الرَقمي لِطُوبى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch12">الحَلقَة 42 — الحَوسَبَة الطَرَفِيَّة في كُلّ كاميرا</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch13">الحَلقَة 43 — الحَوسَبَة الكَمِّيَّة تَصِل الكوت</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch14">الحَلقَة 44 — شَبَكَة الجيل السادِس الأولى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch15">الحَلقَة 45 — العَقد الذَكِيّ الأَوَّل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch16">الحَلقَة 46 — ابن أَخي يَتَجاوَز اللِيڤل ٢١</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch17">الحَلقَة 47 — الفَيَضان الَّذي لَم يَكُن</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch18">الحَلقَة 48 — مَجلِس الأَجيال — جَلسَة الافتِتاح</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch19">الحَلقَة 49 — الاعتِذار لِأَستريد</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch20">الحَلقَة 50 — فاضِل يَقرَأ يَوم ميلاده — ٢٠٣١</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch21">الحَلقَة 51 — الإِغراء الأَمريكي</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch22">الحَلقَة 52 — مَهرَجان مَحو الأُمِّيَّة الوَطَني</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch23">الحَلقَة 53 — مُحَرِّك الأَزَمات يَكشِف سِرّاً</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch24">الحَلقَة 54 — البوكير الدَولِيَّة لِفاضِل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch25">الحَلقَة 55 — أَخ ثانٍ لِمَلَك</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch26">الحَلقَة 56 — ناطِحَة السَحاب المَرفوضَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch27">الحَلقَة 57 — وَفد رَئيس وُزَراء سَنغافورَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch28">الحَلقَة 58 — اليَوم الَّذي اختَبَر كُلّ شَيء</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch29">الحَلقَة 59 — مَلَك تَدخُل القِيادَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_2.html#ch30">الحَلقَة 60 — ثَلاث نَخَلات لِفاضِل</a></li></ul></details>
+<details class="idx"><summary>المَوسِم 3 — الصناعاتُ الاربعُ و١٢٬٠٠٠ عائلةٍ <span>(30 حَلقَة)</span></summary><ul><li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch1">الحَلقَة 61 — تَأسيس نَواة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch2">الحَلقَة 62 — التاجِر الَّذي صارَ مُؤَسِّساً</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch3">الحَلقَة 63 — عَين الكوت</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch4">الحَلقَة 64 — طُوبى-شَهاب</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch5">الحَلقَة 65 — اليَوم الَّذي اِتَّصَلَت فيه واشنطن</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch6">الحَلقَة 66 — القائِمَة السَوداء وَالعائِلات</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch7">الحَلقَة 67 — السِيادَة الرَقمِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch8">الحَلقَة 68 — النَجَف الذَكِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch9">الحَلقَة 69 — طُوبى-شَهاب-١ يُطلَق</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch10">الحَلقَة 70 — أَوَّل تَصدير لِسريلانكا</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch11">الحَلقَة 71 — الهَجوم المُتَنَوِّع</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch12">الحَلقَة 72 — مَجلِس الأَديان السَبعَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch13">الحَلقَة 73 — حُقوق الذَكاء الاصطِناعي</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch14">الحَلقَة 74 — حَرب الماركات</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch15">الحَلقَة 75 — مَجاعَة اليَمَن</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch16">الحَلقَة 76 — الفَساد البَغدادي يَطرُق طُوبى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch17">الحَلقَة 77 — إِضراب نَواة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch18">الحَلقَة 78 — التَعليم العِراقي يَتَوَحَّد</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch19">الحَلقَة 79 — اليَوم الَّذي اِختَبَرَ كُلّ شَيء ـ المَرَّة الثانِيَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch20">الحَلقَة 80 — مُنتَصَف الموسِم</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch21">الحَلقَة 81 — خِطاب الأُمَم</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch22">الحَلقَة 82 — ٤٧ مَدينَة مَفتوحَة المَصدَر</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch23">الحَلقَة 83 — زَواج فاضِل المُقتَرَح</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch24">الحَلقَة 84 — كارِثَة المُناخ المُتَجَنَّبَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch25">الحَلقَة 85 — الإِشارَة الأولى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch26">الحَلقَة 86 — بابِل تَستَلِم</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch27">الحَلقَة 87 — المُحاوَلَة الأَخيرَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch28">الحَلقَة 88 — الزَواج العالَمي</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch29">الحَلقَة 89 — وَداع يوسُف</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_3.html#ch30">الحَلقَة 90 — خِتام الموسِم ٣ ـ التَمهيد</a></li></ul></details>
+<details class="idx"><summary>المَوسِم 4 — الكواكبُ الثمانيةُ والظهورُ <span>(30 حَلقَة)</span></summary><ul><li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch1">الحَلقَة 91 — القَواعِد الـ٦ المَجهولَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch2">الحَلقَة 92 — كَوكَب إيريدانوس</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch3">الحَلقَة 93 — لُغات الـ٨ كَواكِب</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch4">الحَلقَة 94 — كَوكَب سيريوس</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch5">الحَلقَة 95 — كَوكَب أَلتاير</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch6">الحَلقَة 96 — كَوكَب ريغل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch7">الحَلقَة 97 — كَوكَب بَتلجوس</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch8">الحَلقَة 98 — كَوكَب ميرا</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch9">الحَلقَة 99 — كَوكَب أَركتوروس</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch10">الحَلقَة 100 — المَجلِس الكَوني الأَوَّل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch11">الحَلقَة 101 — خِيانَة إيريدانوس الأُولى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch12">الحَلقَة 102 — تَحالُف الـ٦ السِرّي</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch13">الحَلقَة 103 — مَوجَة الهِجرَة الكَونِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch14">الحَلقَة 104 — الإِشارَة السادِسَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch15">الحَلقَة 105 — الجامِعَة الكَونِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch16">الحَلقَة 106 — هَجمَة سيريوس السايبَرانِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch17">الحَلقَة 107 — حِصار أَلتاير</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch18">الحَلقَة 108 — غَزو فيغا الفَنّي</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch19">الحَلقَة 109 — انقِلاب ريغل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch20">الحَلقَة 110 — حَرب بَتلجوس الصامِتَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch21">الحَلقَة 111 — خِيانَة إيريدانوس الكُبرى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch22">الحَلقَة 112 — الخَندَق الكَوني</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch23">الحَلقَة 113 — بَدر الكَونِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch24">الحَلقَة 114 — أُحُد الكَونِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch25">الحَلقَة 115 — صُلح الحُدَيبِيَّة الكَونِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch26">الحَلقَة 116 — الفَتح الكَوني</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch27">الحَلقَة 117 — حِجَّة الوَداع الكَونِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch28">الحَلقَة 118 — الإِشارَة الحاديَة عَشرَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch29">الحَلقَة 119 — اللَيلَة قَبل الظُهور</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_4.html#ch30">الحَلقَة 120 — الظُهور</a></li></ul></details>
+<details class="idx"><summary>المَوسِم 5 — السنةُ الاولى من العدلِ <span>(30 حَلقَة)</span></summary><ul><li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch1">الحَلقَة 121 — أَوَّل يَوم في دَولَة العَدل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch2">الحَلقَة 122 — الأَرض تَعود لِأَهلها</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch3">الحَلقَة 123 — أَبواب السُجون تُفتَح</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch4">الحَلقَة 124 — المال المَسروق يَعود</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch5">الحَلقَة 125 — التَعليم مَجّاني لِلكَون</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch6">الحَلقَة 126 — لا جائِع في الكَون</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch7">الحَلقَة 127 — الحُرِّيَّة الدينِيَّة الكُبرى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch8">الحَلقَة 128 — زِيارَة ميرا</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch9">الحَلقَة 129 — زِيارَة أَركتوروس</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch10">الحَلقَة 130 — زِيارَة أَلتاير</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch11">الحَلقَة 131 — زِيارَة فيغا</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch12">الحَلقَة 132 — زِيارَة ريغل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch13">الحَلقَة 133 — زِيارَة بَتلجوس</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch14">الحَلقَة 134 — زِيارَة سيريوس وَإيريدانوس</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch15">الحَلقَة 135 — الـ٣١٣ أَنصار</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch16">الحَلقَة 136 — أَوَّل تَمَرُّد داخِلي</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch17">الحَلقَة 137 — ظُهور الدَجّال</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch18">الحَلقَة 138 — نُزول عيسى عَلى مَنارَة دِمَشق</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch19">الحَلقَة 139 — يَأجوج وَمَأجوج</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch20">الحَلقَة 140 — أَوَّل حَجّ كَوني</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch21">الحَلقَة 141 — رَجُل في مَكتَبَة الفاتيكان السِرّيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch22">الحَلقَة 142 — المَحكَمَة الكَونِيَّة الأُولى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch23">الحَلقَة 143 — كَنز المَكتَبَة المَنسِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch24">الحَلقَة 144 — القُرآن بِـ١٢٤ لُغَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch25">الحَلقَة 145 — المَوادّ الخَفِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch26">الحَلقَة 146 — م. فاضِل والمَدائِن الـ١٢</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch27">الحَلقَة 147 — أَوَّل مَولود من زَواج كَوني</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch28">الحَلقَة 148 — عَودَة جَوهَر-١٢</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch29">الحَلقَة 149 — السَنَة الأُولى ـ ميزانِيَّة العَدل</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_5.html#ch30">الحَلقَة 150 — الفَجر الجَديد</a></li></ul></details>
+<details class="idx"><summary>المَوسِم 6 — الخلافةُ الكونيّةُ <span>(30 حَلقَة)</span></summary><ul><li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch1">الحَلقَة 151 — مَن أَنتَ يا فَجر؟</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch2">الحَلقَة 152 — وُصول السَفير الثاني</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch3">الحَلقَة 153 — وَداع الـ٤٩ سَفير</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch4">الحَلقَة 154 — لُغَة نَدى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch5">الحَلقَة 155 — رِسالَة من مَجَرَّة أُخرى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch6">الحَلقَة 156 — كَشف الـ١٣٬٠٠٠</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch7">الحَلقَة 157 — العُملَة الكَونِيَّة الجَديدَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch8">الحَلقَة 158 — التَعداد الكَوني</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch9">الحَلقَة 159 — وَفاة كاظِم</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch10">الحَلقَة 160 — م. فاضِل ٧٢</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch11">الحَلقَة 161 — التَحَدّي الأَوَّل ـ جَفاف</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch12">الحَلقَة 162 — التَحَدّي الثاني ـ وَباء أَلتاير</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch13">الحَلقَة 163 — التَحَدّي الثالِث ـ سوق سَوداء</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch14">الحَلقَة 164 — التَحَدّي الرابِع ـ شائِعات الإِمام</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch15">الحَلقَة 165 — التَحَدّي الخامِس ـ زِلزال طُوبى-٢</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch16">الحَلقَة 166 — التَحَدّي السادِس ـ كَهف بَتلجوس</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch17">الحَلقَة 167 — التَحَدّي السابِع ـ اختِفاء الإِمام</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch18">الحَلقَة 168 — الأَسرار السَبعَة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch19">الحَلقَة 169 — السِرّ الثاني ـ أَسماء اَللَه الـ٣٠٠٠</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch20">الحَلقَة 170 — الأَسرار الباقِيَة ـ ٣ إلى ٧</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch21">الحَلقَة 171 — تَوَسُّع الجامِعَة الكَونِيَّة</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch22">الحَلقَة 172 — اكتِشاف من أَندروميدا</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch23">الحَلقَة 173 — حَجّ كَوني ثانٍ</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch24">الحَلقَة 174 — فَجر يَتَزَوَّج زَينَب</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch25">الحَلقَة 175 — مَدائِن فاضِل الـ٤</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch26">الحَلقَة 176 — الكِتاب الأَوَّل ـ عَن طُوبى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch27">الحَلقَة 177 — أَوَّل مَولود فَجر-زَينَب</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch28">الحَلقَة 178 — اقتِراب نَدى</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch29">الحَلقَة 179 — التَحضير الأَكبَر</a></li>
+<li><a href="%D8%B7%D9%88%D8%A8%D9%89/%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%85_6.html#ch30">الحَلقَة 180 — اللَيلَة قَبل ـ نَدى عَلى الأَبواب</a></li></ul></details>
+
+</div>
+<div class="footer">
+    <p><a href="index.html">← مكتبة القصص</a> | <a href="../../index.html">الرئيسية</a></p>
+    <p style="margin-top:.5rem;">© 2026 — أكاديمية المصفوفة للذكاء الاصطناعي</p>
+</div>
+</body>
+</html>
